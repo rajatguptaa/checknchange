@@ -1,0 +1,16 @@
+.DS_Store
+
+application/cache/*
+!application/cache/index.html
+!application/cache/.htaccess
+
+application/logs/*
+!application/logs/index.html
+!application/logs/.htaccess
+!application/config/config.php
+!application/config/database.php
+!assets/img/organisation/*
+!assets/img/user/*
+git update-index --assume-unchanged application/config/database.php
+git update-index --assume-unchanged application/config/config.php
+/nbproject/private/
