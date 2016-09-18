@@ -28,7 +28,7 @@ class EmployeeController extends BaseController {
         $pagedata['mainHeading'] = 'Employee';
         $pagedata['subHeading'] = 'create';
 //        $pagedata['organisation'] = $this->crm->getData('organisation');
-        $pagedata['scripts_to_load'] = array('assets/js/chosen/chosen.jquery.js','assets/js/jquery.ajaxfileupload.js');
+        $pagedata['scripts_to_load'] = array('assets/js/chosen/chosen.jquery.js');
         $pagedata['style_to_load'] = array('assets/css/chosen/chosen.css');
 
       
@@ -43,18 +43,27 @@ class EmployeeController extends BaseController {
             $this->form_validation->set_rules('user_city', 'City', 'required');
             $this->form_validation->set_rules('user_country', 'Country', 'required');
             $this->form_validation->set_rules('user_postcode', 'Post Code', 'required');
-            $this->form_validation->set_rules('user_phone', 'Phone Number ', 'numeric|regex_match[/^[0-9]{10}$/]');
+            //|regex_match[/^[0-9]{10}$/]
+            $this->form_validation->set_rules('user_phone', 'Phone Number ', 'numeric');
             $this->form_validation->set_rules('user_email', 'Email', 'required|email|is_unique[user.user_email]');
             $this->form_validation->set_rules('user_password', 'Password', 'trim|required|matches[passconf]');
             $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required');
             $this->form_validation->set_message('matches', 'password does not match');
             $this->form_validation->set_rules('image', 'Image', 'callback_image_validate');
-            $this->form_validation->set_rules('document', 'Document', 'required');
+            $this->form_validation->set_rules('document', 'Document', 'callback_document_validate');
             $this->form_validation->set_message('regex_match', 'Phone number only cantain 10 digits');
             if ($this->form_validation->run() == FALSE) {
                 $this->load->template('/employee/create', $pagedata);
             } else {
                 $data = $this->input->post();
+                
+                
+                  if (array_key_exists('document', $_FILES) && ($_FILES['document']['size'] > 0)) {
+                    $filename1 = document_upload('document', 'employee');
+                    if (is_array($filename1)) {
+                        $data['document'] = 'assets/attachment/employee/' . $filename1['file_name'];
+                    }
+                }
                 if (array_key_exists('image', $_FILES) && ($_FILES['image']['size'] > 0)) {
                     $filename = image_upload('image', 'employee');
 
@@ -63,6 +72,7 @@ class EmployeeController extends BaseController {
                         $data['user_profile'] = 'assets/img/employee/' . $filename['file_name'];
                     }
                 }
+              
                 unset($data['passconf']);
                 unset($data['orginasation_type']);
                 unset($data['group']);
@@ -73,6 +83,7 @@ class EmployeeController extends BaseController {
                 $data['user_update'] = date("Y-m-d H:i:s");
 //                $org_id = $this->input->post('orginasation_type');
                 $user_id = $this->crm->rowInsert('user', $data);
+               
                 $user_details = getUserDetails($user_id);
                 $maildata['user_detail'] = $user_details;
                 $password = $this->input->post('user_password');
@@ -105,7 +116,7 @@ class EmployeeController extends BaseController {
     public function editEmployee($user_id) {
         $pagedata['mainHeading'] = 'Employee';
         $pagedata['subHeading'] = 'edit';
-        $pagedata['scripts_to_load'] = array('assets/js/chosen/chosen.jquery.js', 'assets/js/chosen/custom_chosen.js', 'assets/js/switchery/bootstrap-switch.min.js','assets/js/jquery.ajaxfileupload.js');
+        $pagedata['scripts_to_load'] = array('assets/js/chosen/chosen.jquery.js', 'assets/js/chosen/custom_chosen.js', 'assets/js/switchery/bootstrap-switch.min.js');
         $pagedata['style_to_load'] = array('assets/css/chosen/chosen.css', 'assets/css/switchery/bootstrap-switch.css');
 //        $pagedata['organisation'] = $this->crm->getData('organisation');
         $pagedata['access_level'] = $this->crm->getData('access_level');
@@ -128,10 +139,11 @@ class EmployeeController extends BaseController {
             $this->form_validation->set_rules('user_city', 'City', 'required');
             $this->form_validation->set_rules('user_country', 'Country', 'required');
             $this->form_validation->set_rules('user_postcode', 'Post Code', 'required');
-            $this->form_validation->set_rules('user_phone', 'Phone Number ', 'numeric|regex_match[/^[0-9]{10}$/]');
+            //|regex_match[/^[0-9]{10}$/]
+            $this->form_validation->set_rules('user_phone', 'Phone Number ', 'numeric');
             $this->form_validation->set_message('matches', 'password does not match');
             $this->form_validation->set_rules('image', 'Image', 'callback_image_validate');
-            $this->form_validation->set_rules('document', 'Document', 'required');
+//            $this->form_validation->set_rules('document', 'Document', 'callback_document_validate');
             $this->form_validation->set_message('regex_match', 'Phone number only cantain 10 digits');
             $pagedata['method'] = 'post';
             
@@ -146,7 +158,19 @@ class EmployeeController extends BaseController {
                 $this->load->template('/employee/edit', $pagedata);
             } else {
                 $data = $this->input->post();
-
+                
+                
+                
+                   if (array_key_exists('document', $_FILES) && ($_FILES['document']['size'] > 0)) {
+                    $filename1 = document_upload('document', 'employee');
+                    if (is_array($filename1)) {
+                        $data['document'] = 'assets/attachment/employee/' . $filename1['file_name'];
+                    }
+                    if (is_array($filename1)) {
+                        
+                        image_delete($this->input->post('old_document'),FALSE);
+                    }
+                }
                 if (array_key_exists('image', $_FILES) && ($_FILES['image']['size'] > 0)) {
                     
                     $filename = image_upload('image', 'employee');
@@ -170,7 +194,7 @@ class EmployeeController extends BaseController {
                 unset($data['old_email']);
                 unset($data['passconf']);
                 unset($data['old_image']);
-//                unset($data['old_image']);
+                unset($data['old_document']);
                 if ($this->input->post('user_status')) {
                     $data['user_status'] = 1;
                 } else {
@@ -224,6 +248,18 @@ class EmployeeController extends BaseController {
             }
         } else {
             return TRUE;
+        }
+    }
+    
+    public function document_validate() {
+        if ($_FILES['document']['size'] > 0) {
+
+
+           
+                return TRUE;
+        } else {
+                $this->form_validation->set_message('document_validate', 'Document is required');
+                return false;
         }
     }
 

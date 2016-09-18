@@ -22,32 +22,20 @@
                             <span class="section">Information</span>
                             <div class='col-md-4 pull-right'>
                                 <div class="form-group">
+                                    <span class="section">Profile</span>
                                     <div class="kv-avatar center-block" style="width:200px">
                                         <input id="image" name="image" type="file" class="file-loading">
+                                        <input id="old_image"  value="<?php echo $form_data['user_profile']; ?>" type="hidden" name='old_image'>
+
                                     </div><?php echo form_error('image'); ?>
 
                                 </div>
-                                <div class="form-group">
-                                    <span class="section">Document</span>
-
+                                 <div class="form-group">
+                                     <span class="section">Document</span>
                                     <div class="kv-avatar center-block" style="width:200px">
-                                        <span class="msg"></span>
-
-                                        <input id="image1" name="image1" type="file" class="file-loadings form-control" value="<?php echo $form_data['document']; ?>">
-                                        <div class="clearfix"></div>
-
-                                        <input type="hidden" name="document" id="file_path" value=""/>
-                                        
-
-                                       
-                                        <img src="<?php echo base_url() ?>assets/images/ajax-small_loader.gif" class="small_loader pull-right" style="display: none;">
-                                        <?php echo form_error('document'); ?>
-                                        <br>
-                                        <label class="control-label " for="employee_name">Document<span class="required">*</span>
-                                        </label>
-                                        <input type="text" class="form-control" disabled="disbled" id="file_show" value="<?php echo $form_data['document']; ?>"/>
-
-                                    </div>
+                                        <input id="image1" name="document" type="file" class="file-loading">
+                                        <input id="old_document"  value="<?php echo $form_data['document']; ?>" type="hidden" name='old_document'>
+                                    </div><?php echo form_error('document'); ?>
 
                                 </div>
                             </div> 
@@ -146,7 +134,7 @@
                                     </div>
 
                                 </div>
-                                <input type="hidden" name="old_image" id="old_image" value="<?php echo $form_data['user_email']; ?>"/>
+                              
                                 <div class="clearfix"></div>
                                 <span class="section">Other Information</span>
 
@@ -212,18 +200,7 @@
 
         var url = '<?php echo base_url(); ?>employeeController/upload_attachement';
 
-        $('#image1').ajaxfileupload({
-            action: url,
-            dataType: 'json',
-            valid_extensions: ['pdf', 'csv', 'doc', 'docx', 'jpg'],
-            onComplete: function (response) {
-                $('#file_path').val(response.filepath);
-                $('#file_show').val(response.filepath);
-            },
-            onCancel: function () {
-                console.log('no file selected');
-            }
-        });
+        
 
 
 
@@ -233,6 +210,10 @@
     var old_image = $("#old_image").val();
     if (old_image == "") {
         old_image = "assets/images/default_avatar_male.jpg"
+    }
+    var old_document = $("#old_document").val();
+    if (old_document == "") {
+        old_document = "assets/images/people-300x300.png"
     }
 
     var base_url = $("#base_url").val();
@@ -249,9 +230,22 @@
         msgErrorClass: 'alert alert-block alert-danger',
         defaultPreviewContent: '<img src="<?php echo base_url(getUsersImage($form_data['user_id']), 'small'); ?>" alt="Your Amc Logo" style="width:190px">',
         layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
-        allowedFileExtensions: ["jpg", "png", "gif"]
+        allowedFileExtensions: ["jpg", "png", "gif","docx","doc","pdf"]
     });
 
-
+     $("#image1").fileinput({
+            overwriteInitial: true,
+            showClose: false,
+            showCaption: false,
+            browseLabel: '',
+            removeLabel: '',
+            browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
+            removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+            removeTitle: 'Cancel or reset changes',
+            elErrorContainer: '#kv-avatar-errors',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<input type="text" value="' + old_document+'" disabled="disabled">',
+            layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
+        });
 </script>
 <!-- footer content -->

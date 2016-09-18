@@ -23,28 +23,17 @@
                             <span class="section">Information</span>
                             <div class='col-md-4 pull-right'>
                                 <div class="form-group">
-
+                                    <span class="section">Profile</span>
                                     <div class="kv-avatar center-block" style="width:200px">
                                         <input id="image" name="image" type="file" class="file-loading">
                                     </div><?php echo form_error('image'); ?>
 
                                 </div>
-                                <div class="form-group">
-                                    <span class="section">Document</span>
-
+                                 <div class="form-group">
+                                     <span class="section">Document</span>                                    
                                     <div class="kv-avatar center-block" style="width:200px">
-                                        <span class="msg"></span>
-                                        <input id="image1" name="image1" type="file" class="file-loadings form-control">
-                                        <div class="clearfix"></div>
-                                        <input type="hidden" name="document" id="file_path" />
-                                        <img src="<?php echo base_url() ?>assets/images/ajax-small_loader.gif" class="small_loader pull-right" style="display: none;">
-                                        <?php echo form_error('document'); ?> 
-                                        <br>
-                                        <label class="control-label " for="employee_name">Document<span class="required">*</span>
-                                        </label>
-                                        <input type="text" disabled="disbled" class="form-control" id="file_show" value="<?php echo $form_data['document']; ?>"/>
-
-                                    </div>
+                                        <input id="image1" name="document" type="file" class="file-loading">
+                                    </div><?php echo form_error('document'); ?>
 
                                 </div>
                             </div> 
@@ -194,11 +183,24 @@
             removeTitle: 'Cancel or reset changes',
             elErrorContainer: '#kv-avatar-errors',
             msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<img src="' + base_url + 'assets/img/default_avatar_male.jpg" alt="Your Organisation Logo" style="width:190px">',
+            layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
+            allowedFileExtensions: ["jpg", "png", "gif","docx","doc","pdf"]
+        });
+         $("#image1").fileinput({
+            overwriteInitial: true,
+            showClose: false,
+            showCaption: false,
+            browseLabel: '',
+            removeLabel: '',
+            browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
+            removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+            removeTitle: 'Cancel or reset changes',
+            elErrorContainer: '#kv-avatar-errors',
+            msgErrorClass: 'alert alert-block alert-danger',
             defaultPreviewContent: '<img src="' + base_url + 'assets/img/people-300x300.png" alt="Your Organisation Logo" style="width:190px">',
             layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
-            allowedFileExtensions: ["jpg", "png", "gif"]
         });
-
 
         var url = '<?php echo base_url(); ?>employeeController/upload_attachement';
 

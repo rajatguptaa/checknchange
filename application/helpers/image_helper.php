@@ -1,5 +1,37 @@
 <?php
 
+
+function document_upload($field_name, $upload_directory) {
+    $CI = & get_instance();
+
+    $upload_dir = "./assets/attachment/$upload_directory";
+    if (!is_dir($upload_dir)) {
+        mkdir($upload_dir);
+    }
+    $config['upload_path'] = $upload_dir;
+    $config['allowed_types'] = '*';
+    $config['file_name'] = 'attachment_' . substr(md5(rand()), 0, 7);
+    $config['max_size']    = 0;
+    $config['overwrite'] = false;
+
+    $CI->load->library('upload', $config);
+    $CI->upload->initialize($config);
+
+
+    if (!$CI->upload->do_upload($field_name)) {
+        return $CI->upload->display_errors();
+    } else {
+        $CI->upload_data['file'] = $CI->upload->data();
+        $source_path = $upload_dir . '/' . $CI->upload_data['file']['file_name'];
+        $target_path = $upload_dir . '/';
+       
+        // clear //
+//        $CI->image_lib->clear();
+        return $CI->upload_data['file'];
+    }
+}
+
+
 function image_upload($field_name, $upload_directory) {
     $CI = & get_instance();
 
@@ -14,7 +46,7 @@ function image_upload($field_name, $upload_directory) {
 
 
     $CI->load->library('upload', $config);
-
+    $CI->upload->initialize($config);
 
 
     if (!$CI->upload->do_upload($field_name)) {
@@ -42,6 +74,11 @@ function image_upload($field_name, $upload_directory) {
         return $CI->upload_data['file'];
     }
 }
+
+
+
+
+
 
 function image_delete($filename, $small = false) {
 

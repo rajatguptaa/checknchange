@@ -35,7 +35,7 @@ class AmcController extends BaseController {
 //        );
         $pagedata['scripts_to_load'] = array('assets/js/modules/amc.js', 'assets/js/chosen/chosen.jquery.js', 'assets/js/pagination/simplePagination.js', "assets/js/bootbox/bootbox.js");
         $pagedata['style_to_load'] = array('assets/css/chosen/chosen.css', 'assets/css/pagination/simplePagination.css');
-        $this->load->template('/organisation/index', $pagedata);
+        $this->load->template('/amc/index', $pagedata);
     }
 
     public function createAmc() {
@@ -63,7 +63,7 @@ class AmcController extends BaseController {
 //            $this->form_validation->set_rules('country', 'Country', 'trim|required');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->load->template('/organisation/create', $data);
+                $this->load->template('/amc/create', $data);
 //                var_dump(validation_errors());
                 
             } else {
@@ -89,7 +89,7 @@ class AmcController extends BaseController {
                 }
             }
         } else {
-            $this->load->template('/organisation/create', $data);
+            $this->load->template('/amc/create', $data);
         }
     }
 
@@ -123,7 +123,7 @@ class AmcController extends BaseController {
             $this->form_validation->set_rules('amc_notes', 'Notes', 'trim');
             $data['method'] = "post";
             if ($this->form_validation->run() == FALSE) {
-                $this->load->template('/organisation/edit', $data);
+                $this->load->template('/amc/edit', $data);
             } else {
                 $data['method'] = "post";
                 $updatedata = $this->input->post();
@@ -147,7 +147,7 @@ class AmcController extends BaseController {
                 }
             }
         } else {
-            $this->load->template('/organisation/edit', $data);
+            $this->load->template('/amc/edit', $data);
         }
     }
 
@@ -301,7 +301,7 @@ class AmcController extends BaseController {
         $pagedata['count'] = $this->crm->getRowCount('amc', '', FALSE, FALSE, 'amc.id', 'DESC');
         $pagedata['user_detail'] = $this->crm->getData('amc', '', FALSE, FALSE, 'amc.id', 'DESC', $limit, $offset);
         if (!empty($pagedata['user_detail'])) {
-            $html = $this->load->view('/organisation/search_view', $pagedata, TRUE);
+            $html = $this->load->view('/amc/search_view', $pagedata, TRUE);
         } else {
             $html = "<H2 align='center'><b>Sorry! No results found</b></h2>";
         }
@@ -340,7 +340,7 @@ class AmcController extends BaseController {
 
         $pagedata['count'] = $this->crm->getRowCount('amc', '', FALSE, FALSE, 'amc.id', 'desc', $search_array);
         if (!empty($pagedata['user_detail'])) {
-            $html = $this->load->view('/organisation/search_view', $pagedata, TRUE);
+            $html = $this->load->view('/amc/search_view', $pagedata, TRUE);
         } else {
             $html = "<H2 align='center'><b>Sorry! No results found</b></h2>";
         }
@@ -348,7 +348,15 @@ class AmcController extends BaseController {
         echo $html;
     }
     
-    
+      public function showAmc($amc_id) {
+        $pagedata['mainHeading'] = 'Amc Detail';
+        $pagedata['subHeading'] = 'show';
+        $pagedata['scripts_to_load'] = array('assets/js/moris/raphael-min.js', 'assets/js/moris/morris.js');
+
+        $amc_detail = $this->crm->getData('amc','*',array('id'=>$amc_id));
+        $pagedata['amc_detail'] = $amc_detail[0];
+        $this->load->template('/amc/view', $pagedata);
+    }
 }
 
 ?>

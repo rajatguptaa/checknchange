@@ -45,11 +45,12 @@ $route['default_controller'] = 'authController/index';
 $route['404_override'] = '';
 
 
-// Organisation Controller Action
+// Amc Controller Action
 $route['amc'] = 'amcController/index';
 $route['amc/add'] = 'amcController/createamc';
 $route['amc/edit/(:num)'] = 'amcController/editamc/$1';
 $route['amc/delete/(:num)'] = 'amcController/amcOrganisation/$1';
+$route['amc/show/(:num)'] = 'amcController/showAmc/$1';
 
 
 

@@ -172,6 +172,7 @@ class Crm_model extends CI_Model {
         if ($query) {
             $insert_id = $this->db->insert_id();
             return $insert_id;
+//            echo $this->db->last_query();
         } else {
             return false;
         }

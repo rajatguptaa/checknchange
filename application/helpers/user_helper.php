@@ -97,6 +97,30 @@ function getUserImage($user_id = NULL, $small = FALSE) {
         return "";
 }
 
+//function getAmcImage($amc_id = NULL) {
+//    if ($amc_id != NULL) {
+//        $CI = & get_instance();
+//
+//        $CI->load->model("auth_model");
+//
+//        $userDetails = $CI->auth_model->getAmcDetails($amc_id);
+//        if ($userDetails['package_logo'] != NULL && $userDetails['package_logo'] != "" && file_exists($userDetails['package_logo'])) {
+//
+////            $explod_name = explode('.', $userDetails['package_logo']);
+//
+//            
+//
+//            return $userDetails['package_logo'];
+//        } else {
+//            return 'assets/images/default_avatar_male.jpg';
+//        }
+//    }
+//    else
+//        return "assets/images/default_avatar_male.jpg";
+//}
+
+
+
 function getUserAccessDetails($user_id = NULL) {
     if ($user_id != NULL) {
         $CI = & get_instance();

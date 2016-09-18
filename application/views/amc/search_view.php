@@ -26,7 +26,7 @@
                                                 </div>
                                                 <div class="col-xs-12 col-sm-12 emphasis">
                                                     <?php  if($view):?>
-                                                    <a href="<?php echo base_url() . 'amc/show/' . $user_val['user_id']; ?>" data-toggle="tooltip" data-placement="bottom" title="View AMC" type="button" class="btn btn-info btn-xs"> <i class="fa fa-user">
+                                                    <a href="<?php echo base_url() . 'amc/show/' . $user_val['id']; ?>" data-toggle="tooltip" data-placement="bottom" title="View AMC" type="button" class="btn btn-info btn-xs"> <i class="fa fa-user">
                                                         </i> View</a>
                                                     <?php endif;
                                                     
