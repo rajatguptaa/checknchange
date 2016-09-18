@@ -28,7 +28,7 @@ class EmployeeController extends BaseController {
         $pagedata['mainHeading'] = 'Employee';
         $pagedata['subHeading'] = 'create';
 //        $pagedata['organisation'] = $this->crm->getData('organisation');
-        $pagedata['scripts_to_load'] = array('assets/js/chosen/chosen.jquery.js');
+        $pagedata['scripts_to_load'] = array('assets/js/chosen/chosen.jquery.js','assets/js/jquery.ajaxfileupload.js');
         $pagedata['style_to_load'] = array('assets/css/chosen/chosen.css');
 
       
@@ -357,7 +357,61 @@ class EmployeeController extends BaseController {
       return $attachmentData;
        
        
- }  
+ }
+ function upload_attachement(){
+     
+       $status = "";
+    $msg = "";
+    $file_element_name = 'userfile';
+     
+    if (empty($this->input->post('title')))
+    {
+        $status = "error";
+        $msg = "Please enter a title";
+    }
+     
+    if ($status != "error")
+    {
+        $config['upload_path'] = './assets/attachment/';
+        $config['allowed_types'] = 'doc|txt/pdf';
+        $config['max_size'] = 1024 * 8;
+        $config['encrypt_name'] = TRUE;
+ 
+        $this->load->library('upload', $config);
+ 
+        if (!$this->upload->do_upload($file_element_name))
+        {
+            $status = 'error';
+            $msg = $this->upload->display_errors('', '');
+        }
+        else
+        {
+            $data = $this->upload->data();
+            
+            
+            $data = array(
+            'attachment_name'      => $filename,
+           
+        );
+            $file_id = $this->crm->insert('attachment', $data);
+            if($file_id)
+            {
+                $status = "success";
+                $msg = "File successfully uploaded";
+            }
+            else
+            {
+                unlink($data['full_path']);
+                $status = "error";
+                $msg = "Something went wrong when saving the file, please try again.";
+            }
+        }
+        @unlink($_FILES[$file_element_name]);
+    }
+    echo json_encode(array('status' => $status, 'msg' => $msg));
+     
+     
+ }
 }
 
 ?>

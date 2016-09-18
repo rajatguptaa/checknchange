@@ -23,14 +23,23 @@
                             <span class="section">Information</span>
                             <div class='col-md-4 pull-right'>
                                     <div class="form-group">
+                                        
                                         <div class="kv-avatar center-block" style="width:200px">
                                             <input id="image" name="image" type="file" class="file-loading">
                                         </div><?php echo form_error('image'); ?>
 
                                     </div>
                                 <div class="form-group">
+                                                              <span class="section">Document</span>
+ 
                                         <div class="kv-avatar center-block" style="width:200px">
-                                            <input id="image1" name="image" type="file" class="file-loading">
+                                            <span class="msg"></span>
+                                            <input id="image1" name="image1" type="file" class="file-loadings form-control">
+                                            <div class="clearfix"></div>
+                                            <br>
+                                            
+                                            <button type="button" name="upload" class="btn btn-success" id="upload" >Upload</button>
+                                            <img src="<?php echo base_url()?>assets/images/ajax-small_loader.gif" class="small_loader pull-right" style="display: none;">
                                         </div><?php echo form_error('image'); ?>
 
                                     </div>
@@ -155,6 +164,9 @@
                                 </div>
                             </div>
                     </form>
+                        <form class="form-horizontal form-label-left"   action="<?php echo base_url('employee/upload_attachment');?>" method="post" enctype="multipart/form-data">
+                            
+                        </form>
                     </div>
 
 
@@ -184,22 +196,24 @@
             allowedFileExtensions: ["jpg", "png", "gif"]
         });
         
-          $("#image1").fileinput({
-            overwriteInitial: true,
-           
-            showClose: false,
-            showCaption: false,
-            browseLabel: '',
-            removeLabel: '',
-            browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
-            removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-            removeTitle: 'Cancel or reset changes',
-            elErrorContainer: '#kv-avatar-errors',
-            msgErrorClass: 'alert alert-block alert-danger',
-            defaultPreviewContent: '<img src="'+base_url+'assets/img/people-300x300.png" alt="Your Organisation Logo" style="width:190px">',
-            layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
-            allowedFileExtensions: ["jpg", "png", "gif"]
-        });
+        $('body').on('click','#upload',function(){
+        $.ajaxFileUpload({
+			url 			:'./employeeController/upload_attachement/', 
+			secureuri		:false,
+			fileElementId	:'image1',
+			dataType		: 'json',
+			success	: function (data, status)
+			{
+				if(data.status != 'error')
+				{
+					$('#files').html('<p>Reloading files...</p>');
+					refresh_files();
+					$('#title').val('');
+				}
+				alert(data.msg);
+			}
+		});
+                        });
     });
 </script>
 
