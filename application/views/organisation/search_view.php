@@ -8,12 +8,12 @@
                                         <div class="well profile_view">
                                             <div class="col-sm-12">
                                                 <div class="left col-xs-7">
-                                                    <h2><?php echo  $user_val['amc_name'] ?></h2>
-                                                   <p><strong> Amc Code: </strong><?php   echo $user_val['amc_code']; ?></p>
-                                                   <p><strong> Amc Duration: </strong><?php   echo $user_val['amc_duration']; ?></p>
+                                                    <h2><?php echo  strtoupper($user_val['amc_name']); ?></h2>
+                                                   <p><strong> AMC CODE: </strong><?php   echo $user_val['amc_code']; ?></p>
+                                                   <p><strong> AMC DURATION: </strong><?php   echo $user_val['amc_duration']; ?></p>
                                                     <ul class="list-unstyled">
 
-                                                        <li> Amc Visit: <?= ($user_val['amc_visit']); ?></li>
+                                                        <li> AMC VISIT: <?= ($user_val['amc_visit']); ?></li>
                                                     </ul>
                                                 </div>
                                                 <div class="right col-xs-5 text-center">
@@ -26,16 +26,16 @@
                                                 </div>
                                                 <div class="col-xs-12 col-sm-12 emphasis">
                                                     <?php  if($view):?>
-                                                    <a href="<?php echo base_url() . 'employee/show/' . $user_val['user_id']; ?>" data-toggle="tooltip" data-placement="bottom" title="View employee" type="button" class="btn btn-info btn-xs"> <i class="fa fa-user">
+                                                    <a href="<?php echo base_url() . 'amc/show/' . $user_val['user_id']; ?>" data-toggle="tooltip" data-placement="bottom" title="View AMC" type="button" class="btn btn-info btn-xs"> <i class="fa fa-user">
                                                         </i> View</a>
                                                     <?php endif;
                                                     
                                                     if($edit): ?>
-                                                    <a href="<?php echo base_url() . 'amc/edit/' . $user_val['id']; ?>" type="button" data-toggle="tooltip" data-placement="bottom" title="Edit employee" class="btn btn-success btn-xs"> <i class="fa fa-edit"></i> Edit</a><?php  endif; 
+                                                    <a href="<?php echo base_url() . 'amc/edit/' . $user_val['id']; ?>" type="button" data-toggle="tooltip" data-placement="bottom" title="Edit AMC" class="btn btn-success btn-xs"> <i class="fa fa-edit"></i> Edit</a><?php  endif; 
                                                     
                                                   
                                                     if($delete):?>
-                                                    <a href="javascript:void(0)" id="<?= $user_val['id']; ?>" type="button" data-toggle="tooltip" data-placement="bottom" title="Delete Amc" class="btn btn-danger btn-xs delete"> <i class="fa fa-trash-o">
+                                                    <a href="javascript:void(0)" id="<?= $user_val['id']; ?>" type="button" data-toggle="tooltip" data-placement="bottom" title="Delete AMC" class="btn btn-danger btn-xs delete"> <i class="fa fa-trash-o">
                                                         </i> Delete </a>
                                                     <?php endif; ?>
                                                 </div>

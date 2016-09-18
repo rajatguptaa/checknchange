@@ -61,7 +61,7 @@
                                         <input type="text" value="<?= ( $method == "post") ? set_value('amc_duration') : $form_data['amc_duration']; ?>" data-parsley-error-message="The Duration field is required"  id="duaration" required="required" placeholder="Duration" name="amc_duration" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('amc_duration')) > 0) ? "parsley-error" : "" ?>">
                                         <?php echo form_error('amc_duration'); ?>
                                     </div>
-                                </div>
+                                </div>																  <div class="item form-group">                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address">AMC Type </label>                                    <div class="col-md-6 col-sm-6 col-xs-12 ">                                    <select class="form-control col-md-7 col-xs-12" name="amc_type" id="amc_type">									                                                                                                                                                                                       <option value="primary">PRIMARY SERVICE</option>									  <option value="secondary">SECONDARY SERVICE</option>									  <option value="home_appliance">HOME APPLIANCE</option>									  </select>                                                                   </div>                                 </div>
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address2">Amc Visits 
                                     </label>

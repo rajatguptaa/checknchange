@@ -41,12 +41,12 @@ $loginuser = $this->session->userdata('logged_in');
                                 
                                 <div class="col-md-9 col-sm-9 col-xs-12"><?php
                         if(access_check("employee","add")) :
-                                ?> <a href="<?php echo base_url() . 'amc/add'; ?>" type="button" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="right" title="Add Amc"><i class="fa fa-plus-circle">
-                                    </i>&nbsp;&nbsp;Add Amc</a><?php endif; ?></div>
+                                ?> <a href="<?php echo base_url() . 'amc/add'; ?>" type="button" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="right" title="ADD AMC"><i class="fa fa-plus-circle">
+                                    </i>&nbsp;&nbsp;ADD AMC</a><?php endif; ?></div>
                     <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
                             <div class="title_right">
                         <div class="input-group">
-                            <input type="text" class="form-control search_input" id="search_box" placeholder="Search for...">
+                            <input type="text" class="form-control search_input" id="search_box" placeholder="Search for AMC...">
                             <span class="input-group-btn">
                                 <button class="btn btn-info search_button" id="search_button" type="button">Go!</button>
                             </span>

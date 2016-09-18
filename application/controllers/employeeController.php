@@ -49,7 +49,7 @@ class EmployeeController extends BaseController {
             $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required');
             $this->form_validation->set_message('matches', 'password does not match');
             $this->form_validation->set_rules('image', 'Image', 'callback_image_validate');
-//            $this->form_validation->set_rules('document', 'Image', 'callback_image_validate');
+            $this->form_validation->set_rules('document', 'Document', 'required');
             $this->form_validation->set_message('regex_match', 'Phone number only cantain 10 digits');
             if ($this->form_validation->run() == FALSE) {
                 $this->load->template('/employee/create', $pagedata);
@@ -66,7 +66,7 @@ class EmployeeController extends BaseController {
                 unset($data['passconf']);
                 unset($data['orginasation_type']);
                 unset($data['group']);
-
+                
                 $data['user_status'] = 1;
                 $data['user_password'] = md5($this->input->post('user_password'));
                 $data['user_access_level'] = 3;
@@ -105,7 +105,7 @@ class EmployeeController extends BaseController {
     public function editEmployee($user_id) {
         $pagedata['mainHeading'] = 'Employee';
         $pagedata['subHeading'] = 'edit';
-        $pagedata['scripts_to_load'] = array('assets/js/chosen/chosen.jquery.js', 'assets/js/chosen/custom_chosen.js', 'assets/js/switchery/bootstrap-switch.min.js');
+        $pagedata['scripts_to_load'] = array('assets/js/chosen/chosen.jquery.js', 'assets/js/chosen/custom_chosen.js', 'assets/js/switchery/bootstrap-switch.min.js','assets/js/jquery.ajaxfileupload.js');
         $pagedata['style_to_load'] = array('assets/css/chosen/chosen.css', 'assets/css/switchery/bootstrap-switch.css');
 //        $pagedata['organisation'] = $this->crm->getData('organisation');
         $pagedata['access_level'] = $this->crm->getData('access_level');
@@ -131,7 +131,7 @@ class EmployeeController extends BaseController {
             $this->form_validation->set_rules('user_phone', 'Phone Number ', 'numeric|regex_match[/^[0-9]{10}$/]');
             $this->form_validation->set_message('matches', 'password does not match');
             $this->form_validation->set_rules('image', 'Image', 'callback_image_validate');
-//            $this->form_validation->set_rules('document', 'Image', 'callback_image_validate');
+            $this->form_validation->set_rules('document', 'Document', 'required');
             $this->form_validation->set_message('regex_match', 'Phone number only cantain 10 digits');
             $pagedata['method'] = 'post';
             
@@ -359,21 +359,12 @@ class EmployeeController extends BaseController {
        
  }
  function upload_attachement(){
-     
-       $status = "";
-    $msg = "";
-    $file_element_name = 'userfile';
-     
-    if (empty($this->input->post('title')))
-    {
-        $status = "error";
-        $msg = "Please enter a title";
-    }
-     
-    if ($status != "error")
-    {
-        $config['upload_path'] = './assets/attachment/';
-        $config['allowed_types'] = 'doc|txt/pdf';
+
+    $file_element_name = 'image1';
+
+   
+        $config['upload_path'] = './assets/attachment/employee';
+        $config['allowed_types'] = 'doc|txt|pdf|docx|jpg|png|jpeg';
         $config['max_size'] = 1024 * 8;
         $config['encrypt_name'] = TRUE;
  
@@ -388,28 +379,16 @@ class EmployeeController extends BaseController {
         {
             $data = $this->upload->data();
             
-            
-            $data = array(
-            'attachment_name'      => $filename,
-           
-        );
-            $file_id = $this->crm->insert('attachment', $data);
-            if($file_id)
-            {
+
                 $status = "success";
                 $msg = "File successfully uploaded";
-            }
-            else
-            {
-                unlink($data['full_path']);
-                $status = "error";
-                $msg = "Something went wrong when saving the file, please try again.";
-            }
+                
+                
         }
-        @unlink($_FILES[$file_element_name]);
-    }
-    echo json_encode(array('status' => $status, 'msg' => $msg));
-     
+//        @unlink($_FILES[$file_element_name]);
+    
+    echo json_encode(array('status' => $status, 'msg' => $msg,'filepath'=>$data['file_name']));
+     die;
      
  }
 }

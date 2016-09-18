@@ -3,7 +3,7 @@
         <div class="page-title">
             <div class="title_left">
                 <h3>
-                    <?= $mainHeading ?>
+                    <?= strtoupper($mainHeading) ?>
                 </h3>
             </div>
         </div>
@@ -13,7 +13,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2><?= $mainHeading ?> <small><?= $subHeading ?></small></h2>
+                        <h2>Annual Maintenance Contract</h2>
                         <a class="btn btn-success btn-sm pull-right" href="<?= base_url('organisation') ?>"><i class="fa fa-chevron-circle-left"></i> Back</a>
                         <div class="clearfix"></div>
                     </div>
@@ -23,7 +23,7 @@
                             <span class="section">Information</span>
                             <div class="col-md-4 pull-right">
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_logo">Logo <span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_logo">AMC PIC: <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12 <?= (strlen(form_error('image')) > 0) ? "parsley-error" : "" ?>">
                                       
@@ -35,37 +35,37 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_name">Amc Name <span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_name">AMC Name <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12 ">
-                                        <input data-parsley-error-message="The Amc field is required." id="organisation_name" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('amc_name')) > 0) ? "parsley-error" : "" ?>" value="<?php echo set_value('amc_name'); ?>" name="amc_name" placeholder="Amc name" required="required" type="text">
+                                        <input data-parsley-error-message="The AMC field is required." id="organisation_name" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('amc_name')) > 0) ? "parsley-error" : "" ?>" value="<?php echo set_value('amc_name'); ?>" name="amc_name" placeholder="AMC name" required="required" type="text">
                                         <?php echo form_error('amc_name'); ?>
                                     </div>
                                 </div>
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_title">Amc Code<span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_title">AMC Code<span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12 ">
-                                        <input data-parsley-error-message="The code field is required." id="amc_code" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('amc_code')) > 0) ? "parsley-error" : "" ?>" value="<?php echo set_value('amc_code'); ?>" name="amc_code" placeholder="Code" required="required" type="text">
+                                        <input data-parsley-error-message="The AMC code field is required." id="amc_code" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('amc_code')) > 0) ? "parsley-error" : "" ?>" value="<?php echo set_value('amc_code'); ?>" name="amc_code" placeholder="AMC Code" required="required" type="text">
                                         <?php echo form_error('amc_code'); ?>
                                     </div>
                                 </div>
-                                 
+                                                                  <div class="item form-group">                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address">AMC Type </label>                                    <div class="col-md-6 col-sm-6 col-xs-12 ">                                    <select class="form-control col-md-7 col-xs-12" name="amc_type" id="amc_type">									  <option value="primary">PRIMARY SERVICE</option>									  <option value="secondary">SECONDARY SERVICE</option>									  <option value="home_appliance">HOME APPLIANCE</option>									  </select>                                                                   </div>                                 </div>
 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address">Amc Duration <span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address">AMC Duration <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12 ">
-                                        <input type="text" value="<?php echo set_value('amc_duration'); ?>" data-parsley-error-message="The Duration field is required"  id="duaration" required="required" placeholder="Duration" name="amc_duration" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('amc_duration')) > 0) ? "parsley-error" : "" ?>">
+                                        <input type="text" value="<?php echo set_value('amc_duration'); ?>" data-parsley-error-message="AMC Duration field is required"  id="duaration" required="required" placeholder="AMC Duration" name="amc_duration" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('amc_duration')) > 0) ? "parsley-error" : "" ?>">
                                         <?php echo form_error('amc_duration'); ?>
                                     </div>
                                 </div>
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address2">Amc Visits 
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address2">AMC Visits 
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12 ">
-                                         <input type="text" value="<?php echo set_value('amc_visit'); ?>" data-parsley-error-message="The Visit field is required"  id="visits" required="required" placeholder="Visits" name="amc_visit" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('amc_visit')) > 0) ? "parsley-error" : "" ?>">
+                                         <input type="text" value="<?php echo set_value('amc_visit'); ?>" data-parsley-error-message="AMC Visit field is required"  id="visits" required="required" placeholder="No of Visits" name="amc_visit" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('amc_visit')) > 0) ? "parsley-error" : "" ?>">
                                   </div>
                                 </div>
                                 <div class="item form-group">
@@ -100,7 +100,7 @@
 
 
                                    <a href="<?= base_url('organisation') ?>" class="btn btn-default ">Cancel</a>
-                                  <button id="send" type="submit" class="btn btn-success">Submit</button>
+                                  <button id="send" type="submit" class="btn btn-success">Create</button>
 
                                 </div>
                             </div>
