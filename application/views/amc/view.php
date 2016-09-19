@@ -57,8 +57,9 @@ $current_user = $this->uri->segment(3);
                                         <?php echo $amc_detail['amc_visit']; ?>
                                     </li>
                                 </ul>
-
-
+                                <h4>Amc Type</h4>
+                                <div class="ln_solid"></div>
+                                <label class="btn btn-success" style="text-transform: uppercase;"><?php echo $amc_detail['amc_type']?></label>
                                 <!-- end of skills -->
 
                             </div>

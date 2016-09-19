@@ -18,17 +18,17 @@ class CustomerController extends BaseController {
 
     public function index($type = FALSE) {
 
-//      Loading CSS on view
-        $data["style_to_load"] = array(
-            "assets/css/datatablenew/dataTables.responsive.css"
-        );
-
-        // Loading JS on view
-        $data['scripts_to_load'] = array(
-            "assets/js/datatablenew/jquery.dataTables.js",
-            "assets/js/datatablenew/dataTables.responsive.min.js",
-            "assets/js/bootbox/bootbox.js",
-        );
+        $pagedata['scripts_to_load'] = array('assets/js/modules/customer.js', 'assets/js/chosen/chosen.jquery.js', 'assets/js/pagination/simplePagination.js', "assets/js/bootbox/bootbox.js");
+        $pagedata['style_to_load'] = array('assets/css/chosen/chosen.css', 'assets/css/pagination/simplePagination.css');
+        $pagedata['customer_type'] = 'approved';
+        $pagedata['organisation'] = $this->crm->getData('organisation');
+        if ($type != '') {
+            $pagedata['customer_type'] = 0;
+            $pagedata['mainHeading'] = 'Unapproved Customer';
+        } else {
+            $pagedata['mainHeading'] = 'Approved Customer';
+            $pagedata['customer_type'] = 1;
+        }
         $this->load->template('/customer/index', $pagedata);
     }
 

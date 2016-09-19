@@ -152,9 +152,7 @@ function getAmcImage($amc_id = NULL, $small = FALSE) {
 
         $orgDetails = $CI->auth_model->getAmcDetails($amc_id);
 
-
         if ($orgDetails['package_logo'] != NULL && $orgDetails['package_logo'] != "" && file_exists($orgDetails['package_logo'])) {
-
             $explod_name = explode('.', $orgDetails['package_logo']);
 
             if ($small == 'small') {

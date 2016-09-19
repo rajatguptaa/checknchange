@@ -20,7 +20,7 @@ class AmcController extends BaseController {
     }
 
     public function index() {
-        $data['mainHeading'] = "AMC";
+        $pagedata['mainHeading'] = "AMC";
 
         // Loading CSS on view
 //        $data["style_to_load"] = array(
@@ -130,15 +130,16 @@ class AmcController extends BaseController {
 
 
                 if (array_key_exists('image', $_FILES) && ($_FILES['image']['size'] > 0)) {
+                    
                     image_delete("./" . $updatedata['package_old_logo']);
-                    $filename = image_upload('image', 'organisation');
+                    $filename = image_upload('image', 'package');
                     $updatedata['package_logo'] = 'assets/img/package/' . $filename['file_name'];
+                   
                 } else {
                     $updatedata['package_logo'] = $updatedata['package_old_logo'];
                 }
                 $updatedata['package_update'] = date("Y-m-d H:i:s");
                 unset($updatedata['package_old_logo']);
-
                 $org_id = $this->crm->rowUpdate($this->tabelename, $updatedata, array("id" => $amc_id));
 
                 if ($org_id != NULL) {
@@ -332,9 +333,9 @@ class AmcController extends BaseController {
 //        }
 
 //        $where['user_access_level'] = 3;
-        if ($org_id != '') {
+//        if ($org_id != '') {
 //            $where['user_organisation_rel.organisation_id'] = $org_id;
-        }
+//        }
 
         $pagedata['user_detail'] = $this->crm->getData('amc', '', FALSE, FALSE, 'amc.id', 'desc', $limit, ($limit * ($offset - 1)), $search_array);
 

@@ -3,7 +3,7 @@
   $delete = access_check("employee","delete");
   $view = access_check("employee","view");
  
- foreach ($user_detail as $user_val) { if(getLoginUser()!=$user_val['user_id']) { ?>
+ foreach ($user_detail as $user_val) { ?>
                                     <div class="col-md-4 col-sm-4 col-xs-12 animated fadeInDown">
                                         <div class="well profile_view">
                                             <div class="col-sm-12">
@@ -17,7 +17,8 @@
                                                     </ul>
                                                 </div>
                                                 <div class="right col-xs-5 text-center">
-                                                    <img src="<?php echo base_url(getAmcImage($user_val['id']),'small'); ?>" alt="" class="img-circle img-responsive">
+                                                    <?php // echo $user_val['id'].base_url(getAmcImage($user_val['id'])); ?>
+                                                    <img src="<?php echo base_url(getAmcImage($user_val['id'])); ?>" alt="" class="img-circle img-responsive">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 bottom text-right">
@@ -42,7 +43,7 @@
                                             </div>
                                         </div>
                                     </div>
- <?php } } ?>
+ <?php }  ?>
 <input type='hidden' id='count' value='<?php  echo $count;?>'> 
 <script>
 $(function () {

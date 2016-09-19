@@ -29,7 +29,7 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12 <?= (strlen(form_error('image')) > 0) ? "parsley-error" : "" ?>">
 
                                         <div class="kv-avatar center-block" style="width:200px">
-                                            <input value="./<?= $form_data['organisation_logo'] ?>" id="image" name="image" type="file" class="file-loading">
+                                            <input value="./<?= $form_data['package_logo'] ?>" id="image" name="image" type="file" class="file-loading">
                                         </div><?php echo form_error('image'); ?>
                                     </div>
                                 </div>
