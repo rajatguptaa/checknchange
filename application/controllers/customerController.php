@@ -8,17 +8,21 @@ include 'baseController.php';
 
 class CustomerController extends BaseController {
 
+     private $tabelename;
+
     public function __construct() {
         parent::__construct();
-
         if ($this->session->userdata('logged_in') == FALSE) {
             redirect('login');
         }
+
+        $this->tabelename = "user";
     }
 
-    public function index($type = FALSE) {
+    public function index() {
+        $data['mainHeading'] = "Customer";
 
-//      Loading CSS on view
+        // Loading CSS on view
         $data["style_to_load"] = array(
             "assets/css/datatablenew/dataTables.responsive.css"
         );
@@ -27,11 +31,92 @@ class CustomerController extends BaseController {
         $data['scripts_to_load'] = array(
             "assets/js/datatablenew/jquery.dataTables.js",
             "assets/js/datatablenew/dataTables.responsive.min.js",
-            "assets/js/bootbox/bootbox.js",
+            "assets/js/bootbox/bootbox.js"
         );
-        $this->load->template('/customer/index', $pagedata);
+        $this->load->template('/customer/index', $data);
     }
+    
+     public function getTableData() {
 
+          $col_sort = array("user.user_code", "user.first_name", "user.user_mobile" );
+        $select = array("user.user_id","user.user_code", "user.user_name", "u.first_name as reffirst_name","u.last_name as reflast_name","user.first_name","user.last_name",'user.user_mobile','user.dob');
+//, "last_name", "user_mobile","user_phone",'user_profile','user_status'
+//            'user_amc','address1','address2','user_city','user_country','user_postcode'
+        $order_by = "user_id";
+        $order = 'DESC';
+
+        $str_point = FALSE;
+        $lenght = 10;
+
+        $search_array = FALSE;
+
+        if (isset($_GET['iSortCol_0'])) {
+            $index = $_GET['iSortCol_0'];
+            $order = $_GET['sSortDir_0'] === 'asc' ? 'asc' : 'desc';
+            $order_by = $col_sort[$index];
+        }
+
+        if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
+            $words = $_GET['sSearch'];
+            $search_array = array();
+            for ($i = 0; $i < count($col_sort); $i++) {
+                $search_array[$col_sort[$i]] = $words;
+            }
+        }
+        $where = array('user.user_type'=>4);
+        $join = array(
+            array('table' => 'user as u',
+                'on' => 'u.user_id=user.reference_by')
+        );
+        if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
+            $str_point = intval($_GET['iDisplayStart']);
+            $lenght = intval($_GET['iDisplayLength']);
+        }
+
+        $data = $this->crm->getData($this->tabelename, $select, $where, $join, $order_by, $order, $lenght, $str_point, $search_array);
+        $rowCount = $this->crm->getRowCount($this->tabelename, $select, $where, $join, $order_by, $order, $search_array);
+
+        $output = array(
+            "sEcho" => intval($_GET['sEcho']),
+            "iTotalRecords" => $rowCount,
+            "iTotalDisplayRecords" => $rowCount,
+            "aaData" => []
+        );
+
+        $edit_acccess = access_check("customer", "edit");
+        $delete_acccess = access_check("customer", "delete");
+
+        foreach ($data as $val) {
+
+            $link = "";
+
+            if ($edit_acccess) {
+                $link .= '<a id="editOrganisation" class="btn btn-success btn-xs" href="' . base_url('customer/edit/' . $val['user_id']) . '" title="Edit" data_id="' . $val['user_id'] . '" ><i class="fa fa-edit"></i> Edit</a>'
+                        . '&nbsp;&nbsp;';
+            }
+
+            if ($delete_acccess) {
+                $link .= '<a class="btn btn-danger btn-xs delete" title="Delete" data-id="' . $val['user_id'] . '"><i class="fa fa-trash-o"></i> Delete</a>';
+            }
+
+            $output['aaData'][] = array(
+                "DT_RowId" => $val['user_id'],
+                $val['user_id'],
+                '<img src="' . base_url() . getUsersImage($val['user_id']) . '" class="img-responsive" alt="Cinque Terre" style="max-width:100px"> ',
+                $val['first_name'].' '.$val['last_name'],
+                $val['user_mobile'],
+                $val['reffirst_name'].' '.$val['reflast_name'],
+                dateFormate($val['dob']),
+                $link
+            );
+        }
+
+        echo json_encode($output);
+        die;
+    }
+    
+    
+    
     public function createCustomer() {
         $pagedata['mainHeading'] = 'Customer';
         $pagedata['subHeading'] = 'create';

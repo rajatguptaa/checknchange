@@ -14,7 +14,7 @@
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>Annual Maintenance Contract</h2>
-                        <a class="btn btn-success btn-sm pull-right" href="<?= base_url('organisation') ?>"><i class="fa fa-chevron-circle-left"></i> Back</a>
+                        <a class="btn btn-success btn-sm pull-right" href="<?= base_url('amc') ?>"><i class="fa fa-chevron-circle-left"></i> Back</a>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">

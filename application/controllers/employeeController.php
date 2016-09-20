@@ -313,9 +313,9 @@ class EmployeeController extends BaseController {
 //        }
 
         $where['user_access_level'] = 3;
-        if ($org_id != '') {
+//        if ($org_id != '') {
 //            $where['user_organisation_rel.organisation_id'] = $org_id;
-        }
+//        }
 
         $pagedata['user_detail'] = $this->crm->getData('user', 'user.*', $where, $join, 'user.user_update', 'desc', $limit, ($limit * ($offset - 1)), $search_array);
 
