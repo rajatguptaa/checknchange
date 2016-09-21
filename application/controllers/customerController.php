@@ -38,7 +38,7 @@ class CustomerController extends BaseController {
     
      public function getTableData() {
 
-          $col_sort = array("user.user_code", "user.first_name", "user.user_mobile" );
+          $col_sort = array("user.user_code","user.user_profile", "user.first_name", "user.user_mobile",'user.dob','u.first_name' );
         $select = array("user.user_id","user.user_code", "user.user_name", "u.first_name as reffirst_name","u.last_name as reflast_name","user.first_name","user.last_name",'user.user_mobile','user.dob');
 //, "last_name", "user_mobile","user_phone",'user_profile','user_status'
 //            'user_amc','address1','address2','user_city','user_country','user_postcode'
@@ -63,7 +63,7 @@ class CustomerController extends BaseController {
                 $search_array[$col_sort[$i]] = $words;
             }
         }
-        $where = array('user.user_type'=>4);
+        $where = array('user.user_access_level'=>4);
         $join = array(
             array('table' => 'user as u',
                 'on' => 'u.user_id=user.reference_by')
@@ -105,8 +105,8 @@ class CustomerController extends BaseController {
                 '<img src="' . base_url() . getUsersImage($val['user_id']) . '" class="img-responsive" alt="Cinque Terre" style="max-width:100px"> ',
                 $val['first_name'].' '.$val['last_name'],
                 $val['user_mobile'],
-                $val['reffirst_name'].' '.$val['reflast_name'],
                 dateFormate($val['dob']),
+                $val['reffirst_name'].' '.$val['reflast_name'],
                 $link
             );
         }
@@ -121,95 +121,90 @@ class CustomerController extends BaseController {
         $pagedata['mainHeading'] = 'Customer';
         $pagedata['subHeading'] = 'create';
         $pagedata['organisation'] = $this->crm->getData('organisation');
-        $pagedata['scripts_to_load'] = array('assets/js/chosen/chosen.jquery.js');
-        $pagedata['style_to_load'] = array('assets/css/chosen/chosen.css');
+        $pagedata['scripts_to_load'] = array('assets/js/chosen/chosen.jquery.js','assets/js/datepicker/moment.js', 'assets/js/datepicker/bootstrap-datetimepicker.js');
+        $pagedata['style_to_load'] = array('assets/css/chosen/chosen.css','assets/css/datepicker/bootstrap-datetimepicker.css');
 
-
-        if ($this->input->post()) {
+//	$pagedata['userdata'] = getUserByAccessLevel(3);
+//	$pagedata['amcdata'] = getAMC(1);
+         if ($this->input->post()) {
             $this->load->helper(array('form', 'url'));
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<ul class="parsley-errors-list filled server_message" data-parsley-id="6"><li class="parsley-required">', '</li></ul>');
-
-            $this->form_validation->set_rules('user_name', 'Name', 'required');
-            $this->form_validation->set_rules('orginasation_type', 'Orginasation', 'required');
-            $this->form_validation->set_message('matches', 'password does not match');
+            
+            $this->form_validation->set_rules('first_name', 'First Name', 'required');
+            $this->form_validation->set_rules('last_name', 'LastName', 'required');
+            $this->form_validation->set_rules('user_code', 'Name', 'required');
+            $this->form_validation->set_rules('address1', 'Address-1', 'required');
+            $this->form_validation->set_rules('user_city', 'City', 'required');
+            $this->form_validation->set_rules('user_country', 'Country', 'required');
+            $this->form_validation->set_rules('user_postcode', 'Post Code', 'required');
+            //|regex_match[/^[0-9]{10}$/]
+            $this->form_validation->set_rules('user_phone', 'Phone Number ', 'numeric');
             $this->form_validation->set_rules('user_email', 'Email', 'required|email|is_unique[user.user_email]');
+            $this->form_validation->set_rules('user_password', 'Password', 'trim|required|matches[passconf]');
+            $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required');
+            $this->form_validation->set_message('matches', 'password does not match');
             $this->form_validation->set_rules('image', 'Image', 'callback_image_validate');
-            $this->form_validation->set_rules('user_phone', 'Phone Number ', 'numeric|regex_match[/^[0-9]{11}$/]');
-            $this->form_validation->set_message('regex_match', 'Phone number only cantain 11 digits');
+            $this->form_validation->set_rules('document', 'Document', 'callback_document_validate');
+            $this->form_validation->set_message('regex_match', 'Phone number only cantain 10 digits');
             if ($this->form_validation->run() == FALSE) {
-                $this->load->template('/customer/create', $pagedata);
+                $this->load->template('/employee/create', $pagedata);
             } else {
                 $data = $this->input->post();
+                
+                
+                  if (array_key_exists('document', $_FILES) && ($_FILES['document']['size'] > 0)) {
+                    $filename1 = document_upload('document', 'employee');
+                    if (is_array($filename1)) {
+                        $data['document'] = 'assets/attachment/employee/' . $filename1['file_name'];
+                    }
+                }
                 if (array_key_exists('image', $_FILES) && ($_FILES['image']['size'] > 0)) {
-                    $filename = image_upload('image', 'user');
+                    $filename = image_upload('image', 'employee');
 
 
                     if (is_array($filename)) {
-                        $data['user_profile'] = 'assets/img/user/' . $filename['file_name'];
+                        $data['user_profile'] = 'assets/img/employee/' . $filename['file_name'];
                     }
                 }
               
+                unset($data['passconf']);
                 unset($data['orginasation_type']);
                 unset($data['group']);
-
+                
                 $data['user_status'] = 1;
-                
-                $data['user_access_level'] = 2;
+                $data['user_password'] = md5($this->input->post('user_password'));
+                $data['user_access_level'] = 4;
                 $data['user_update'] = date("Y-m-d H:i:s");
-                $org_id = $this->input->post('orginasation_type');
+//                $org_id = $this->input->post('orginasation_type');
                 $user_id = $this->crm->rowInsert('user', $data);
-                $user_detail = getUserDetails($user_id);
-                $maildata['user_detail'] = $user_detail;
-                
-               if ($user_id != NULL) {
+               
+                $user_details = getUserDetails($user_id);
+                $maildata['user_detail'] = $user_details;
+                $password = $this->input->post('user_password');
+                if ($user_id != NULL) {
+                   
 
-                    $org_data = array('user_id' => $user_id, 'organisation_id' => $org_id);
-                    //Add Organisation 
-                    $org_rel_id = $this->crm->rowInsert('user_organisation_rel', $org_data);
-                  
-                    if ($org_rel_id) {
-                       
-                       $org = getUserOrginasationDetails($user_detail['user_id']);
-                       $unique_id = uniqid();
-                        $forget_data = array(
-                            'user_id' => $user_id,
-                            'forget_token' => $unique_id,
-                            'forget_update' => date("Y-m-d H:i:s"),
-                         );
-                      
-                       
-                         $forget_id = $this->crm->rowInsert('forget_password', $forget_data);
-                       if ($forget_id > 0) {
-                         $hrf = base_url().'create_password/'.$unique_id;
-                         $maildata['content'] = sprintf(CUSTOMER_SIGNUP,getUserName($user_detail['user_id']),$user_detail['user_email']);
-                      $maildata['email_heading'] = sprintf(EMAILHEADING,$org['organisation_name']);
-                      $maildata['link'] =$hrf;
-                      $maildata['btntitle'] ='Create Password';
-                      $message ='';
-                      $message .= $this->load->view('/email_template/email_header',FALSE,TRUE);
-                      $message .= $this->load->view('/email_template/email_view',$maildata,TRUE);
-                      $message .= $this->load->view('/email_template/email_footer',FALSE,TRUE);
-                      
-                       
-                       $org = getUserOrginasationDetails($user_id);
-                       $mailResponse = mymail($user_detail['user_email'], sprintf(WELCOME_SUB, $org['organisation_name']), $message);
-                    if ($mailResponse) {
-                       $this->session->set_flashdata('customer_success', 'Customer Added Successfully');
-                        redirect('customer', 'refresh');
-                     
-                    } else {
-                        $this->session->set_flashdata('invalid', 'Something went wrong');
-                        redirect('customer', 'refresh');
-                    }
-                }
-                
-                       
-                    }
+//                      $message ='';
+//           
+//                      $org =  getUserOrginasationDetails($user_details['user_id']);
+//                      $maildata['content'] = sprintf(EMPLOYEE_SIGNUP,getUserName($user_id),$user_details['user_email'],$password);
+//                      $maildata['email_heading'] = sprintf(EMAILHEADING,$org['organisation_name']);
+//                      $message .= $this->load->view('/email_template/email_header',FALSE,TRUE);
+//                      $message .= $this->load->view('/email_template/email_view',$maildata,TRUE);
+//                      $message .= $this->load->view('/email_template/email_footer',FALSE,TRUE);
+//                      
+//                    mymail($user_details['user_email'],sprintf(WELCOME_SUB,$org['organisation_name']),$message);
+                        $this->session->set_flashdata('employee_success', 'Employee Added Successfully');
+                        redirect('employee', 'refresh');
+//                    }
+                }else{
+                    
+                $this->load->template('/employee/create', $pagedata);
                 }
             }
         } else {
-            $this->load->template('/customer/create', $pagedata);
+            $this->load->template('/employee/create', $pagedata);
         }
     }
 

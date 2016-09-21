@@ -43,7 +43,7 @@
 <!--                                                    <input type="checkbox" class="tableflat">-->
                                             #
                                         </th>
-                                        <th>ID </th>
+                                        <th>Profile </th>
                                         <th>Name </th>
                                         <th>Contact No. </th>
                                         <th> Birth Date</th>
@@ -93,7 +93,7 @@
                 {"sClass": "eamil_conform aligncenter", "aTargets": [0]},
                 {"sClass": "eamil_conform aligncenter", "aTargets": [1], orderable: false},
                 {"sClass": "eamil_conform aligncenter", "aTargets": [2]},
-                {"sClass": "eamil_conform aligncenter", "aTargets": [3], orderable: false},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [3]},
                 {"sClass": "eamil_conform aligncenter", "aTargets": [4]},
                 {"sClass": "eamil_conform aligncenter", "aTargets": [5]},
                 {"sClass": "eamil_conform aligncenter", "aTargets": [6], orderable: false, 'render': function(data, type, row) {

@@ -14,7 +14,7 @@
                 <div class="x_panel">
                     <div class="x_title">
                         <h2><?= $mainHeading ?> <small><?= $subHeading ?></small></h2>
-                        <a class="btn btn-success btn-sm pull-right" href="<?= base_url('organisation') ?>"><i class="fa fa-chevron-circle-left"></i> Back</a>
+                        <a class="btn btn-success btn-sm pull-right" href="<?= base_url('employee') ?>"><i class="fa fa-chevron-circle-left"></i> Back</a>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -151,7 +151,7 @@
                                 <div class="form-group pull-right">
 
 
-                                    <a href="<?= base_url('organisation') ?>" class="btn btn-default ">Cancel</a>
+                                    <a href="<?= base_url('employee') ?>" class="btn btn-default ">Cancel</a>
                                     <button id="send" type="submit" class="btn btn-success">Submit</button>
 
                                 </div>
