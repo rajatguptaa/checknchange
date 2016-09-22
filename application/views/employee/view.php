@@ -66,7 +66,7 @@ if($current_user == getLoginUser()){
 }
 
 ?> 
-                                <h4>Organisation</h4>
+<!--                                <h4>Organisation</h4>
                                 <div class="ln_solid"></div>
                                 <ul class="list-unstyled user_data">
 
@@ -87,7 +87,7 @@ if($current_user == getLoginUser()){
                                         </li>
 <?php } ?>
 
-                                </ul>
+                                </ul>-->
                                 <!-- end of skills -->
 
                             </div>

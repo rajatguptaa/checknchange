@@ -134,7 +134,13 @@ class Crm_model extends CI_Model {
         if ($join != false && is_array($join)) {
 
             foreach ($join as $value) {
-                $this->db->join($value['table'], $value['on'], 'left');
+		 
+                     if(array_key_exists("join",$value)){
+                    $this->db->join($value['table'], $value['on'], $value['join']);
+                }
+                else{
+                    $this->db->join($value['table'], $value['on'], 'left');
+                }
             }
         }
 

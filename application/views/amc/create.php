@@ -99,7 +99,7 @@
                                 <div class="form-group pull-right">
 
 
-                                   <a href="<?= base_url('organisation') ?>" class="btn btn-default ">Cancel</a>
+                                   <a href="<?= base_url('amc') ?>" class="btn btn-default ">Cancel</a>
                                   <button id="send" type="submit" class="btn btn-success">Create</button>
 
                                 </div>

@@ -43,13 +43,13 @@
 <!--                                                    <input type="checkbox" class="tableflat">-->
                                             #
                                         </th>
-                                        <th>Profile </th>
-                                        <th>Name </th>
-                                        <th>Contact No. </th>
-                                        <th> Birth Date</th>
-                                        <th>Reference By     </th>
-<!--                                        <th>Customer Type </th>
-                                        <th>Updated At </th>-->
+                                        <th>Profile</th>
+                                        <th>Name</th>
+                                        <th>Contact No.</th>
+                                        <th>Birth Date</th>
+                                        <th>Reference By</th>
+                                        <th>Customer Type</th>
+                                        <!--<th>Updated At </th>-->
                                         <th class=" no-link last"><span class="nobr">Action</span>
                                         </th>
                                     </tr>
@@ -96,7 +96,8 @@
                 {"sClass": "eamil_conform aligncenter", "aTargets": [3]},
                 {"sClass": "eamil_conform aligncenter", "aTargets": [4]},
                 {"sClass": "eamil_conform aligncenter", "aTargets": [5]},
-                {"sClass": "eamil_conform aligncenter", "aTargets": [6], orderable: false, 'render': function(data, type, row) {
+                {"sClass": "eamil_conform aligncenter", "aTargets": [6]},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [7], orderable: false, 'render': function(data, type, row) {
                         return data;
                     }
                 },

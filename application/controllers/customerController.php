@@ -38,8 +38,8 @@ class CustomerController extends BaseController {
     
      public function getTableData() {
 
-          $col_sort = array("user.user_code","user.user_profile", "user.first_name", "user.user_mobile",'user.dob','u.first_name' );
-        $select = array("user.user_id","user.user_code", "user.user_name", "u.first_name as reffirst_name","u.last_name as reflast_name","user.first_name","user.last_name",'user.user_mobile','user.dob');
+          $col_sort = array("user.user_code","user.user_profile", "user.first_name", "user.user_mobile",'user.dob','u.first_name','user.user_type' );
+        $select = array("user.user_id","user.user_code", "user.user_name", "u.first_name as reffirst_name","u.last_name as reflast_name","user.first_name","user.last_name",'user.user_mobile','user.dob','user.user_type');
 //, "last_name", "user_mobile","user_phone",'user_profile','user_status'
 //            'user_amc','address1','address2','user_city','user_country','user_postcode'
         $order_by = "user_id";
@@ -66,7 +66,7 @@ class CustomerController extends BaseController {
         $where = array('user.user_access_level'=>4,'user.user_status'=>1);
         $join = array(
             array('table' => 'user as u',
-                'on' => 'u.user_id=user.reference_by','join'=>'inner'),
+                'on' => 'u.user_id=user.reference_by'),
         );
         if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
             $str_point = intval($_GET['iDisplayStart']);
@@ -76,6 +76,7 @@ class CustomerController extends BaseController {
         $data = $this->crm->getData($this->tabelename, $select, $where, $join, $order_by, $order, $lenght, $str_point, $search_array);
 //	var_dump($this->crm->db->last_query());
         $rowCount = $this->crm->getRowCount($this->tabelename, $select, $where, $join, $order_by, $order, $search_array);
+//	var_dump($this->crm->db->last_query());
 
         $output = array(
             "sEcho" => intval($_GET['sEcho']),
@@ -99,7 +100,7 @@ class CustomerController extends BaseController {
             if ($delete_acccess) {
                 $link .= '<a class="btn btn-danger btn-xs delete" title="Delete" data-id="' . $val['user_id'] . '"><i class="fa fa-trash-o"></i> Delete</a>';
             }
-	    
+	    $user_type = "<label class='btn btn-success'>".$val['user_type']."</label>";
             $output['aaData'][] = array(
                 "DT_RowId" => $val['user_id'],
                 $val['user_id'],
@@ -108,6 +109,7 @@ class CustomerController extends BaseController {
                 $val['user_mobile'],
                 dateFormate($val['dob']),
                 $val['reffirst_name'].' '.$val['reflast_name'],
+                $user_type,
                 $link
             );
         }
