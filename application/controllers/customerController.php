@@ -63,10 +63,10 @@ class CustomerController extends BaseController {
                 $search_array[$col_sort[$i]] = $words;
             }
         }
-        $where = array('user.user_access_level'=>4);
+        $where = array('user.user_access_level'=>4,'user.user_status'=>1);
         $join = array(
             array('table' => 'user as u',
-                'on' => 'u.user_id=user.reference_by')
+                'on' => 'u.user_id=user.reference_by','join'=>'inner'),
         );
         if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
             $str_point = intval($_GET['iDisplayStart']);
@@ -74,6 +74,7 @@ class CustomerController extends BaseController {
         }
 
         $data = $this->crm->getData($this->tabelename, $select, $where, $join, $order_by, $order, $lenght, $str_point, $search_array);
+//	var_dump($this->crm->db->last_query());
         $rowCount = $this->crm->getRowCount($this->tabelename, $select, $where, $join, $order_by, $order, $search_array);
 
         $output = array(
@@ -87,7 +88,7 @@ class CustomerController extends BaseController {
         $delete_acccess = access_check("customer", "delete");
 
         foreach ($data as $val) {
-
+//	     var_dump($val);
             $link = "";
 
             if ($edit_acccess) {
@@ -98,7 +99,7 @@ class CustomerController extends BaseController {
             if ($delete_acccess) {
                 $link .= '<a class="btn btn-danger btn-xs delete" title="Delete" data-id="' . $val['user_id'] . '"><i class="fa fa-trash-o"></i> Delete</a>';
             }
-
+	    
             $output['aaData'][] = array(
                 "DT_RowId" => $val['user_id'],
                 $val['user_id'],
@@ -124,8 +125,8 @@ class CustomerController extends BaseController {
         $pagedata['scripts_to_load'] = array('assets/js/chosen/chosen.jquery.js','assets/js/datepicker/moment.js', 'assets/js/datepicker/bootstrap-datetimepicker.js');
         $pagedata['style_to_load'] = array('assets/css/chosen/chosen.css','assets/css/datepicker/bootstrap-datetimepicker.css');
 
-//	$pagedata['userdata'] = getUserByAccessLevel(3);
-//	$pagedata['amcdata'] = getAMC(1);
+	$pagedata['userdata'] = getUserByAccessLevel(4);
+	$pagedata['amcdata'] = getAMC(1);
          if ($this->input->post()) {
             $this->load->helper(array('form', 'url'));
             $this->load->library('form_validation');
@@ -139,20 +140,24 @@ class CustomerController extends BaseController {
             $this->form_validation->set_rules('user_country', 'Country', 'required');
             $this->form_validation->set_rules('user_postcode', 'Post Code', 'required');
             //|regex_match[/^[0-9]{10}$/]
-            $this->form_validation->set_rules('user_phone', 'Phone Number ', 'numeric');
+            $this->form_validation->set_rules('user_mobile', 'Mobile Number ', 'numeric');
             $this->form_validation->set_rules('user_email', 'Email', 'required|email|is_unique[user.user_email]');
             $this->form_validation->set_rules('user_password', 'Password', 'trim|required|matches[passconf]');
             $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required');
             $this->form_validation->set_message('matches', 'password does not match');
             $this->form_validation->set_rules('image', 'Image', 'callback_image_validate');
             $this->form_validation->set_rules('document', 'Document', 'callback_document_validate');
+            $this->form_validation->set_rules('user_amc[]', 'User Amc', 'required');
+            $this->form_validation->set_rules('user_type', 'User Type', 'required');
+            $this->form_validation->set_rules('reference_by', 'Reference By', 'required');
             $this->form_validation->set_message('regex_match', 'Phone number only cantain 10 digits');
             if ($this->form_validation->run() == FALSE) {
-                $this->load->template('/employee/create', $pagedata);
+                $this->load->template('/customer/create', $pagedata);
             } else {
                 $data = $this->input->post();
                 
-                
+//                		var_dump($data);die;
+
                   if (array_key_exists('document', $_FILES) && ($_FILES['document']['size'] > 0)) {
                     $filename1 = document_upload('document', 'employee');
                     if (is_array($filename1)) {
@@ -167,24 +172,45 @@ class CustomerController extends BaseController {
                         $data['user_profile'] = 'assets/img/employee/' . $filename['file_name'];
                     }
                 }
-              
+		$amc = $data['user_amc'];
+		$dob = $data['dob'];
+		$annivery = $data['annivery'];
                 unset($data['passconf']);
-                unset($data['orginasation_type']);
-                unset($data['group']);
-                
+                unset($data['user_amc']);
+                unset($data['annivery']);
+                unset($data['dob']);
+		$data['dob'] = date('Y-m-d',  strtotime($dob));
+		$data['user_name'] = $data['first_name'].' '.$data['last_name'];
+		$data['annivery'] = date('Y-m-d',  strtotime($annivery));
                 $data['user_status'] = 1;
                 $data['user_password'] = md5($this->input->post('user_password'));
                 $data['user_access_level'] = 4;
                 $data['user_update'] = date("Y-m-d H:i:s");
+//		var_dump($data);die;
 //                $org_id = $this->input->post('orginasation_type');
                 $user_id = $this->crm->rowInsert('user', $data);
-               
+               $user_amc = array();
+		
                 $user_details = getUserDetails($user_id);
                 $maildata['user_detail'] = $user_details;
                 $password = $this->input->post('user_password');
-                if ($user_id != NULL) {
-                   
-
+                if ($user_id != NULL && $user_id) {
+			 
+			 
+			 
+			 if(!empty($amc)){
+			      foreach ($amc as $key=>$amc_value) {
+//			      $date =   getAmcStarEndDate($amc_value['user_amc']);
+			      $user_amc['user_id'] = $user_id;
+			      $user_amc['amc_id'] = $amc_value;
+			      $user_amc['amc_start_date'] = date('Y-m-d H:i:s');
+			      $user_amc['amc_end_date'] = date('Y-m-d H:i:s');
+			      $user_amc['reference_by'] = $data['reference_by'];
+			      $user_amc['created_at'] = date('Y-m-d H:i:s');
+			      $user_amc['amc_user_status'] = 1;
+			      $user_amc_rel = $this->crm->rowInsert('user_amc_rel', $user_amc);
+			      }
+			 }
 //                      $message ='';
 //           
 //                      $org =  getUserOrginasationDetails($user_details['user_id']);
@@ -195,16 +221,16 @@ class CustomerController extends BaseController {
 //                      $message .= $this->load->view('/email_template/email_footer',FALSE,TRUE);
 //                      
 //                    mymail($user_details['user_email'],sprintf(WELCOME_SUB,$org['organisation_name']),$message);
-                        $this->session->set_flashdata('employee_success', 'Employee Added Successfully');
-                        redirect('employee', 'refresh');
+                        $this->session->set_flashdata('customer_success', 'Customer Added Successfully');
+                        redirect('customer', 'refresh');
 //                    }
                 }else{
                     
-                $this->load->template('/employee/create', $pagedata);
+                $this->load->template('/customer/create', $pagedata);
                 }
             }
         } else {
-            $this->load->template('/employee/create', $pagedata);
+            $this->load->template('/customer/create', $pagedata);
         }
     }
 

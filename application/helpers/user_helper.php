@@ -253,10 +253,14 @@ function getEmployee($org_id) {
 	  }
      }
 
-     function getUserByAccessLevel($access_level = 3) {
+   
+
+}
+
+  function getUserByAccessLevel($access_level = 3) {
 
 	  $CI = & get_instance();
-	  $user_emp_data = $CI->crm->getData('user', 'first_name,last_name,user_name,id', array('user_access_level' => $access_level));
+	  $user_emp_data = $CI->crm->getData('user', 'first_name,last_name,user_name,user_id', array('user_access_level' => $access_level));
 
 	  if (!empty($user_emp_data)) {
 	       return $user_emp_data;
@@ -267,7 +271,7 @@ function getEmployee($org_id) {
      
      function getAMC(){
 	   $CI = & get_instance();
-	  $user_emp_data = $CI->crm->getData('amc', '*', array('status' => 1));
+	  $user_emp_data = $CI->crm->getData('amc', '*', array('amc_status' => 1));
 
 	  if (!empty($user_emp_data)) {
 	       return $user_emp_data;
@@ -275,5 +279,3 @@ function getEmployee($org_id) {
 	       return FALSE;
 	  }
      }
-
-}

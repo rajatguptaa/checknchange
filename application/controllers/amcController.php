@@ -96,7 +96,8 @@ class AmcController extends BaseController {
     public function editAmc($amc_id) {
         $form_data = $this->crm->getData($this->tabelename, "*", array("id" => $amc_id));
 
-
+	$data['scripts_to_load'] = array('assets/js/switchery/bootstrap-switch.min.js');
+        $data['style_to_load'] = array('assets/css/switchery/bootstrap-switch.css');
         if (empty($form_data) && is_array($form_data)) {
             $this->session->set_flashdata('organisation_danger', '<b>Amc</b> does not exist.');
             redirect('amc', 'refresh');
@@ -127,8 +128,6 @@ class AmcController extends BaseController {
             } else {
                 $data['method'] = "post";
                 $updatedata = $this->input->post();
-
-
                 if (array_key_exists('image', $_FILES) && ($_FILES['image']['size'] > 0)) {
                     
                     image_delete("./" . $updatedata['package_old_logo']);

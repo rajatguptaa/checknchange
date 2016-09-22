@@ -123,10 +123,17 @@
                                 </div>
 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_phone">Contact Number <span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_phone">Mobile No<span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12 ">
-                                        <input id="user_phone" name="user_phone" type="text" data-parsley-type="integer" data-parsley-required-message="The Phone field is required." data-parsley-integer-message="The Phone field should be integer." value="<?php echo set_value('user_phone'); ?>" required="required" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('user_phone')) > 0) ? "parsley-error" : "" ?>">
+                                        <input id="user_phone" name="user_mobile" type="text" data-parsley-type="integer" data-parsley-required-message="The Mobile field is required." data-parsley-integer-message="The Mobile field should be integer." value="<?php echo set_value('user_mobile'); ?>" required="required" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('user_mobile')) > 0) ? "parsley-error" : "" ?>">
+                                        <?php echo form_error('user_mobile'); ?>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_phone">Phone Number</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 ">
+                                        <input id="user_phone" name="user_phone" type="text"  value="<?php echo set_value('user_phone'); ?>"  class="form-control col-md-7 col-xs-12">
                                         <?php echo form_error('user_phone'); ?>
                                     </div>
                                 </div>
@@ -159,50 +166,52 @@
                                 <div class="clearfix"></div>
 				<span class="section">General Information</span>
 				<div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employee_notes">User Type
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employee_notes">User Type<span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-					 <select class="form-control" name="user_type" id="user_type">
+					 <select class="form-control" name="user_type" id="user_type" >
 					      <option value="">Select User Type</option>
-					      <option value="premium">Premium</option>
-					      <option value="regular">Regular</option>
+					      <option value="premium"  <?php echo set_select('user_type', 'premium'); ?>>Premium</option>
+					      <option value="regular" <?php echo set_select('user_type', 'regular'); ?>>Regular</option>
 					 </select>
+					 <?php echo form_error('user_type'); ?>
                                     </div>
                                 </div>
 				<div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employee_notes">Reference By
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employee_notes">Reference By<span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-					 <select name="user_type" class="form-control" id="user_type">
-					      <option value="1">Select Reference </option>
+					 <select name="reference_by" class="form-control" id="reference_by">
+					      <option value="">Select Reference </option>
 					      <?php if($userdata){
 					      foreach ($userdata as $uservalue) {
 						   ?>
-					      <option value="<?php echo $uservalue['id']; ?>"><?php echo $uservalue['user_name']; ?></option>
+					      <option <?php echo set_select('reference_by', $uservalue['user_id']); ?> value="<?php echo $uservalue['user_id']; ?>"><?php echo $uservalue['user_name']; ?></option>
 					      <?php
 						   }
 						   
 					      }?>
 					      
 					 </select>
+					 <?php echo form_error('reference_by'); ?>
                                     </div>
                                 </div>
 				<div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employee_notes">User Amc
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employee_notes">User Amc<span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-					 <select multiple="" class="form-control" name="reference_by" id="reference_by" data-placeholder="User Amc">
-					       <option value="1">Select Reference </option>
-					       <?php if($amc){
-					      foreach ($amc as $amcvalue) {
+					 <select multiple="" class="form-control" name="user_amc[]" id="user_amc" data-placeholder="User Amc">
+					       <?php if($amcdata){
+					      foreach ($amcdata as $amcvalue) {
 						   ?>
-					      <option value="<?php echo $amcvalue['id']; ?>"><?php echo $amcvalue['amc_name']; ?></option>
+					      <option <?php echo set_select('user_amc[]', $amcvalue['id']); ?> value="<?php echo $amcvalue['id']; ?>"><?php echo $amcvalue['amc_name']; ?></option>
 					      <?php
 						   }
 						   
 					      }?>
 					      
 					 </select>
+					 <?php echo form_error('user_amc[]'); ?>
                                     </div>
                                 </div>
 				<div class="clearfix"></div>
