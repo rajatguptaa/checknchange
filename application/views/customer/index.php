@@ -106,13 +106,14 @@
 
 
         $("body").on("click", ".delete", function() {
-            var id = $(this).parents("tr").attr("id");
+            var id = $(this).attr("data-id");
             bootbox.confirm({
                 size: 'small',
                 message: "Are you sure?",
                 callback: function(result) {
                     if (result) {
-                        var url = "<?= base_url('organisationController/deleteOrganisation') ?>";
+			 console.log('test');
+                        var url = "<?= base_url('customerController/deleteCustomer') ?>/";
                         window.location.href = url + "/" + id;
                     }
                 }

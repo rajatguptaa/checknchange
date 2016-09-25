@@ -8,7 +8,7 @@ include 'baseController.php';
 
 class CustomerController extends BaseController {
 
-     private $tabelename;
+     private $tablename;
 
     public function __construct() {
         parent::__construct();
@@ -16,7 +16,7 @@ class CustomerController extends BaseController {
             redirect('login');
         }
 
-        $this->tabelename = "user";
+        $this->tablename = "user";
     }
 
     public function index() {
@@ -73,9 +73,9 @@ class CustomerController extends BaseController {
             $lenght = intval($_GET['iDisplayLength']);
         }
 
-        $data = $this->crm->getData($this->tabelename, $select, $where, $join, $order_by, $order, $lenght, $str_point, $search_array);
+        $data = $this->crm->getData($this->tablename, $select, $where, $join, $order_by, $order, $lenght, $str_point, $search_array);
 //	var_dump($this->crm->db->last_query());
-        $rowCount = $this->crm->getRowCount($this->tabelename, $select, $where, $join, $order_by, $order, $search_array);
+        $rowCount = $this->crm->getRowCount($this->tablename, $select, $where, $join, $order_by, $order, $search_array);
 //	var_dump($this->crm->db->last_query());
 
         $output = array(
@@ -127,7 +127,7 @@ class CustomerController extends BaseController {
         $pagedata['scripts_to_load'] = array('assets/js/chosen/chosen.jquery.js','assets/js/datepicker/moment.js', 'assets/js/datepicker/bootstrap-datetimepicker.js');
         $pagedata['style_to_load'] = array('assets/css/chosen/chosen.css','assets/css/datepicker/bootstrap-datetimepicker.css');
 
-	$pagedata['userdata'] = getUserByAccessLevel(4);
+	$pagedata['userdata'] = getUserByAccessLevel(3);
 	$pagedata['amcdata'] = getAMC(1);
          if ($this->input->post()) {
             $this->load->helper(array('form', 'url'));
@@ -141,8 +141,7 @@ class CustomerController extends BaseController {
             $this->form_validation->set_rules('user_city', 'City', 'required');
             $this->form_validation->set_rules('user_country', 'Country', 'required');
             $this->form_validation->set_rules('user_postcode', 'Post Code', 'required');
-            //|regex_match[/^[0-9]{10}$/]
-            $this->form_validation->set_rules('user_mobile', 'Mobile Number ', 'numeric');
+            $this->form_validation->set_rules('user_mobile', 'Mobile Number ', 'numeric|regex_match[/^[0-9]{10}$/]');
             $this->form_validation->set_rules('user_email', 'Email', 'required|email|is_unique[user.user_email]');
             $this->form_validation->set_rules('user_password', 'Password', 'trim|required|matches[passconf]');
             $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required');
@@ -157,9 +156,6 @@ class CustomerController extends BaseController {
                 $this->load->template('/customer/create', $pagedata);
             } else {
                 $data = $this->input->post();
-                
-//                		var_dump($data);die;
-
                   if (array_key_exists('document', $_FILES) && ($_FILES['document']['size'] > 0)) {
                     $filename1 = document_upload('document', 'employee');
                     if (is_array($filename1)) {
@@ -168,8 +164,6 @@ class CustomerController extends BaseController {
                 }
                 if (array_key_exists('image', $_FILES) && ($_FILES['image']['size'] > 0)) {
                     $filename = image_upload('image', 'employee');
-
-
                     if (is_array($filename)) {
                         $data['user_profile'] = 'assets/img/employee/' . $filename['file_name'];
                     }
@@ -188,21 +182,14 @@ class CustomerController extends BaseController {
                 $data['user_password'] = md5($this->input->post('user_password'));
                 $data['user_access_level'] = 4;
                 $data['user_update'] = date("Y-m-d H:i:s");
-//		var_dump($data);die;
-//                $org_id = $this->input->post('orginasation_type');
                 $user_id = $this->crm->rowInsert('user', $data);
-               $user_amc = array();
-		
+               $user_amc = array();		
                 $user_details = getUserDetails($user_id);
                 $maildata['user_detail'] = $user_details;
                 $password = $this->input->post('user_password');
                 if ($user_id != NULL && $user_id) {
-			 
-			 
-			 
 			 if(!empty($amc)){
 			      foreach ($amc as $key=>$amc_value) {
-//			      $date =   getAmcStarEndDate($amc_value['user_amc']);
 			      $user_amc['user_id'] = $user_id;
 			      $user_amc['amc_id'] = $amc_value;
 			      $user_amc['amc_start_date'] = date('Y-m-d H:i:s');
@@ -227,7 +214,6 @@ class CustomerController extends BaseController {
                         redirect('customer', 'refresh');
 //                    }
                 }else{
-                    
                 $this->load->template('/customer/create', $pagedata);
                 }
             }
@@ -256,11 +242,25 @@ class CustomerController extends BaseController {
             $this->load->helper(array('form', 'url'));
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<ul class="parsley-errors-list filled server_message" data-parsley-id="6"><li class="parsley-required">', '</li></ul>');
-            $this->form_validation->set_rules('user_name', 'Name', 'required');
+             $this->form_validation->set_rules('first_name', 'First Name', 'required');
+            $this->form_validation->set_rules('last_name', 'LastName', 'required');
+            $this->form_validation->set_rules('user_code', 'Name', 'required');
+            $this->form_validation->set_rules('address1', 'Address-1', 'required');
+            $this->form_validation->set_rules('user_city', 'City', 'required');
+            $this->form_validation->set_rules('user_country', 'Country', 'required');
+            $this->form_validation->set_rules('user_postcode', 'Post Code', 'required');
+            //|regex_match[/^[0-9]{10}$/]
+            $this->form_validation->set_rules('user_mobile', 'Mobile Number ', 'numeric');
+            $this->form_validation->set_rules('user_email', 'Email', 'required|email|is_unique[user.user_email]');
+            $this->form_validation->set_rules('user_password', 'Password', 'trim|required|matches[passconf]');
+            $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required');
+            $this->form_validation->set_message('matches', 'password does not match');
             $this->form_validation->set_rules('image', 'Image', 'callback_image_validate');
-            $this->form_validation->set_rules('user_email', 'Email', 'required|email|callback_email__unique_validate');
-            $this->form_validation->set_rules('user_phone', 'Phone Number ', 'numeric|regex_match[/^[0-9]{11}$/]');
-            $this->form_validation->set_message('regex_match', 'Phone number only cantain 11 digits');
+            $this->form_validation->set_rules('document', 'Document', 'callback_document_validate');
+            $this->form_validation->set_rules('user_amc[]', 'User Amc', 'required');
+            $this->form_validation->set_rules('user_type', 'User Type', 'required');
+            $this->form_validation->set_rules('reference_by', 'Reference By', 'required');
+            $this->form_validation->set_message('regex_match', 'Phone number only cantain 10 digits');
             $pagedata['method'] = 'post';
 
             if ($this->form_validation->run() == FALSE) {
@@ -330,21 +330,20 @@ class CustomerController extends BaseController {
         }
     }
 
-    public function deleteCustomer($id, $type) {
+    public function deleteCustomer($id) {
         if (userExist($id)) {
-            $user_id[] = $id;
-            $this->load->model("employee_model", "emp");
-            $this->emp->delete_user($user_id);
-            if ($type == 1)
+          $result =   $this->crm->rowUpdate($this->tablename,array('user_status'=>0),array('user_id'=>$id));
+	    if ($result){
                 $this->session->set_flashdata('customer_success', 'Customer Deleted Successfully');
-            if ($type == 1) {
                 redirect('customer', 'refresh');
-            } else {
-                redirect('customer/unapproved', 'refresh');
-            }
+	    }else{
+                $this->session->set_flashdata('customer_success', 'Customer Not Deleted Successfully');
+                redirect('customer', 'refresh');
+	    }
+             
         } else {
             $this->session->set_flashdata('customer_danger', 'Customer Not Exist');
-            redirect('customer/unapproved', 'refresh');
+            redirect('customer', 'refresh');
         }
     }
 
