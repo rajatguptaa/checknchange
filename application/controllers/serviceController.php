@@ -38,10 +38,9 @@ class ServiceController extends CI_Controller {
 
     public function getTableData() {
 
-        $col_sort = array("amc_service.id", "user.first_name", "user.addres2", "user.address1", "user.user_mobile", 'user.user_email', "amc_service.start_date", 'user.user_type');
-        $select = array("amc_service.id as service_id", "user.first_name", "user.address1", "user.user_mobile", 'user.user_email', "amc_service.user_id", "amc_service.start_date", "amc_service.due_date", "amc_service.reference_by", "amc_service.amc_note", "user.last_name", 'user.user_mobile', 'user.dob', 'user.user_type');
-//, "last_name", "user_mobile","user_phone",'user_profile','user_status'
-//            'user_amc','address1','address2','user_city','user_country','user_postcode'
+        $col_sort = array("amc_service.id","amc.amc_name" ,"user.first_name", "user.address2", "user.address1", "user.user_mobile", 'user.user_email', "amc_service.start_date", 'user.user_type');
+        $select = array("amc_service.id as service_id","amc.amc_name" , "user.first_name", "user.address1", "user.user_mobile", 'user.user_email', "amc_service.user_id", "amc_service.start_date", "amc_service.due_date", "amc_service.reference_by", "amc_service.amc_note", "user.last_name", 'user.user_mobile', 'user.dob', 'user.user_type');
+
         $order_by = "amc_service.id";
         $order = 'DESC';
 
@@ -69,6 +68,8 @@ class ServiceController extends CI_Controller {
                 'on' => 'user.user_id=amc_service.user_id'),
             array('table' => 'user as u',
                 'on' => 'u.user_id=amc_service.reference_by'),
+            array('table' => 'amc',
+                'on' => 'amc.id=amc_service.amc_id')
         );
         if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
             $str_point = intval($_GET['iDisplayStart']);
@@ -105,8 +106,9 @@ class ServiceController extends CI_Controller {
             $user_type = "<label class='btn btn-success'>" . $val['user_type'] . "</label>";
             $output['aaData'][] = array(
                 "DT_RowId" => $val['serive_id'],
-                $val['serive_id'],
                 '<input type="checkbox" class="form-control" value="' . $val['serive_id'] . '">',
+                $val['serive_id'],
+                $val['amc_name'],
                 '<img src="' . base_url() . getUsersImage($val['user_id']) . '" class="img-responsive" alt="Cinque Terre" style="max-width:100px"> ',
                 $val['first_name'] . ' ' . $val['last_name'],
                 $val['user_mobile'],

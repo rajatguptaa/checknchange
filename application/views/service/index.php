@@ -35,6 +35,7 @@
 <!--                                                    <input type="checkbox" class="tableflat">-->
                                             #
                                         </th>
+                                        <th>Amc Name</th>
                                         <th>Customer Name</th>
                                         <th>Address</th>
                                         <th>Phone</th>
@@ -90,7 +91,8 @@
                 {"sClass": "eamil_conform aligncenter", "aTargets": [5]},
                 {"sClass": "eamil_conform aligncenter", "aTargets": [6]},
                 {"sClass": "eamil_conform aligncenter", "aTargets": [7]},
-                {"sClass": "eamil_conform aligncenter", "aTargets": [8], orderable: false, 'render': function(data, type, row) {
+                {"sClass": "eamil_conform aligncenter", "aTargets": [8]},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [9], orderable: false, 'render': function(data, type, row) {
                         return data;
                     }
                 },
