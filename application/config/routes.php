@@ -170,5 +170,13 @@ $route['dashboard/supportForum'] = 'dashboardController/supportForum';
 $route['dashboard/unpinforumpost'] = 'dashboardController/unpinforumpost';
 
 
+//service Controller
+$route['service'] = 'serviceController/index';
+
+
+//service Histroy
+
+$route['history'] = 'historyController/index';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
