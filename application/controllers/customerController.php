@@ -193,7 +193,7 @@ class CustomerController extends BaseController {
 			      $user_amc['user_id'] = $user_id;
 			      $user_amc['amc_id'] = $amc_value;
 			      $user_amc['amc_start_date'] = date('Y-m-d H:i:s');
-			      $user_amc['amc_end_date'] = date('Y-m-d H:i:s');
+			      $user_amc['amc_end_date'] = amc_date_create(date('Y-m-d H:i:s'),$amc_value);
 			      $user_amc['reference_by'] = $data['reference_by'];
 			      $user_amc['created_at'] = date('Y-m-d H:i:s');
 			      $user_amc['amc_user_status'] = 1;

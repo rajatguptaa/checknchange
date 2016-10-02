@@ -1,27 +1,28 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-class ServiceController extends CI_Controller{
-    
+class ServiceController extends CI_Controller {
+
     function __construct() {
         parent::__construct();
-    
-        $this->load->model('crm_model','crm');
-         if ($this->session->userdata('logged_in') == FALSE) {
+
+        $this->load->model('crm_model', 'crm');
+        if ($this->session->userdata('logged_in') == FALSE) {
             redirect('login');
         }
 
         $this->tablename = "amc_service";
     }
-    function index(){
-        
+
+    function index() {
+
         $pagedata['mainHeading'] = "AMC Service";
-         // Loading CSS on view
+        // Loading CSS on view
         $pagedata["style_to_load"] = array(
             "assets/css/datatablenew/dataTables.responsive.css"
         );
@@ -33,15 +34,12 @@ class ServiceController extends CI_Controller{
             "assets/js/bootbox/bootbox.js"
         );
         $this->load->template('/service/index', $pagedata);
-        
-        
-        
     }
-    
-     public function getTableData() {
 
-          $col_sort = array("amc_service.id","user.first_name","user.addres2","user.address1", "user.user_mobile",'user.user_email', "amc_service.start_date", 'user.user_type');
-        $select = array("amc_service.id as service_id","user.first_name","user.address1", "user.user_mobile",'user.user_email',"amc_service.user_id", "amc_service.start_date", "amc_service.due_date","amc_service.reference_by","amc_service.amc_note","user.last_name",'user.user_mobile','user.dob','user.user_type');
+    public function getTableData() {
+
+        $col_sort = array("amc_service.id", "user.first_name", "user.addres2", "user.address1", "user.user_mobile", 'user.user_email', "amc_service.start_date", 'user.user_type');
+        $select = array("amc_service.id as service_id", "user.first_name", "user.address1", "user.user_mobile", 'user.user_email', "amc_service.user_id", "amc_service.start_date", "amc_service.due_date", "amc_service.reference_by", "amc_service.amc_note", "user.last_name", 'user.user_mobile', 'user.dob', 'user.user_type');
 //, "last_name", "user_mobile","user_phone",'user_profile','user_status'
 //            'user_amc','address1','address2','user_city','user_country','user_postcode'
         $order_by = "amc_service.id";
@@ -65,13 +63,12 @@ class ServiceController extends CI_Controller{
                 $search_array[$col_sort[$i]] = $words;
             }
         }
-        $where = array('user.user_access_level'=>4,'user.user_status'=>1);
+        $where = array('user.user_access_level' => 4, 'user.user_status' => 1);
         $join = array(
             array('table' => 'user',
                 'on' => 'user.user_id=amc_service.user_id'),
             array('table' => 'user as u',
                 'on' => 'u.user_id=amc_service.reference_by'),
-          
         );
         if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
             $str_point = intval($_GET['iDisplayStart']);
@@ -105,16 +102,16 @@ class ServiceController extends CI_Controller{
             if ($delete_acccess) {
                 $link .= '<a class="btn btn-danger btn-xs delete" title="Delete" data-id="' . $val['service_id'] . '"><i class="fa fa-trash-o"></i> View</a>';
             }
-	    $user_type = "<label class='btn btn-success'>".$val['user_type']."</label>";
+            $user_type = "<label class='btn btn-success'>" . $val['user_type'] . "</label>";
             $output['aaData'][] = array(
                 "DT_RowId" => $val['serive_id'],
                 $val['serive_id'],
-                '<input type="checkbox" class="form-control" value="'.$val['serive_id'].'">',
+                '<input type="checkbox" class="form-control" value="' . $val['serive_id'] . '">',
                 '<img src="' . base_url() . getUsersImage($val['user_id']) . '" class="img-responsive" alt="Cinque Terre" style="max-width:100px"> ',
-                $val['first_name'].' '.$val['last_name'],
+                $val['first_name'] . ' ' . $val['last_name'],
                 $val['user_mobile'],
                 dateFormate($val['dob']),
-                $val['reffirst_name'].' '.$val['reflast_name'],
+                $val['reffirst_name'] . ' ' . $val['reflast_name'],
                 $user_type,
                 $link
             );
@@ -123,5 +120,5 @@ class ServiceController extends CI_Controller{
         echo json_encode($output);
         die;
     }
-    
+
 }

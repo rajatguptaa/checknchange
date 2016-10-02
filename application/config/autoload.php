@@ -65,7 +65,7 @@ $autoload['libraries'] = array('database', 'session','form_validation','My_PHPMa
 */
 
 
-$autoload['helper'] = array('url', 'file','my_mail_helper','default_helper','user_helper','image_helper','access_helper','attachment_helper','ticket_helper','support_helper','text');
+$autoload['helper'] = array('url', 'file','my_mail_helper','default_helper','user_helper','image_helper','access_helper','attachment_helper','ticket_helper','support_helper','text','service_helper');
 
 
 
