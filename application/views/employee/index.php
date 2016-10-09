@@ -10,22 +10,7 @@ $loginuser = $this->session->userdata('logged_in');
                 </div>
                   
                 <div class="title_right">
-                    <div class="col-md-4 col-sm-4 col-xs-12 form-group pull-right top_search">
-                       <div class="">
-                          <?php   if(access_check("organisation","view")) : ?>
-                         <select name="orginasation_search" id="orginasation_search" tabindex="-1" class="select_organisation form-control">    
-                             <option value="" selected>All</option>                   
-                               <?php foreach ($organisation as $org) { ?>
-                               <option value=<?php echo $org['organisation_id']; ?>><?= $org['organisation_name']?></option>
-                              <?php } ?>
-                         </select>   
-                            <?php 
-                            else : ?>
-                            <input type="hidden" name="orginasation_search" id="orginasation_search" value="<?php  $org=getUserOrginasationDetails($loginuser['user_id']); echo $org['organisation_id']; ?>">
-                            <?php
-                            endif; ?>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <div class="clearfix"></div>

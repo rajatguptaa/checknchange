@@ -86,7 +86,7 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12 ">
                                         <input type="text" value="<?php echo set_value('address1'); ?>" data-parsley-error-message="The Address field is required"  id="organisation_address1" required="required" placeholder="First line of address" name="address1" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('address1')) > 0) ? "parsley-error" : "" ?>">
-                                        <?php echo form_error('organisation_address'); ?>
+                                        <?php echo form_error('address1'); ?>
                                     </div>
                                 </div>
 
@@ -251,8 +251,10 @@
             </div>
         </div>
     </div>
+     
 </div></div>
 <script>
+    
     $("body").ready(function () {
 	 $("select").chosen({width: "100%",
           }); 

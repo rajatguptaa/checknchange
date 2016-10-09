@@ -239,7 +239,7 @@
 	  removeTitle: 'Cancel or reset changes',
 	  elErrorContainer: '#kv-avatar-errors',
 	  msgErrorClass: 'alert alert-block alert-danger',
-	  defaultPreviewContent: '<img src="<?php echo base_url(getUsersImage($form_data['user_id']), 'small'); ?>" alt="Your Amc Logo" style="width:190px">',
+	  defaultPreviewContent: '<img src="<?php echo base_url(getUsersImage($form_data['user_id'],'small')); ?>" alt="Your Amc Logo" style="width:190px">',
 	  layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
 	  allowedFileExtensions: ["jpg", "png", "gif", "docx", "doc", "pdf"]
      });

@@ -73,6 +73,10 @@
             "oLanguage": {
                 "sProcessing": "<div class='loader-center'><img height='50' width='50' src='" + base_url + "assets/images/ajax-loader_1.gif'></div>"
             },
+ "dom": 'T<"clear">lfrtip',
+        "tableTools": {
+            "sSwfPath": "/swf/copy_csv_xls_pdf.swf"
+        },
             "ordering": true,
             "sAjaxSource": "<?= base_url(); ?>serviceController/getTableData",
             "bProcessing": true,

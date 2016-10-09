@@ -58,6 +58,10 @@ function dateFormate($date) {
     $date_obj = date_create($date);
     return date_format($date_obj, DATE_FORMATE_CONSTANT);
 }
+function dateFormateOnly($date) {
+    $date_obj = date_create($date);
+    return date_format($date_obj, DATE_FORMATE_CONSTANT_ONLY);
+}
 
 function getDay($date) {
     $date_obj = date_create($date);

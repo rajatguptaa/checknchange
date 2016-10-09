@@ -36,6 +36,7 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 define('DATE_FORMATE_CONSTANT','d M Y h:i A');
+define('DATE_FORMATE_CONSTANT_ONLY','d M Y');
 define('GET_DAY_CONSTANT','d');
 define('GET_MONTH_CONSTANT','M');
 define('GET_YEAR_CONSTANT','Y');

@@ -15,7 +15,7 @@ class ServiceController extends CI_Controller {
         if ($this->session->userdata('logged_in') == FALSE) {
             redirect('login');
         }
-
+//	$this->index();
         $this->tablename = "amc_service";
     }
 
@@ -38,8 +38,8 @@ class ServiceController extends CI_Controller {
 
     public function getTableData() {
 
-        $col_sort = array("amc_service.id","amc.amc_name" ,"user.first_name", "user.address2", "user.address1", "user.user_mobile", 'user.user_email', "amc_service.start_date", 'user.user_type');
-        $select = array("amc_service.id as service_id","amc.amc_name" , "user.first_name", "user.address1", "user.user_mobile", 'user.user_email', "amc_service.user_id", "amc_service.start_date", "amc_service.due_date", "amc_service.reference_by", "amc_service.amc_note", "user.last_name", 'user.user_mobile', 'user.dob', 'user.user_type');
+        $col_sort = array("amc_service`.`id","amc`.`amc_name","user`.`user_name","user`.`address2","user`.`address1","user`.`user_mobile","user`.`user_email","amc_service`.`start_date","user`.`user_type");
+        $select = array("amc_service.id as service_id","amc.amc_name" ,"user.user_name", "user.first_name", "user.address1", "user.user_mobile", 'user.user_email', "amc_service.user_id", "amc_service.start_date", "amc_service.due_date", "amc_service.reference_by", "amc_service.amc_note", "user.last_name", 'user.user_mobile', 'user.dob', 'user.user_type');
 
         $order_by = "amc_service.id";
         $order = 'DESC';
@@ -62,7 +62,8 @@ class ServiceController extends CI_Controller {
                 $search_array[$col_sort[$i]] = $words;
             }
         }
-        $where = array('user.user_access_level' => 4, 'user.user_status' => 1);
+        $where = array('amc_service.start_date <='=>date('Y-m-d'));
+        $where1 = array('amc_service.due_date >='=>date('Y-m-d'));
         $join = array(
             array('table' => 'user',
                 'on' => 'user.user_id=amc_service.user_id'),
@@ -77,24 +78,23 @@ class ServiceController extends CI_Controller {
         }
 
         $data = $this->crm->getData($this->tablename, $select, $where, $join, $order_by, $order, $lenght, $str_point, $search_array);
-//	var_dump($this->crm->db->last_query());
+        $data1 = $this->crm->getData($this->tablename, $select, $where1, $join, $order_by, $order, $lenght, $str_point, $search_array);
+//	var_dump($this->db->last_query());
         $rowCount = $this->crm->getRowCount($this->tablename, $select, $where, $join, $order_by, $order, $search_array);
-//	var_dump($this->crm->db->last_query());
+        $rowCount1 = $this->crm->getRowCount($this->tablename, $select, $where1, $join, $order_by, $order, $search_array);
 
         $output = array(
             "sEcho" => intval($_GET['sEcho']),
-            "iTotalRecords" => $rowCount,
-            "iTotalDisplayRecords" => $rowCount,
+            "iTotalRecords" => $rowCount+$rowCount1,
+            "iTotalDisplayRecords" => $rowCount+$rowCount1,
             "aaData" => []
         );
 
         $edit_acccess = access_check("service", "edit");
         $delete_acccess = access_check("service", "delete");
 
-        foreach ($data as $val) {
-//	     var_dump($val);
+        foreach ($data1 as $val) {
             $link = "";
-
             if ($edit_acccess) {
                 $link .= '<a id="editOrganisation" class="btn btn-success btn-xs" href="' . base_url('service/view/' . $val['service_id']) . '" title="Edit" data_id="' . $val['user_id'] . '" ><i class="fa fa-edit"></i> Complete</a>'
                         . '&nbsp;&nbsp;';
@@ -103,21 +103,48 @@ class ServiceController extends CI_Controller {
             if ($delete_acccess) {
                 $link .= '<a class="btn btn-danger btn-xs delete" title="Delete" data-id="' . $val['service_id'] . '"><i class="fa fa-trash-o"></i> View</a>';
             }
-            $user_type = "<label class='btn btn-success'>" . $val['user_type'] . "</label>";
+            $user_type = "<label class='btn btn-success'>" . strtoupper($val['user_type']) . "</label>";
             $output['aaData'][] = array(
-                "DT_RowId" => $val['serive_id'],
-                '<input type="checkbox" class="form-control" value="' . $val['serive_id'] . '">',
-                $val['serive_id'],
+                "DT_RowId" => $val['service_id'],
+                '<input type="checkbox" class="form-control" value="' . $val['service_id'] . '">',
+                $val['service_id'],
                 $val['amc_name'],
-                '<img src="' . base_url() . getUsersImage($val['user_id']) . '" class="img-responsive" alt="Cinque Terre" style="max-width:100px"> ',
-                $val['first_name'] . ' ' . $val['last_name'],
+                $val['user_name'] ,
+                $val['address1'] ,
                 $val['user_mobile'],
-                dateFormate($val['dob']),
-                $val['reffirst_name'] . ' ' . $val['reflast_name'],
+                $val['user_email'],
+                dateFormateOnly($val['due_date']),
                 $user_type,
                 $link
             );
         }
+	
+	  foreach ($data as $val) {
+            $link = "";
+            if ($edit_acccess) {
+                $link .= '<a id="editOrganisation" class="btn btn-success btn-xs" href="' . base_url('service/view/' . $val['service_id']) . '" title="Edit" data_id="' . $val['user_id'] . '" ><i class="fa fa-edit"></i> Complete</a>'
+                        . '&nbsp;&nbsp;';
+            }
+
+            if ($delete_acccess) {
+                $link .= '<a class="btn btn-danger btn-xs delete" title="Delete" data-id="' . $val['service_id'] . '"><i class="fa fa-trash-o"></i> View</a>';
+            }
+            $user_type = "<label class='btn btn-success'>" . strtoupper($val['user_type']) . "</label>";
+            $output['aaData'][] = array(
+                "DT_RowId" => $val['service_id'],
+                '<input type="checkbox" class="form-control" value="' . $val['service_id'] . '">',
+                $val['service_id'],
+                $val['amc_name'],
+                $val['user_name'] ,
+                $val['address1'] ,
+                $val['user_mobile'],
+                $val['user_email'],
+                dateFormateOnly($val['due_date']),
+                $user_type,
+                $link
+            );
+        }
+	
 
         echo json_encode($output);
         die;
