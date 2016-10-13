@@ -271,7 +271,7 @@ function getEmployee($org_id) {
      
      function getAMC(){
 	   $CI = & get_instance();
-	  $user_emp_data = $CI->crm->getData('amc', '*', array('amc_status' => 1));
+	  $user_emp_data = $CI->crm->getData('amc', '*', array('amc_status' => 1,'amc_type'=>'primary'));
 
 	  if (!empty($user_emp_data)) {
 	       return $user_emp_data;

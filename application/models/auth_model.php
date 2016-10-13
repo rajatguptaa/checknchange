@@ -54,7 +54,7 @@ class Auth_model extends CI_Model {
         $row = $query->result_array();
         return $row[0];
     }
-
+    
 }
 
 ?>

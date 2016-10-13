@@ -62,8 +62,8 @@ class ServiceController extends CI_Controller {
                 $search_array[$col_sort[$i]] = $words;
             }
         }
-        $where = array('amc_service.start_date <='=>date('Y-m-d'));
-        $where1 = array('amc_service.due_date >='=>date('Y-m-d'));
+        $where = array('amc_service.start_date >='=>date('Y-m-d'));
+        $where1 = array('amc_service.due_date <='=>date('Y-m-d'));
         $join = array(
             array('table' => 'user',
                 'on' => 'user.user_id=amc_service.user_id'),
@@ -76,7 +76,36 @@ class ServiceController extends CI_Controller {
             $str_point = intval($_GET['iDisplayStart']);
             $lenght = intval($_GET['iDisplayLength']);
         }
+	if (isset($_GET['sSearch_3']) && $_GET['sSearch_3'] != "") {
 
+            $words = $_GET['sSearch_3'];
+            $where['amc.id'] = $words;
+            $where1['amc.id'] = $words;
+        }
+	if (isset($_GET['sSearch_4']) && $_GET['sSearch_4'] != "") {
+
+            $words = $_GET['sSearch_4'];
+            $where['user.user_id'] = $words;
+            $where1['user.user_id'] = $words;
+        }
+	if (isset($_GET['sSearch_7']) && $_GET['sSearch_7'] != "") {
+
+            $words = $_GET['sSearch_7'];
+            $where['user.user_id'] = $words;
+            $where1['user.user_id'] = $words;
+        }
+	if (isset($_GET['sSearch_8']) && $_GET['sSearch_8'] != "") {
+
+            $words = $_GET['sSearch_8'];
+            $where['amc_service.due_date'] = $words;
+            $where1['amc_service.due_date'] = $words;
+        }
+	if (isset($_GET['sSearch_9']) && $_GET['sSearch_9'] != "") {
+
+            $words = $_GET['sSearch_9'];
+            $where['user.user_type'] = $words;
+            $where1['user.user_type'] = $words;
+        }
         $data = $this->crm->getData($this->tablename, $select, $where, $join, $order_by, $order, $lenght, $str_point, $search_array);
         $data1 = $this->crm->getData($this->tablename, $select, $where1, $join, $order_by, $order, $lenght, $str_point, $search_array);
 //	var_dump($this->db->last_query());
@@ -106,7 +135,7 @@ class ServiceController extends CI_Controller {
             $user_type = "<label class='btn btn-success'>" . strtoupper($val['user_type']) . "</label>";
             $output['aaData'][] = array(
                 "DT_RowId" => $val['service_id'],
-                '<input type="checkbox" class="form-control" value="' . $val['service_id'] . '">',
+                '<input type="checkbox" class="form-control due_date_color" value="' . $val['service_id'] . '">',
                 $val['service_id'],
                 $val['amc_name'],
                 $val['user_name'] ,
@@ -132,7 +161,7 @@ class ServiceController extends CI_Controller {
             $user_type = "<label class='btn btn-success'>" . strtoupper($val['user_type']) . "</label>";
             $output['aaData'][] = array(
                 "DT_RowId" => $val['service_id'],
-                '<input type="checkbox" class="form-control" value="' . $val['service_id'] . '">',
+                '<input type="checkbox" class="form-control " value="' . $val['service_id'] . '">',
                 $val['service_id'],
                 $val['amc_name'],
                 $val['user_name'] ,

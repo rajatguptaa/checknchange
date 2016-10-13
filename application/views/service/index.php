@@ -46,6 +46,59 @@
                                         <th class=" no-link last"><span class="nobr">Action</span>
                                         </th>
                                     </tr>
+				    <tr>
+					<th></th>
+                                        <th></th> 
+                                        <th><select id="amc_name"><option value=""></option>
+					     <?php $amc = getAMC(1);
+					     if(!empty($amc)){
+						  foreach ($amc as $value) {  
+						  ?>
+						  <option value="<?php echo $value['id'];?>"><?php echo $value['amc_name']?></option>
+						  <?php
+					     }}
+					     
+					     ?>
+					     </select></th>
+					     <th><select id="customer_name"><option value=""></option>
+						    <?php $user = getUserByAccessLevel(4);
+					     if(!empty($user)){
+						  foreach ($user as $value) {  
+						  ?>
+						  <option value="<?php echo $value['user_id'];?>"><?php echo $value['first_name']?></option>
+						  <?php
+					     }}
+					     
+					     ?>
+						  </select></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>
+					     <select id="customer_email"><option value=""></option>
+					         <?php $user = getEmail(4);
+					     if($user){
+						  foreach ($user as $value) {  
+						  ?>
+						  <option value="<?php echo $value['user_id'];?>"><?php echo $value['user_email']?></option>
+						  <?php
+					     }}
+					     
+					     ?>
+					     </select></th>
+					     <th><select id="service_date"><option value=""></option>
+						      <?php $date = getServiceDate();
+					     if($date){
+						  foreach ($date as $value) {  
+						  ?>
+						  <option value="<?php echo $value['due_date'];?>"><?php echo $value['due_date']?></option>
+						  <?php
+					     }}
+					     
+					     ?>
+						  </select></th>
+                                        <th><select id="customer_type"><option value=""></option><option value="premium">Premium</option><option value="regular">Regular</option></select></th>
+                                        <th></th> 
+				    </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
@@ -69,7 +122,7 @@
 
     $(document).ready(function() {
         var showhide = true;
-        var cat = $("#example").dataTable({
+        var cat = $("#example").DataTable({
             "oLanguage": {
                 "sProcessing": "<div class='loader-center'><img height='50' width='50' src='" + base_url + "assets/images/ajax-loader_1.gif'></div>"
             },
@@ -100,10 +153,41 @@
                         return data;
                     }
                 },
-            ]}
+            ],"fnDrawCallback": function () {
+		$('body').find('.due_date_color').closest('tr').css('background-color','#FF6666'); 
+	    }}
         );
 
-
+	 $("body").on("change", "#amc_name", function () {
+	      
+            cat.column(3)
+                    .search(this.value)
+                    .draw();
+        });
+	 $("body").on("change", "#customer_name", function () {
+	      
+            cat.column(4)
+                    .search(this.value)
+                    .draw();
+        });
+	 $("body").on("change", "#customer_email", function () {
+	      
+            cat.column(7)
+                    .search(this.value)
+                    .draw();
+        });
+	 $("body").on("change", "#service_date", function () {
+	      
+            cat.column(8)
+                    .search(this.value)
+                    .draw();
+        });
+	 $("body").on("change", "#customer_type", function () {
+	      
+            cat.column(9)
+                    .search(this.value)
+                    .draw();
+        });
         $("body").on("click", ".delete", function() {
             var id = $(this).attr("data-id");
             bootbox.confirm({
