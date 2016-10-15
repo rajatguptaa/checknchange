@@ -127,7 +127,7 @@ class Crm_model extends CI_Model {
         $this->db->select($select)
                 ->from($tablename);
 
-        if ($where != FALSE && is_array($where)) {
+        if ($where != FALSE ) {
             $this->db->where($where);
         }
 

@@ -188,7 +188,9 @@ class CustomerController extends BaseController {
 		    $password = $this->input->post('user_password');
 		    if ($user_id != NULL && $user_id) {
 			 if (!empty($amc)) {
+			      
 			      foreach ($amc as $key => $amc_value) {
+				   
 				   $user_amc['user_id'] = $user_id;
 				   $user_amc['amc_id'] = $amc_value;
 				   $user_amc['amc_start_date'] = date('Y-m-d H:i:s');
@@ -200,7 +202,7 @@ class CustomerController extends BaseController {
 				   //service relation
 				   $service_date = amc_service_create(date('Y-m-d H:i:s'), $amc_value);
 				   $amc_service['user_id'] = $user_id;
-				   $amc_service['amc_id'] = $amc_val;
+				   $amc_service['amc_id'] = $amc_value;
 				   $amc_service['start_date'] = $service_date['start_date'];
 				   $amc_service['due_date'] = $service_date['end_date'];
 				   $amc_service['reference_by'] = $data['reference_by'];
