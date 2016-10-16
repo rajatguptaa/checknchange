@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2016 at 07:51 AM
+-- Generation Time: Oct 16, 2016 at 08:13 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -145,16 +145,19 @@ CREATE TABLE IF NOT EXISTS `amc_service` (
   `reference_by` int(11) NOT NULL,
   `create_date` datetime NOT NULL,
   `amc_note` text NOT NULL,
+  `edited_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `amc_service`
 --
 
-INSERT INTO `amc_service` (`id`, `user_id`, `amc_id`, `start_date`, `due_date`, `reference_by`, `create_date`, `amc_note`) VALUES
-(1, 58, 7, '2016-10-09 00:00:00', '2016-11-09 06:10:45', 40, '2016-10-09 06:10:45', 'test'),
-(2, 58, 8, '2016-11-04 06:10:45', '2016-11-09 06:10:45', 40, '2016-10-09 06:10:45', 'test');
+INSERT INTO `amc_service` (`id`, `user_id`, `amc_id`, `start_date`, `due_date`, `reference_by`, `create_date`, `amc_note`, `edited_at`) VALUES
+(1, 58, 7, '2016-12-04 00:00:00', '2016-12-09 00:00:00', 40, '2016-10-09 06:10:45', 'test', '0000-00-00 00:00:00'),
+(2, 58, 8, '2016-11-01 00:00:00', '2016-11-06 00:00:00', 40, '2016-10-09 06:10:45', 'test', '0000-00-00 00:00:00'),
+(3, 62, 7, '2016-11-10 19:37:30', '2016-11-15 19:37:30', 50, '2016-10-15 19:37:30', 'sdasadsa', '0000-00-00 00:00:00'),
+(4, 62, 8, '2016-10-11 19:37:30', '2016-11-15 19:37:30', 50, '2016-10-15 19:37:30', 'sdasadsa', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -165,13 +168,24 @@ INSERT INTO `amc_service` (`id`, `user_id`, `amc_id`, `start_date`, `due_date`, 
 CREATE TABLE IF NOT EXISTS `amc_service_history` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `amc_id` int(11) NOT NULL,
+  `amc_service_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
   `due_date` datetime NOT NULL,
   `reference_by` int(11) NOT NULL,
-  `notes` int(11) NOT NULL,
+  `notes` varchar(500) NOT NULL,
+  `complete_notes` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `amc_service_history`
+--
+
+INSERT INTO `amc_service_history` (`id`, `amc_id`, `amc_service_id`, `user_id`, `start_date`, `due_date`, `reference_by`, `notes`, `complete_notes`) VALUES
+(1, 8, 2, 58, '2016-09-04 06:10:45', '2016-09-06 06:10:45', 40, 'test', 'zxczxczxczxc'),
+(2, 8, 2, 58, '2016-10-01 00:00:00', '2016-10-06 00:00:00', 40, 'test', 'czczxczxczx'),
+(3, 7, 1, 58, '2016-10-09 00:00:00', '2016-11-09 06:10:45', 40, 'test', 'test');
 
 -- --------------------------------------------------------
 
@@ -434,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `forget_password` (
   `forget_token` varchar(256) NOT NULL,
   `forget_update` datetime NOT NULL,
   PRIMARY KEY (`forget_password_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `forget_password`
@@ -444,7 +458,8 @@ INSERT INTO `forget_password` (`forget_password_id`, `user_id`, `forget_token`, 
 (1, 43, '56d831e1c7a6f', '2016-03-03 13:45:21'),
 (2, 44, '56d831fecf612', '2016-03-03 13:45:50'),
 (3, 45, '56d8325a298f5', '2016-03-03 13:47:22'),
-(4, 46, '56d832755e5b1', '2016-03-03 13:47:49');
+(4, 46, '56d832755e5b1', '2016-03-03 13:47:49'),
+(5, 63, '580317f5a2a83', '2016-10-16 07:02:29');
 
 -- --------------------------------------------------------
 
@@ -896,7 +911,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `annivery` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`user_email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=61 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
 
 --
 -- Dumping data for table `user`
@@ -920,7 +935,10 @@ INSERT INTO `user` (`user_id`, `user_code`, `user_name`, `first_name`, `last_nam
 (57, '553', 'Rajat Gupta', 'Rajat', 'Gupta', '', '0', '', 'adm3232in@mail.com', 'assets/img/user/userimage_c79d350.png', 1, '', 4, '2016-10-09 05:29:45', 'regular', 50, 'assets/attachment/user/attachment_995e1fd.pdf', 'dsdsad3', '', 'sds3', 'dsds3', '32233232', '2016-10-09', '2016-10-09 00:00:00'),
 (58, '0', 'Dharmendra Deora', 'Dharmendra', 'Deora', '', '0', '', 'dharmendra@gmail.com', 'assets/img/user/userimage_21d144c.jpg', 1, 'test', 4, '2016-10-09 06:10:45', 'premium', 40, 'assets/attachment/employee/attachment_22e7bec.pdf', 'Rajmohalla', '', 'Indore', 'India', '452002', '2020-10-20', '2020-10-20 00:00:00'),
 (59, '43434', '43 43', '43', '43', '', '434', '', 'adm3232ian@mail.com', 'assets/img/user/userimage_9352bfb.jpg', 1, 'test111', 4, '2016-10-09 05:05:56', 'premium', 51, '', '434', 'dssf', '43', '43', '434', '2020-09-20', '2020-09-20 00:00:00'),
-(60, 'admin', 'Rajat Gupta', 'Rajat', 'Gupta', '', '2147483647', '', 'admin11wwws@mail.com', 'assets/img/employee/userimage_e41bbd4.jpg', 0, '', 4, '2016-10-08 19:22:51', 'premium', 50, 'assets/attachment/employee/attachment_1cf33fc.pdf', 'sdsa', '', 'dsadsa', 'dcz', '5435', '2008-10-20', '2008-10-20 00:00:00');
+(60, 'admin', 'Rajat Gupta', 'Rajat', 'Gupta', '', '2147483647', '', 'admin11wwws@mail.com', 'assets/img/employee/userimage_e41bbd4.jpg', 0, '', 4, '2016-10-08 19:22:51', 'premium', 50, 'assets/attachment/employee/attachment_1cf33fc.pdf', 'sdsa', '', 'dsadsa', 'dcz', '5435', '2008-10-20', '2008-10-20 00:00:00'),
+(61, 'C111', 'Tom Hank', 'Tom', 'Hank', 'e10adc3949ba59abbe56e057f20f883e', '9858585858', '6666666666', 'tom@gmail.com', '', 1, 'test', 4, '2016-10-15 19:31:32', 'regular', 50, '', 'Biyabani', 'Rajmohalla', 'Indore', 'India', '452002', '2016-10-15', '2016-10-15 00:00:00'),
+(62, 'C111', 'Tom Hank', 'Tom', 'Hank', '827ccb0eea8a706c4c34a16891f84e7b', '9858585858', '', 'toma@gmail.com', '', 1, 'sdasadsa', 4, '2016-10-15 19:37:30', 'regular', 50, '', 'Biyabani', '', 'Indore', 'India', '452002', '2016-10-16', '2016-10-16 00:00:00'),
+(63, '', 'gdfgdfg', '', '', '', '', '', 'gdfgdfg@gdfg.hjh', '', 1, '', 2, '2016-10-16 07:02:29', '', 0, '', '', '', '', '', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -939,7 +957,7 @@ CREATE TABLE IF NOT EXISTS `user_amc_rel` (
   `edited_at` datetime NOT NULL,
   `amc_user_status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `user_amc_rel`
@@ -947,7 +965,10 @@ CREATE TABLE IF NOT EXISTS `user_amc_rel` (
 
 INSERT INTO `user_amc_rel` (`id`, `user_id`, `amc_id`, `amc_start_date`, `amc_end_date`, `reference_by`, `created_at`, `edited_at`, `amc_user_status`) VALUES
 (1, 58, 7, '2016-10-09 06:10:45', '2017-10-09 06:10:45', 40, '2016-10-09 06:10:45', '2016-10-09 06:10:45', 1),
-(2, 58, 8, '2016-10-09 06:10:45', '2017-10-09 06:10:45', 40, '2016-10-09 06:10:45', '2016-10-09 06:10:45', 1);
+(2, 58, 8, '2016-10-09 06:10:45', '2017-10-09 06:10:45', 40, '2016-10-09 06:10:45', '2016-10-09 06:10:45', 1),
+(3, 61, 8, '2016-10-15 19:31:32', '2017-10-15 19:31:32', 50, '2016-10-15 19:31:32', '0000-00-00 00:00:00', 1),
+(4, 62, 7, '2016-10-15 19:37:30', '2017-10-15 19:37:30', 50, '2016-10-15 19:37:30', '0000-00-00 00:00:00', 1),
+(5, 62, 8, '2016-10-15 19:37:30', '2017-10-15 19:37:30', 50, '2016-10-15 19:37:30', '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -989,7 +1010,7 @@ CREATE TABLE IF NOT EXISTS `user_organisation_rel` (
   `organisation_id` int(11) NOT NULL,
   `user_organisation_update` datetime NOT NULL,
   PRIMARY KEY (`user_organisation_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `user_organisation_rel`
@@ -1007,7 +1028,8 @@ INSERT INTO `user_organisation_rel` (`user_organisation_id`, `user_id`, `organis
 (11, 47, 1, '0000-00-00 00:00:00'),
 (14, 50, 1, '0000-00-00 00:00:00'),
 (15, 51, 1, '0000-00-00 00:00:00'),
-(16, 52, 1, '0000-00-00 00:00:00');
+(16, 52, 1, '0000-00-00 00:00:00'),
+(17, 63, 5, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 

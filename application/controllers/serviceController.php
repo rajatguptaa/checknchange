@@ -133,12 +133,11 @@ class ServiceController extends CI_Controller {
 	       }
 	       if ($edit_acccess) {
 
-		    $link .= '<a data-toggle="modal" data-target="#completeModel" id="completeCheck" class="btn btn-success btn-xs completeCheck ' . $due . '"  title="Edit" data_id="' . $val['user_id'] . '" data_name="' . $val['amc_name'] . '" data_due="' . dateFormateOnly($val['due_date']) . '"  referenceby= "' . $val['reference_by'] . '"  userid="' . $val['user_id'] . '" amc_id="' . $val['amc_id'] . '" start_date="' . $val['start_date'] . '" notes="' . $val['amc_note'] . '" amc_sevice_id="' . $val['service_id'] . '"><i class="fa fa-edit"></i>Complete</a>'
-			    . '&nbsp;&nbsp;';
+		    $link .= '<a data-toggle="modal" data-target="#completeModel" id="completeCheck" class="btn btn-success btn-xs completeCheck ' . $due . '"  title="Complete" data_id="' . $val['user_id'] . '" data_name="' . $val['amc_name'] . '" data_due="' . dateFormateOnly($val['due_date']) . '"  referenceby= "' . $val['reference_by'] . '"  userid="' . $val['user_id'] . '" amc_id="' . $val['amc_id'] . '" start_date="' . $val['start_date'] . '" notes="' . $val['amc_note'] . '" amc_sevice_id="' . $val['service_id'] . '"><i class="fa fa-list-alt"></i>Complete</a>&nbsp;&nbsp;';
 	       }
 
 	       if ($delete_acccess) {
-//                $link .= '<a class="btn btn-danger btn-xs delete" title="Delete" data-id="' . $val['service_id'] . '"><i class="fa fa-trash-o"></i> View</a>';
+                $link .= '<a class="btn btn-danger btn-xs ticket" title="Ticket" data-id="' . $val['service_id'] . '" href="'.  base_url().'request/'.$val['service_id'].'"><i class="fa fa-bug"></i> Ticket</a>';
 	       }
 	       $output['aaData'][] = array(
 		   "DT_RowId" => $val['service_id'],

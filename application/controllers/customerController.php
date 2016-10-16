@@ -211,16 +211,16 @@ class CustomerController extends BaseController {
 				   $service_amc = $this->crm->rowInsert('amc_service', $amc_service);
 			      }
 			 }
-//                      $message ='';
+                      $message ='';
 //           
 //                      $org =  getUserOrginasationDetails($user_details['user_id']);
 //                      $maildata['content'] = sprintf(EMPLOYEE_SIGNUP,getUserName($user_id),$user_details['user_email'],$password);
-//                      $maildata['email_heading'] = sprintf(EMAILHEADING,$org['organisation_name']);
-//                      $message .= $this->load->view('/email_template/email_header',FALSE,TRUE);
-//                      $message .= $this->load->view('/email_template/email_view',$maildata,TRUE);
-//                      $message .= $this->load->view('/email_template/email_footer',FALSE,TRUE);
+                      $maildata['email_heading'] = sprintf(EMAILHEADING,$org['organisation_name']);
+                      $message .= $this->load->view('/email_template/email_header',FALSE,TRUE);
+                      $message .= $this->load->view('/email_template/email_view',$maildata,TRUE);
+                      $message .= $this->load->view('/email_template/email_footer',FALSE,TRUE);
 //                      
-//                    mymail($user_details['user_email'],sprintf(WELCOME_SUB,$org['organisation_name']),$message);
+                    mymail($user_details['user_email'],sprintf(WELCOME_SUB,$org['organisation_name']),$message);
 			 $this->session->set_flashdata('customer_success', 'Customer Added Successfully');
 			 redirect('customer', 'refresh');
 //                    }
