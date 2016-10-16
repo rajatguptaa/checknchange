@@ -407,6 +407,7 @@ class TicketController extends BaseController {
                     }
                 }
             } else {
+                die('test');
                 $this->load->template('/ticket/employee/create', $pagedata);
             }
         } else {

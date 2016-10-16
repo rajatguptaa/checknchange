@@ -9,6 +9,7 @@ include 'baseController.php';
 class DashboardController extends BaseController {
 
     public function index() {
+        
         if ($this->session->userdata('logged_in') == FALSE) {
             redirect('login');
         } else {
