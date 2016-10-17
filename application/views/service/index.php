@@ -245,19 +245,7 @@
 		       .search(this.value)
 		       .draw();
 	  });
-	  $("body").on("click", ".delete", function () {
-	       var id = $(this).attr("data-id");
-	       bootbox.confirm({
-		    size: 'small',
-		    message: "Are you sure?",
-		    callback: function (result) {
-			 if (result) {
-			      var url = "<?= base_url('customerController/deleteCustomer') ?>/";
-			      window.location.href = url + "/" + id;
-			 }
-		    }
-	       });
-	  });
+	
 	  $('body').on('click', '.completeCheck', function () {
 	       var data_name = $(this).attr('data_name');
 	       var data_due = $(this).attr('data_due');

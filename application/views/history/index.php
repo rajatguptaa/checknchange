@@ -44,7 +44,26 @@
                                         <th class=" no-link last"><span class="nobr">Action</span>
                                         </th>
                                     </tr>
-                                </thead>
+                                </thead><thead>
+					     <tr class="headings">
+						 <!--<th>Input</th>-->
+						  <th>
+							      <!--<input type="checkbox" class="tableflat">-->
+						       #
+						  </th>
+						  <th>Amc Name</th>
+						  <th>Customer Name</th>
+						  <th>Address</th>
+						  <th>Phone</th>
+						  <th>Email</th>
+						  <th>Service Date</th>
+						  <th>Customer Type</th>
+						  <!--<th>Updated At </th>-->
+						  <th class=" no-link last"><span class="nobr">Action</span>
+						  </th>
+					     </tr>
+					    
+					</thead>
                                 <tbody>
                                 </tbody>
                             </table>
