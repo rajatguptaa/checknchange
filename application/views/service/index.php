@@ -185,10 +185,11 @@
 	       "oLanguage": {
 		    "sProcessing": "<div class='loader-center'><img height='50' width='50' src='" + base_url + "assets/images/ajax-loader_1.gif'></div>"
 	       },
-	       "dom": 'T<"clear">lfrtip',
-	       "tableTools": {
-		    "sSwfPath": "/swf/copy_csv_xls_pdf.swf"
-	       },
+	        "dom": 'T<"clear">lfrtip',
+                tableTools: {
+                    "sSwfPath": "http://localhost/checknchange_latest/checknchange/assets/js/datatables/tools/swf/copy_cvs_xls_pdf.swf",
+            
+                }, 
 	       "ordering": true,
 	       "sAjaxSource": "<?= base_url(); ?>serviceController/getTableData",
 	       "bProcessing": true,
@@ -217,31 +218,31 @@
 
 	  $("body").on("change", "#amc_name", function () {
 
-	       cat.column(3)
+	       cat.column(2)
 		       .search(this.value)
 		       .draw();
 	  });
 	  $("body").on("change", "#customer_name", function () {
 
-	       cat.column(4)
+	       cat.column(3)
 		       .search(this.value)
 		       .draw();
 	  });
 	  $("body").on("change", "#customer_email", function () {
 
-	       cat.column(7)
+	       cat.column(6)
 		       .search(this.value)
 		       .draw();
 	  });
 	  $("body").on("change", "#service_date", function () {
 
-	       cat.column(8)
+	       cat.column(7)
 		       .search(this.value)
 		       .draw();
 	  });
 	  $("body").on("change", "#customer_type", function () {
-
-	       cat.column(9)
+              console.log(this.value);
+	       cat.column(8)
 		       .search(this.value)
 		       .draw();
 	  });

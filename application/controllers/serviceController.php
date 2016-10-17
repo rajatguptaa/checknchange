@@ -78,34 +78,34 @@ class ServiceController extends CI_Controller {
 	       $lenght = intval($_GET['iDisplayLength']);
 	  }
 
-	  if (isset($_GET['sSearch_3']) && $_GET['sSearch_3'] != "") {
+	  if (isset($_GET['sSearch_2']) && $_GET['sSearch_2'] != "") {
 
 
-	       $words = $_GET['sSearch_3'];
+	       $words = $_GET['sSearch_2'];
 	       $where .=" and ( amc.id REGEXP '$words'
                          ) ";
 	  }
-	  if (isset($_GET['sSearch_4']) && $_GET['sSearch_4'] != "") {
+	  if (isset($_GET['sSearch_3']) && $_GET['sSearch_3'] != "") {
 
-	       $words = $_GET['sSearch_4'];
+	       $words = $_GET['sSearch_3'];
+	       $where .=" and ( user.user_id REGEXP '$words'
+                         ) ";
+	  }
+	  if (isset($_GET['sSearch_6']) && $_GET['sSearch_6'] != "") {
+
+	       $words = $_GET['sSearch_6'];
 	       $where .=" and ( user.user_id REGEXP '$words'
                          ) ";
 	  }
 	  if (isset($_GET['sSearch_7']) && $_GET['sSearch_7'] != "") {
 
 	       $words = $_GET['sSearch_7'];
-	       $where .=" and ( user.user_id REGEXP '$words'
+	       $where .=" and ( amc_service.due_date REGEXP '$words'
                          ) ";
 	  }
 	  if (isset($_GET['sSearch_8']) && $_GET['sSearch_8'] != "") {
 
 	       $words = $_GET['sSearch_8'];
-	       $where .=" and ( amc_service.due_date REGEXP '$words'
-                         ) ";
-	  }
-	  if (isset($_GET['sSearch_9']) && $_GET['sSearch_9'] != "") {
-
-	       $words = $_GET['sSearch_9'];
 	       $where .=" and ( user.user_type REGEXP '$words'
                          ) ";
 	  }
