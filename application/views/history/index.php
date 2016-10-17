@@ -28,23 +28,8 @@
 
                         <div class="x_content">
                             <table id="example" class="table table-striped responsive-utilities jambo_table pull-left">
-                                <thead>
-                                    <tr class="headings">
-                                        <th>
-<!--                                                    <input type="checkbox" class="tableflat">-->
-                                            #
-                                        </th>
-                                        <th>Profile</th>
-                                        <th>Name</th>
-                                        <th>Contact No.</th>
-                                        <th>Birth Date</th>
-                                        <th>Reference By</th>
-                                        <th>Customer Type</th>
-                                        <!--<th>Updated At </th>-->
-                                        <th class=" no-link last"><span class="nobr">Action</span>
-                                        </th>
-                                    </tr>
-                                </thead><thead>
+                              
+					<thead>
 					     <tr class="headings">
 						 <!--<th>Input</th>-->
 						  <th>
@@ -79,6 +64,58 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div id="viewModel" class="modal fade" role="dialog">
+     <div class="modal-dialog">
+
+	  <!-- Modal content-->
+	  <div class="modal-content">
+	       <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal">&times;</button>
+		    <h4 class="modal-title">View Service</h4>
+	       </div>
+	       <div class="modal-body">
+		    <form id="completeForm" class="">
+			 <div class="item form-group">
+			      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employee_notes">Service Name
+			      </label>
+
+			      <div class="col-md-6 col-sm-6 col-xs-12 service_name">
+			      </div>
+			 </div>
+			 <div class="clearfix"></div>
+			 <div class="item form-group">
+			      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employee_notes">Service Due Date
+			      </label>
+			      <div class="col-md-6 col-sm-6 col-xs-12 service_due">
+
+			      </div>
+			      <input type="hidden" id="due_date" name="due_date" /> 
+			      <input type="hidden" id="amc_id" name="amc_id" /> 
+			      <input type="hidden" id="user_id" name="user_id" /> 
+			      <input type="hidden" id="referenceby" name="referenceby" /> 
+			      <input type="hidden" id="start_date" name="start_date" /> 
+			      <input type="hidden" id="notes" name="notes" /> 
+			      <input type="hidden" id="amc_sevice_id" name="amc_sevice_id" /> 
+			 </div>
+			 <div class="clearfix"></div>
+			 <div class="item form-group">
+			      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employee_notes">Notes
+			      </label>
+			      <div class="col-md-6 col-sm-6 col-xs-12">
+				   <textarea id="amc_complete_notes" placeholder="" name="user_note" class="form-control col-md-7 col-xs-12 amc_complete_notes" disabled=""><?php echo set_value('user_note'); ?></textarea>
+			      </div>
+			 </div>
+		    </form>
+		    <div class="clearfix"></div>
+	       </div>
+	       <div class="modal-footer">
+		    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	       </div>
+	  </div>
+	  <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>"/>
+     </div>
+</div>
 <script>
 
     var asInitVals = new Array();
@@ -86,50 +123,68 @@
 
     $(document).ready(function() {
         var showhide = true;
-        var cat = $("#example").dataTable({
-            "oLanguage": {
-                "sProcessing": "<div class='loader-center'><img height='50' width='50' src='" + base_url + "assets/images/ajax-loader_1.gif'></div>"
-            },
-            "ordering": true,
-            "sAjaxSource": "<?= base_url(); ?>customerController/getTableData",
-            "bProcessing": true,
-            "bServerSide": true,
-            "aLengthMenu": [[10, 20, -1], [10, 20, "All"]],
-            "iDisplayLength": 10,
-            "responsive": true,
-            "bSortCellsTop": true,
-            "bDestroy": true, //!!!--- for remove data table warning.
-            "aoColumnDefs": [
-                {"sClass": "eamil_conform aligncenter", "aTargets": [0]},
-                {"sClass": "eamil_conform aligncenter", "aTargets": [1], orderable: false},
-                {"sClass": "eamil_conform aligncenter", "aTargets": [2]},
-                {"sClass": "eamil_conform aligncenter", "aTargets": [3]},
-                {"sClass": "eamil_conform aligncenter", "aTargets": [4]},
-                {"sClass": "eamil_conform aligncenter", "aTargets": [5]},
-                {"sClass": "eamil_conform aligncenter", "aTargets": [6]},
-                {"sClass": "eamil_conform aligncenter", "aTargets": [7], orderable: false, 'render': function(data, type, row) {
-                        return data;
-                    }
-                },
-            ]}
-        );
+          var cat = $("#example").DataTable({
+	       "oLanguage": {
+		    "sProcessing": "<div class='loader-center'><img height='50' width='50' src='" + base_url + "assets/images/ajax-loader_1.gif'></div>"
+	       },
+	        "dom": 'T<"clear">lfrtip',
+                tableTools: {
+                    "sSwfPath": "http://localhost/checknchange_latest/checknchange/assets/js/datatables/tools/swf/copy_cvs_xls_pdf.swf",
+            
+                }, 
+	       "ordering": true,
+	       "sAjaxSource": "<?= base_url(); ?>historyController/getTableData",
+	       "bProcessing": true,
+	       "bServerSide": true,
+	       "aLengthMenu": [[10, 20, -1], [10, 20, "All"]],
+	       "iDisplayLength": 10,
+	       "responsive": true,
+	       "bSortCellsTop": true,
+	       "bDestroy": true, //!!!--- for remove data table warning.
+	       "aoColumnDefs": [
+		    {"sClass": "eamil_conform aligncenter", "aTargets": [0]},
+		    {"sClass": "eamil_conform aligncenter", "aTargets": [1]},
+		    {"sClass": "eamil_conform aligncenter", "aTargets": [2]},
+		    {"sClass": "eamil_conform aligncenter", "aTargets": [3]},
+		    {"sClass": "eamil_conform aligncenter", "aTargets": [4]},
+		    {"sClass": "eamil_conform aligncenter", "aTargets": [5]},
+		    {"sClass": "eamil_conform aligncenter", "aTargets": [6]},
+		    {"sClass": "eamil_conform aligncenter", "aTargets": [7], orderable: false, 'render': function (data, type, row) {
+			      return data;
+			 }
+		    },
+	       ], "fnDrawCallback": function () {
+		    $('body').find('.due-cls').closest('tr').css('background-color', '#FF6666');
+	       }}
+	  );
 
 
-        $("body").on("click", ".delete", function() {
-            var id = $(this).attr("data-id");
-            bootbox.confirm({
-                size: 'small',
-                message: "Are you sure?",
-                callback: function(result) {
-                    if (result) {
-			 console.log('test');
-                        var url = "<?= base_url('customerController/deleteCustomer') ?>/";
-                        window.location.href = url + "/" + id;
-                    }
-                }
-            });
-        });
+         $('body').on('click', '.viewCheck', function () {
+	       var data_name = $(this).attr('data_name');
+	       var data_due = $(this).attr('data_due');
+	       var user_id = $(this).attr('userid');
+	       var amc_id = $(this).attr('amc_id');
+	       var amc_note = $(this).attr('complete_note');
+	       var complete_note = $(this).attr('complete_note');
+	       var start_date = $(this).attr('start_date');
+	       var notes = $(this).attr('notes');
+	       var referenceby = $(this).attr('referenceby');
+	       var amc_sevice_id = $(this).attr('amc_sevice_id');
+	       $('body').find('.service_name').html(data_name);
+	       $('body').find('.service_due').html(data_due);
+	       $('body').find('#due_date').val(data_due);
+	       $('body').find('#user_id').val(user_id);
+	       $('body').find('#amc_id').val(amc_id);
+	       $('body').find('#amc_note').val(amc_note);
+	       $('body').find('#amc_complete_notes').val(complete_note);
+	       $('body').find('#referenceby').val(referenceby);
+	       $('body').find('#amc_sevice_id').val(amc_sevice_id);
+	       $('body').find('#start_date').val(start_date);
+	       $('body').find('#notes').val(notes);
+	  });
         
+	
+	
     });
 
 
