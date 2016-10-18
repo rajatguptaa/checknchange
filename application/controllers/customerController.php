@@ -186,6 +186,7 @@ class CustomerController extends BaseController {
 		    $user_details = getUserDetails($user_id);
 		    $maildata['user_detail'] = $user_details;
 		    $password = $this->input->post('user_password');
+		    $amc_mail = '';
 		    if ($user_id != NULL && $user_id) {
 			 if (!empty($amc)) {
 			      
@@ -209,18 +210,25 @@ class CustomerController extends BaseController {
 				   $amc_service['create_date'] = date('Y-m-d H:i:s');
 				   $amc_service['amc_note'] = $data['user_note'];
 				   $service_amc = $this->crm->rowInsert('amc_service', $amc_service);
+			      
+				$amc_mail .= '<tr><td>Amc Name</td><td>'.  getAMCByName($amc_value).'</td><td>Start Date</td><td>'.$service_date['start_date'].'</td><td>End Date</td><td>'.$service_date['end_date'].'</td></tr>';
+				   
 			      }
 			 }
                       $message ='';
-//           
-//                      $org =  getUserOrginasationDetails($user_details['user_id']);
-//                      $maildata['content'] = sprintf(EMPLOYEE_SIGNUP,getUserName($user_id),$user_details['user_email'],$password);
-                      $maildata['email_heading'] = sprintf(EMAILHEADING,$org['organisation_name']);
+		      $maildata['email_heading'] = sprintf(EMAILHEADING,'ChecknChange');
+		      $maildata['content'] = '<table><tr><td>Customer Name</td><td>'.$data['user_name'].'</td><td>Customer Type</td><td>Reguler</td><tr>'
+			      .$amc_mail
+			      . '</table>';
                       $message .= $this->load->view('/email_template/email_header',FALSE,TRUE);
                       $message .= $this->load->view('/email_template/email_view',$maildata,TRUE);
                       $message .= $this->load->view('/email_template/email_footer',FALSE,TRUE);
-//                      
-                    mymail($user_details['user_email'],sprintf(WELCOME_SUB,$org['organisation_name']),$message);
+		     
+		      
+		      echo $message;die;
+		      
+		      
+                    mymail($data['user_email'],sprintf(WELCOME_SUB,$data['user_name']),$message);
 			 $this->session->set_flashdata('customer_success', 'Customer Added Successfully');
 			 redirect('customer', 'refresh');
 //                    }
@@ -690,6 +698,21 @@ class CustomerController extends BaseController {
 	  $attachmentData = $this->crm->getData('ticket_attachment_rel', 'attachment.attachment_id,attachment.attachment_name', $where, $join, FALSE, FALSE);
 
 	  return $attachmentData;
+     }
+     function email(){
+	  $data['user_name'] = 'RAJAT GUPTA';
+	  $message ='';
+                      $maildata['email_heading'] = sprintf(EMAILHEADING,'ChecknChange');
+		      $maildata['content'] = '<table><tr><td>Customer Name</td><td>'.$data['user_name'].'</td><td>Customer Type</td><td>Reguler</td><tr>'
+			      .$amc_mail
+			      . '</table>';
+                      $message .= $this->load->view('/email_template/email_header',FALSE,TRUE);
+                      $message .= $this->load->view('/email_template/email_view',$maildata,TRUE);
+                      $message .= $this->load->view('/email_template/email_footer',FALSE,TRUE);
+		      
+		      
+		      echo $message;
+	  
      }
 
 }

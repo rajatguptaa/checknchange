@@ -42,7 +42,7 @@
                                                     <tbody>
                                                       <tr>
                                                           <td width="100%" valign="top" align="left">
-                                                              <p style="text-align: right; color: #fff;">CRM Inventry Management. | <span style="font-size: 16px;"> Inventry Management!</span>
+                                                              <p style="text-align: right; color: #fff;">Check-n-Change. | <span style="font-size: 16px;"> Check n Change!</span>
         </p></td>
                                                       </tr>
                                                     </tbody>

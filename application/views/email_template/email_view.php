@@ -51,7 +51,7 @@
                                       <tr>
                                         <td width="100%" valign="top" align="left">
 
-                                            <div style="margin: 0; outline: none; padding: 0 0 10px 0; text-align: center;"><a style="margin: 0; outline: none; padding: 10px 20px; background-color: #4cc09c; border: 3px solid #4cc09c; border-radius: 6px; color: #ffffff; font-family: verdana; font-size: 18px; display: inline-block; text-align: center; text-decoration: none; mso-hide: all;" href="<?php if(isset($link)){echo $link;} else{echo  base_url();}?>"> <span style="color:#ffffff;"> &nbsp; &nbsp;<?php if(isset($btntitle)){ echo $btntitle;}else{echo 'Login now'; }?> &nbsp;&nbsp; </span> </a> </div></td>
+                                            <!--<div style="margin: 0; outline: none; padding: 0 0 10px 0; text-align: center;"><a style="margin: 0; outline: none; padding: 10px 20px; background-color: #4cc09c; border: 3px solid #4cc09c; border-radius: 6px; color: #ffffff; font-family: verdana; font-size: 18px; display: inline-block; text-align: center; text-decoration: none; mso-hide: all;" href="<?php if(isset($link)){echo $link;} else{echo  base_url();}?>"> <span style="color:#ffffff;"> &nbsp; &nbsp;<?php if(isset($btntitle)){ echo $btntitle;}else{echo 'Login now'; }?> &nbsp;&nbsp; </span> </a> </div></td>-->
 
                                       </tr>
                                     

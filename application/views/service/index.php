@@ -174,6 +174,7 @@
 	  <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>"/>
      </div>
 </div>
+ 
 <script>
 
      var asInitVals = new Array();
@@ -185,11 +186,10 @@
 	       "oLanguage": {
 		    "sProcessing": "<div class='loader-center'><img height='50' width='50' src='" + base_url + "assets/images/ajax-loader_1.gif'></div>"
 	       },
-	        "dom": 'T<"clear">lfrtip',
-                tableTools: {
-                    "sSwfPath": "http://localhost/checknchange_latest/checknchange/assets/js/datatables/tools/swf/copy_cvs_xls_pdf.swf",
-            
-                }, 
+	       "dom": 'T<"clear">lfrtip',
+	       tableTools: {
+		    "sSwfPath": "http://localhost/checknchange_latest/checknchange/assets/js/datatables/tools/swf/copy_cvs_xls_pdf.swf",
+	       },
 	       "ordering": true,
 	       "sAjaxSource": "<?= base_url(); ?>serviceController/getTableData",
 	       "bProcessing": true,
@@ -241,12 +241,12 @@
 		       .draw();
 	  });
 	  $("body").on("change", "#customer_type", function () {
-              console.log(this.value);
+	       console.log(this.value);
 	       cat.column(8)
 		       .search(this.value)
 		       .draw();
 	  });
-	
+
 	  $('body').on('click', '.completeCheck', function () {
 	       var data_name = $(this).attr('data_name');
 	       var data_due = $(this).attr('data_due');
@@ -271,60 +271,69 @@
      });
 
      function completeCheck() {
-	  $('.completecheckbtn').attr('disabled', 'disabled');
+	  var notes = $('#amc_complete_notes').val();
 	  var base_url = $('#base_url').val();
 	  var form = $('#completeForm').serialize();
+	  if (notes != "") {
+	  $('.completecheckbtn').attr('disabled', 'disabled');
+	       $.ajax({
+		    url: base_url + 'serviceController/completeService',
+		    type: 'POST',
+		    data: form,
+		    success: function (data) {
+			 var data = $.parseJSON(data);
+			 $('.completecheckbtn').removeAttr('disabled');
+			 if (data.result) {
+			      $('#completeModel').modal('hide');
 
-	  $.ajax({
-	       url: base_url + 'serviceController/completeService',
-	       type: 'POST',
-	       data: form,
-	       success: function (data) {
-		    var data = $.parseJSON(data);
-		    $('.completecheckbtn').removeAttr('disabled');
-		    if (data.result) {
-			 $('#completeModel').modal('hide');
-			 
-			 
-			   var cat = $("#example").DataTable({
-	       "oLanguage": {
-		    "sProcessing": "<div class='loader-center'><img height='50' width='50' src='" + base_url + "assets/images/ajax-loader_1.gif'></div>"
-	       },
-	       "dom": 'T<"clear">lfrtip',
-	       "tableTools": {
-		    "sSwfPath": "/swf/copy_csv_xls_pdf.swf"
-	       },
-	       "ordering": true,
-	       "sAjaxSource": "<?= base_url(); ?>serviceController/getTableData",
-	       "bProcessing": true,
-	       "bServerSide": true,
-	       "aLengthMenu": [[10, 20, -1], [10, 20, "All"]],
-	       "iDisplayLength": 10,
-	       "responsive": true,
-	       "bSortCellsTop": true,
-	       "bDestroy": true, //!!!--- for remove data table warning.
-	       "aoColumnDefs": [
-		    {"sClass": "eamil_conform aligncenter", "aTargets": [0]},
-		    {"sClass": "eamil_conform aligncenter", "aTargets": [1]},
-		    {"sClass": "eamil_conform aligncenter", "aTargets": [2]},
-		    {"sClass": "eamil_conform aligncenter", "aTargets": [3]},
-		    {"sClass": "eamil_conform aligncenter", "aTargets": [4]},
-		    {"sClass": "eamil_conform aligncenter", "aTargets": [5]},
-		    {"sClass": "eamil_conform aligncenter", "aTargets": [6]},
-		    {"sClass": "eamil_conform aligncenter", "aTargets": [7], orderable: false, 'render': function (data, type, row) {
-			      return data;
+
+			      var cat = $("#example").DataTable({
+				   "oLanguage": {
+					"sProcessing": "<div class='loader-center'><img height='50' width='50' src='" + base_url + "assets/images/ajax-loader_1.gif'></div>"
+				   },
+				   "dom": 'T<"clear">lfrtip',
+				   "tableTools": {
+					"sSwfPath": "/swf/copy_csv_xls_pdf.swf"
+				   },
+				   "ordering": true,
+				   "sAjaxSource": "<?= base_url(); ?>serviceController/getTableData",
+				   "bProcessing": true,
+				   "bServerSide": true,
+				   "aLengthMenu": [[10, 20, -1], [10, 20, "All"]],
+				   "iDisplayLength": 10,
+				   "responsive": true,
+				   "bSortCellsTop": true,
+				   "bDestroy": true, //!!!--- for remove data table warning.
+				   "aoColumnDefs": [
+					{"sClass": "eamil_conform aligncenter", "aTargets": [0]},
+					{"sClass": "eamil_conform aligncenter", "aTargets": [1]},
+					{"sClass": "eamil_conform aligncenter", "aTargets": [2]},
+					{"sClass": "eamil_conform aligncenter", "aTargets": [3]},
+					{"sClass": "eamil_conform aligncenter", "aTargets": [4]},
+					{"sClass": "eamil_conform aligncenter", "aTargets": [5]},
+					{"sClass": "eamil_conform aligncenter", "aTargets": [6]},
+					{"sClass": "eamil_conform aligncenter", "aTargets": [7], orderable: false, 'render': function (data, type, row) {
+						  return data;
+					     }
+					},
+				   ], "fnDrawCallback": function () {
+					$('body').find('.due-cls').closest('tr').css('background-color', '#FF6666');
+				   }}
+			      );
+			 } else {
+
 			 }
-		    },
-	       ], "fnDrawCallback": function () {
-		    $('body').find('.due-cls').closest('tr').css('background-color', '#FF6666');
-	       }}
-	  );
-		    } else {
-			 
 		    }
-	       }
-	  });
+	       });
+	  } else {
 
+	       $('#amc_complete_notes').css('border', '1px solid #DE9FAB');
+	       
+//	       $(this).effect('shake', {times: 3, distance: 5}, "fast");
+
+
+
+	  }
 
      }
 </script>

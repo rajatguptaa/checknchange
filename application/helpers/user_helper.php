@@ -279,3 +279,14 @@ function getEmployee($org_id) {
 	       return FALSE;
 	  }
      }
+     
+      function getAMCByName($id){
+	   $CI = & get_instance();
+	  $user_emp_data = $CI->crm->getData('amc', 'amc_name', array('amc_status' => 1,'id'=>$id));
+
+	  if (!empty($user_emp_data)) {
+	       return $user_emp_data[0]['amc_name'];
+	  } else {
+	       return FALSE;
+	  }
+     }
