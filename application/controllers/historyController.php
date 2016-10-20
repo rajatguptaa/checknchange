@@ -77,33 +77,44 @@ class HistoryController extends CI_Controller{
 
 	  if (isset($_GET['sSearch_2']) && $_GET['sSearch_2'] != "") {
 
-
+	       if($where!=""){
+		    $where .= ' and ';
+	       }
 	       $words = $_GET['sSearch_2'];
-	       $where .=" and ( amc.id REGEXP '$words'
+	       $where .="( amc.id REGEXP '$words'
                          ) ";
 	  }
 	  if (isset($_GET['sSearch_3']) && $_GET['sSearch_3'] != "") {
-
+	       if($where!=""){
+		    $where .= ' and ';
+	       }
 	       $words = $_GET['sSearch_3'];
-	       $where .=" and ( user.user_id REGEXP '$words'
+	       $where .="( user.user_id REGEXP '$words'
                          ) ";
 	  }
 	  if (isset($_GET['sSearch_6']) && $_GET['sSearch_6'] != "") {
-
+	       if($where!=""){
+		    $where .= ' and ';
+	       }
 	       $words = $_GET['sSearch_6'];
-	       $where .=" and ( user.user_id REGEXP '$words'
+	       $where .="( user.user_id REGEXP '$words'
                          ) ";
 	  }
 	  if (isset($_GET['sSearch_7']) && $_GET['sSearch_7'] != "") {
-
+	       if($where!=""){
+		    $where .= ' and ';
+	       }
 	       $words = $_GET['sSearch_7'];
-	       $where .=" and ( amc_service_history.due_date REGEXP '$words'
+	       $where .="( amc_service_history.due_date REGEXP '$words'
                          ) ";
 	  }
 	  if (isset($_GET['sSearch_8']) && $_GET['sSearch_8'] != "") {
-
+	       if($where!=""){
+		    $where .= ' and ';
+	       }
+	       
 	       $words = $_GET['sSearch_8'];
-	       $where .=" and ( user.user_type REGEXP '$words'
+	       $where .="( user.user_type REGEXP '$words'
                          ) ";
 	  }
 	  $group_by = 'amc_service_history.id';

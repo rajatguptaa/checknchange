@@ -24,7 +24,6 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
-                      
 
                         <div class="x_content">
                             <table id="example" class="table table-striped responsive-utilities jambo_table pull-left">
@@ -47,7 +46,65 @@
 						  <th class=" no-link last"><span class="nobr">Action</span>
 						  </th>
 					     </tr>
-					    
+					       <tr>
+						  <th></th>
+	  <!--                                        <th></th> -->
+						  <th><select id="amc_name"><option value=""></option>
+							    <?php
+							    $amc = getAMCByFilterHistory(1);
+							    
+							   
+							    if (!empty($amc)) {
+								 foreach ($amc as $value) {
+								      ?>
+	  							    <option value="<?php echo $value['id']; ?>"><?php echo $value['amc_name'] ?></option>
+								      <?php
+								 }
+							    }
+							    ?>
+						       </select></th>
+						  <th><select id="customer_name"><option value=""></option>
+							    <?php
+							    $user = getUserByAccessHistory(4);
+							    if (!empty($user)) {
+								 foreach ($user as $value) {
+								      ?>
+	  							    <option value="<?php echo $value['user_id']; ?>"><?php echo $value['first_name'].' '.$value['last_name'] ?></option>
+								      <?php
+								 }
+							    }
+							    ?>
+						       </select></th>
+						  <th></th>
+						  <th></th>
+						  <th>
+						       <select id="customer_email"><option value=""></option>
+							    <?php
+							    $user = getEmailHistory(4);
+							    if ($user) {
+								 foreach ($user as $value) {
+								      ?>
+	  							    <option value="<?php echo $value['user_id']; ?>"><?php echo $value['user_email'] ?></option>
+								      <?php
+								 }
+							    }
+							    ?>
+						       </select></th>
+						  <th><select id="service_date"><option value=""></option>
+							    <?php
+							    $date = getServiceDateHistory();
+							    if ($date) {
+								 foreach ($date as $value) {
+								      ?>
+							    <option value="<?php echo $value['due_date']; ?>"><?php echo date('d-M-Y',  strtotime($value['due_date'])) ?></option>
+								      <?php
+								 }
+							    }
+							    ?>
+						       </select></th>
+						  <th><select id="customer_type"><option value=""></option><option value="premium">Premium</option><option value="regular">Regular</option></select></th>
+						  <th></th> 
+					     </tr>
 					</thead>
                                 <tbody>
                                 </tbody>
@@ -183,7 +240,37 @@
 	       $('body').find('#notes').val(notes);
 	  });
         
-	
+	  $("body").on("change", "#amc_name", function () {
+
+	       cat.column(2)
+		       .search(this.value)
+		       .draw();
+	  });
+	  $("body").on("change", "#customer_name", function () {
+
+	       cat.column(3)
+		       .search(this.value)
+		       .draw();
+	  });
+	  $("body").on("change", "#customer_email", function () {
+
+	       cat.column(6)
+		       .search(this.value)
+		       .draw();
+	  });
+	  $("body").on("change", "#service_date", function () {
+
+	       cat.column(7)
+		       .search(this.value)
+		       .draw();
+	  });
+	  $("body").on("change", "#customer_type", function () {
+	       console.log(this.value);
+	       cat.column(8)
+		       .search(this.value)
+		       .draw();
+	  });
+
 	
     });
 

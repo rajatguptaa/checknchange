@@ -24,13 +24,13 @@ class ServiceController extends CI_Controller {
 	  $pagedata['mainHeading'] = "AMC Service";
 	  // Loading CSS on view
 	  $pagedata["style_to_load"] = array(
-	      "assets/css/datatablenew/dataTables.responsive.css"
+//	      "assets/css/datatablenew/dataTables.responsive.css"
 	  );
 
 	  // Loading JS on view
 	  $pagedata['scripts_to_load'] = array(
 	      "assets/js/datatablenew/jquery.dataTables.js",
-	      "assets/js/datatablenew/dataTables.responsive.min.js",
+//	      "assets/js/datatablenew/dataTables.responsive.min.js",
 	      "assets/js/bootbox/bootbox.js"
 	  );
 	  $this->load->template('/service/index', $pagedata);

@@ -51,7 +51,7 @@
 	  <!--                                        <th></th> -->
 						  <th><select id="amc_name"><option value=""></option>
 							    <?php
-							    $amc = getAMC(1);
+							    $amc = getAMCByFilter(1);
 							    if (!empty($amc)) {
 								 foreach ($amc as $value) {
 								      ?>
@@ -63,11 +63,11 @@
 						       </select></th>
 						  <th><select id="customer_name"><option value=""></option>
 							    <?php
-							    $user = getUserByAccessLevel(4);
+							    $user = getUserByAccess(4);
 							    if (!empty($user)) {
 								 foreach ($user as $value) {
 								      ?>
-	  							    <option value="<?php echo $value['user_id']; ?>"><?php echo $value['first_name'] ?></option>
+	  							    <option value="<?php echo $value['user_id']; ?>"><?php echo $value['first_name'].' '.$value['last_name'] ?></option>
 								      <?php
 								 }
 							    }
@@ -94,7 +94,7 @@
 							    if ($date) {
 								 foreach ($date as $value) {
 								      ?>
-	  							    <option value="<?php echo $value['due_date']; ?>"><?php echo $value['due_date'] ?></option>
+							    <option value="<?php echo $value['due_date']; ?>"><?php echo date('d-M-Y',  strtotime($value['due_date'])) ?></option>
 								      <?php
 								 }
 							    }

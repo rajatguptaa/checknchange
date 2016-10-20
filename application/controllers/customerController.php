@@ -201,7 +201,7 @@ class CustomerController extends BaseController {
 				   $user_amc['amc_user_status'] = 1;
 				   $user_amc_rel = $this->crm->rowInsert('user_amc_rel', $user_amc);
 				   //service relation
-				   $service_date = amc_service_create(date('Y-m-d H:i:s'), $amc_value);
+				   $service_date = firstServiceDate(date('Y-m-d H:i:s'), $amc_value);
 				   $amc_service['user_id'] = $user_id;
 				   $amc_service['amc_id'] = $amc_value;
 				   $amc_service['start_date'] = $service_date['start_date'];
@@ -225,7 +225,7 @@ class CustomerController extends BaseController {
                       $message .= $this->load->view('/email_template/email_footer',FALSE,TRUE);
 		     
 		      
-		      echo $message;die;
+	
 		      
 		      
                     mymail($data['user_email'],sprintf(WELCOME_SUB,$data['user_name']),$message);
