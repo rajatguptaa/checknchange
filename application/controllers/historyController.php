@@ -26,11 +26,17 @@ class HistoryController extends CI_Controller{
         );
 
         // Loading JS on view
-        $pagedata['scripts_to_load'] = array(
-            "assets/js/datatablenew/jquery.dataTables.js",
-            "assets/js/datatablenew/dataTables.responsive.min.js",
-            "assets/js/bootbox/bootbox.js"
-        );
+       $pagedata['scripts_to_load'] = array(
+	      "assets/js/datatables/data-table/jquery.dataTables.min.js",
+	      "assets/js/datatables/button/buttons.colVis.min.js",
+	      "assets/js/datatables/pdfmake/build/pdfmake.min.js",
+	      "assets/js/datatables/pdfmake/build/vfs_fonts.js",
+	      "assets/js/datatables/button/buttons.html5.min.js",
+	      "assets/js/datatables/button/buttons.print.min.js",
+	      "assets/js/datatables/button/dataTables.buttons.min.js",
+//	      "assets/js/datatablenew/dataTables.responsive.min.js",
+	      "assets/js/bootbox/bootbox.js"
+	  );
         $this->load->template('/history/index', $pagedata);
     }
      public function getTableData() {

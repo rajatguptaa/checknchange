@@ -210,7 +210,29 @@
 			      return data;
 			 }
 		    },
-	       ], "fnDrawCallback": function () {
+	       ], dom: "Bfrtip",
+              buttons: [
+                {
+                  extend: "copy",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "csv",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "excel",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "pdfHtml5",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "print",
+                  className: "btn-sm"
+                },
+              ], "fnDrawCallback": function () {
 		    $('body').find('.due-cls').closest('tr').css('background-color', '#FF6666');
 	       }}
 	  );

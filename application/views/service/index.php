@@ -186,10 +186,7 @@
 	       "oLanguage": {
 		    "sProcessing": "<div class='loader-center'><img height='50' width='50' src='" + base_url + "assets/images/ajax-loader_1.gif'></div>"
 	       },
-	       "dom": 'T<"clear">lfrtip',
-	       tableTools: {
-		    "sSwfPath": "http://localhost/checknchange_latest/checknchange/assets/js/datatables/tools/swf/copy_cvs_xls_pdf.swf",
-	       },
+	      
 	       "ordering": true,
 	       "sAjaxSource": "<?= base_url(); ?>serviceController/getTableData",
 	       "bProcessing": true,
@@ -211,7 +208,29 @@
 			      return data;
 			 }
 		    },
-	       ], "fnDrawCallback": function () {
+	       ], dom: "Bfrtip",
+              buttons: [
+                {
+                  extend: "copy",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "csv",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "excel",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "pdfHtml5",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "print",
+                  className: "btn-sm"
+                },
+              ],  "fnDrawCallback": function () {
 		    $('body').find('.due-cls').closest('tr').css('background-color', '#FF6666');
 	       }}
 	  );
@@ -329,7 +348,7 @@
 
 	       $('#amc_complete_notes').css('border', '1px solid #DE9FAB');
 	       
-//	       $(this).effect('shake', {times: 3, distance: 5}, "fast");
+	       $(this).effect('shake', {times: 3, distance: 5}, "fast");
 
 
 

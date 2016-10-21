@@ -25,11 +25,22 @@ class ServiceController extends CI_Controller {
 	  // Loading CSS on view
 	  $pagedata["style_to_load"] = array(
 //	      "assets/css/datatablenew/dataTables.responsive.css"
+	      "assets/jquery-ui/jquery-ui.min.css"
 	  );
 
 	  // Loading JS on view
 	  $pagedata['scripts_to_load'] = array(
-	      "assets/js/datatablenew/jquery.dataTables.js",
+//	      "assets/js/datatablenew/jquery.dataTables.js",
+//	      "assets/js/datatables/data-table/dataTables.bootstrap.min.js",
+	      "assets/js/datatables/data-table/jquery.dataTables.min.js",
+//	      "assets/js/datatables/button/buttons.colVis.min.js",
+//	      "assets/js/datatables/button/buttons.flash.min.js",
+	      "assets/js/datatables/pdfmake/build/pdfmake.min.js",
+	      "assets/js/datatables/pdfmake/build/vfs_fonts.js",
+	      "assets/js/datatables/button/buttons.html5.min.js",
+	      "assets/js/datatables/button/buttons.print.min.js",
+	      "assets/js/datatables/button/dataTables.buttons.min.js",
+	      "assets/jquery-ui/jquery-ui.min.js",
 //	      "assets/js/datatablenew/dataTables.responsive.min.js",
 	      "assets/js/bootbox/bootbox.js"
 	  );
