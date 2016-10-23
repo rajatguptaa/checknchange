@@ -201,16 +201,18 @@ class CustomerController extends BaseController {
 				   $user_amc['amc_user_status'] = 1;
 				   $user_amc_rel = $this->crm->rowInsert('user_amc_rel', $user_amc);
 				   //service relation
+				   if($user_amc_rel>0){
 				   $service_date = firstServiceDate(date('Y-m-d H:i:s'), $amc_value);
 				   $amc_service['user_id'] = $user_id;
 				   $amc_service['amc_id'] = $amc_value;
+				   $amc_service['amc_rel'] = $user_amc_rel;
 				   $amc_service['start_date'] = $service_date['start_date'];
 				   $amc_service['due_date'] = $service_date['end_date'];
 				   $amc_service['reference_by'] = $data['reference_by'];
 				   $amc_service['create_date'] = date('Y-m-d H:i:s');
 				   $amc_service['amc_note'] = $data['user_note'];
 				   $service_amc = $this->crm->rowInsert('amc_service', $amc_service);
-			      
+				   }
 				$amc_mail .= '<tr><td>Amc Name</td><td>'.  getAMCByName($amc_value).'</td><td>Start Date</td><td>'.$service_date['start_date'].'</td><td>End Date</td><td>'.$service_date['end_date'].'</td></tr>';
 				   
 			      }
@@ -714,7 +716,7 @@ class CustomerController extends BaseController {
 		      echo $message;
 	  
      }
-
+     
 }
 
 ?>

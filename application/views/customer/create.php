@@ -215,6 +215,20 @@
                                     </div>
                                 </div>
 				<div class="clearfix"></div>
+				<div class="amc_view">
+				 <span class="section">User Amc</span>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employee_notes">
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+					 <table class="table">
+					      <tr><td>Amc Name</td><td>Start Date</td><td>End Date</td></tr>
+					 </table>
+                                    </div>
+                                </div>
+                                </div>
+				<div class="clearfix"></div>
                             
                                 <span class="section">Other Information</span>
 
@@ -298,7 +312,12 @@
                     defaultDate:moment(dateNow)
                  });   
 
-
+	$('body').on('change','#user_amc',function(){
+	    var value =  $(this).val();
+	
+	    
+     
+     });	    
 
 
 //                        });

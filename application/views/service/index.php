@@ -154,6 +154,7 @@
 			      <input type="hidden" id="start_date" name="start_date" /> 
 			      <input type="hidden" id="notes" name="notes" /> 
 			      <input type="hidden" id="amc_sevice_id" name="amc_sevice_id" /> 
+			      <input type="hidden" id="amc_rel" name="amc_rel" /> 
 			 </div>
 			 <div class="clearfix"></div>
 			 <div class="item form-group">
@@ -275,12 +276,14 @@
 	       var start_date = $(this).attr('start_date');
 	       var notes = $(this).attr('notes');
 	       var referenceby = $(this).attr('referenceby');
+	       var amc_rel_id = $(this).attr('amc_rel_id');
 	       var amc_sevice_id = $(this).attr('amc_sevice_id');
 	       $('body').find('.service_name').html(data_name);
 	       $('body').find('.service_due').html(data_due);
 	       $('body').find('#due_date').val(data_due);
 	       $('body').find('#user_id').val(user_id);
 	       $('body').find('#amc_id').val(amc_id);
+	       $('body').find('#amc_rel').val(amc_rel_id);
 	       $('body').find('#amc_note').val(amc_note);
 	       $('body').find('#referenceby').val(referenceby);
 	       $('body').find('#amc_sevice_id').val(amc_sevice_id);
@@ -309,11 +312,28 @@
 			      var cat = $("#example").DataTable({
 				   "oLanguage": {
 					"sProcessing": "<div class='loader-center'><img height='50' width='50' src='" + base_url + "assets/images/ajax-loader_1.gif'></div>"
-				   },
-				   "dom": 'T<"clear">lfrtip',
-				   "tableTools": {
-					"sSwfPath": "/swf/copy_csv_xls_pdf.swf"
-				   },
+				   }, dom: "Bfrtip",
+				      buttons: [
+					 {
+					   extend: "copy",
+					   className: "btn-sm"
+					 },
+					 {
+					   extend: "csv",
+					   className: "btn-sm"
+					 },
+					 {
+					   extend: "excel",
+					   className: "btn-sm"
+					 },
+					 {
+					   extend: "pdfHtml5",
+					   className: "btn-sm"
+					 },
+					 {
+					   extend: "print",
+					   className: "btn-sm"
+					 }],
 				   "ordering": true,
 				   "sAjaxSource": "<?= base_url(); ?>serviceController/getTableData",
 				   "bProcessing": true,

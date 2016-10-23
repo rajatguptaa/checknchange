@@ -50,7 +50,7 @@ class ServiceController extends CI_Controller {
      public function getTableData() {
 
 	  $col_sort = array("amc_service`.`due_date", "amc_service`.`id", "amc`.`amc_name", "user`.`user_name", "user`.`address2", "user`.`address1", "user`.`user_mobile", "user`.`user_email", "amc_service`.`start_date", "user`.`user_type");
-	  $select = array("amc_service.id as service_id", "amc.id as amc_id", "amc.amc_name", "user.user_name", "user.first_name", "user.address1", "user.user_mobile", 'user.user_email', "amc_service.user_id", "amc_service.start_date", "amc_service.due_date", "amc_service.reference_by", "amc_service.amc_note", "user.last_name", 'user.user_mobile', 'user.dob', 'amc_note', 'user.user_type');
+	  $select = array("amc_service.id as service_id", "amc.id as amc_id","amc_rel", "amc.amc_name", "user.user_name", "user.first_name", "user.address1", "user.user_mobile", 'user.user_email', "amc_service.user_id", "amc_service.start_date", "amc_service.due_date", "amc_service.reference_by", "amc_service.amc_note", "user.last_name", 'user.user_mobile', 'user.dob', 'amc_note', 'user.user_type');
 
 	  $order_by = "amc_service.due_date";
 	  $order = 'ASC';
@@ -144,11 +144,11 @@ class ServiceController extends CI_Controller {
 	       }
 	       if ($edit_acccess) {
 
-		    $link .= '<a data-toggle="modal" data-target="#completeModel" id="completeCheck" class="btn btn-success btn-xs completeCheck ' . $due . '"  title="Complete" data_id="' . $val['user_id'] . '" data_name="' . $val['amc_name'] . '" data_due="' . dateFormateOnly($val['due_date']) . '"  referenceby= "' . $val['reference_by'] . '"  userid="' . $val['user_id'] . '" amc_id="' . $val['amc_id'] . '" start_date="' . $val['start_date'] . '" notes="' . $val['amc_note'] . '" amc_sevice_id="' . $val['service_id'] . '"><i class="fa fa-list-alt"></i>Complete</a>&nbsp;&nbsp;';
+		    $link .= '<a data-toggle="modal" data-target="#completeModel" id="completeCheck" class="btn btn-success btn-xs completeCheck ' . $due . '"  title="Complete" data_id="' . $val['user_id'] . '" data_name="' . $val['amc_name'] . '" data_due="' . dateFormateOnly($val['due_date']) . '"  referenceby= "' . $val['reference_by'] . '"  userid="' . $val['user_id'] . '" amc_id="' . $val['amc_id'] . '" start_date="' . $val['start_date'] . '" notes="' . $val['amc_note'] . '" amc_sevice_id="' . $val['service_id'] . '" amc_rel_id="' . $val['amc_rel'] . '" ><i class="fa fa-list-alt"></i>Complete</a>&nbsp;&nbsp;';
 	       }
 
 	       if ($delete_acccess) {
-                $link .= '<a class="btn btn-danger btn-xs ticket" title="Ticket" data-id="' . $val['service_id'] . '" href="'.  base_url().'request/'.$val['service_id'].'"><i class="fa fa-bug"></i> Ticket</a>';
+                $link .= '<a class="btn btn-danger btn-xs ticket" title="Ticket" data-id="' . $val['service_id'] . '" href="'.base_url().'request/'.$val['service_id'].'"><i class="fa fa-bug"></i> Ticket</a>';
 	       }
 	       $output['aaData'][] = array(
 		   "DT_RowId" => $val['service_id'],
@@ -181,6 +181,7 @@ class ServiceController extends CI_Controller {
 	      'reference_by' => $post['referenceby'],
 	      'notes' => $post['notes'],
 	      'complete_notes' => $post['user_note'],
+	      'amc_rel' => $post['amc_rel'],
 	  );
 	  $where = array('amc_service.id' => $post['amc_sevice_id'], 'user_id' => $post['user_id']);
 	  $arr_data = $this->crm->getData($this->tablename, '*', $where);
@@ -188,11 +189,25 @@ class ServiceController extends CI_Controller {
 	  $arr_data[0]['complete_notes'] = $post['user_note'];
 	  $arr_data[0]['notes'] = $arr_data[0]['amc_note'];
 	  $arr_data[0]['amc_service_id'] = $arr_data[0]['id'];
+	  $arr_data[0]['complete_date'] = date('Y-m-d H:i:s');
+	  unset($arr_data[0]['create_date']);
 	  unset($arr_data[0]['create_date']);
 	  unset($arr_data[0]['amc_note']);
 	  unset($arr_data[0]['edited_at']);
 	  unset($arr_data[0]['id']);
+	  unset($arr_data[0]['amc_rel']);
+	  $count = 0;
+	  $arr_data_rel = $this->crm->getData('user_amc_rel', '*', array('id'=>$post['amc_rel']));
+	  if(!empty($arr_data_rel)){
+	  $count = $arr_data_rel[0]['amc_count']+1;
+	  }
 	  
+	  
+//	  echo $count;die;
+	  if($count>0){
+	       
+	       $this->crm->rowUpdate('user_amc_rel', array('amc_count'=>$count), array('id'=>$post['amc_rel']));
+	  }
 	  $this->crm->rowInsert('amc_service_history', $arr_data[0]);
 	  $date = amc_service_create($post['due_date'], $post['amc_id']);
 	  $date_logic = array('start_date' => $date['start_date'], 'due_date' => $date['end_date']);

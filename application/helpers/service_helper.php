@@ -22,7 +22,15 @@ function amc_date_create($str_date, $amc_id) {
 }
 
 function amc_service_create($start_date, $amc_id) {
-
+     
+//     $CI = & get_instance();
+//     $amc = $CI->crm->getData('amc','amc_visit',array('id'=>$amc_id));
+//      
+//     $amc = (int)ceil(12/$amc[0]['amc_visit']);
+//     var_dump($amc);
+     
+     
+     
      $end_date = '';
      switch ($amc_id) {
 	  case '7':
@@ -55,7 +63,9 @@ function amc_service_create($start_date, $amc_id) {
 }
 
 function firstServiceDate($start_date, $amc_id) {
-      switch ($amc_id) {
+     
+           
+     switch ($amc_id) {
 	  case '7':
 	       $end_date = date('Y-m-d H:i:s', strtotime("+3 day", strtotime($start_date)));
 	       $start_date = date('Y-m-d H:i:s', strtotime($start_date));
