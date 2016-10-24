@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2016 at 08:13 AM
+-- Generation Time: Oct 24, 2016 at 07:07 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -128,7 +128,7 @@ INSERT INTO `amc` (`id`, `amc_name`, `amc_code`, `amc_duration`, `amc_visit`, `a
 (7, 'AMC - RO MAINTENANCE', 101, '1', 4, ' CLEANING AND SERVICE COMMITMENT', 'PART REPLACEMENT WITHOUT LABOUR CHARGE - CHANGING MAM-BRAN,CARBON AND FILTER REPLACEMENT LABOUR FREE (WATER  HARDNESS  LAB TEST*)', 'assets/img/package/userimage_2890633.jpg', 1, '2016-09-16 20:29:15', 'primary'),
 (8, 'AMC - ELECTRIC/INVERTER BATTERY', 102, '1', 12, 'WITHOUT MATERIAL CHANGING SWITCHES ,ELECTRIC WIRING FAULT DETECTION AND SOLUTION ,HANGING FAN AND REPLACEMENT OF LIGHTS BULB TUBE AT HOME ( CIVIL WORK NOT A PART OF AMC* ITS COST YOU EXTRA ON SITE TO SITE CONDITION)', 'PART REPLACEMENT WITHOUT LABOUR CHARGE - AS PER MARKET RATE + 30 RS + Actual TRANSPORTATION CHARGES (ONLY BRANDED MATERIAL WILL BE USED)IF CUSTOMER WANTS TO PROVIDE REPLACING PART THEN WE WILL FIX THE SAME FREE OF COST (15 DAYS SERVICE WARRANTY NOT CONSIDER)', 'assets/img/package/userimage_897a4be.jpg', 1, '2016-09-16 20:30:30', 'primary'),
 (9, 'PLUMBER', 103, '1', 12, 'CRITERIA - WITHOUT MATERIAL CHANGING TAPS AND SHOWERS ,LEAKAGE DETECTION AND SOLUTION OUTER FITTINGS( IN COURSE OF LEAKAGE REPAIR OR FITTINGS WALL AND TILES WILL BROKE OR DAMAGE WHICH IS PART OF SOLUTION FOR THAT ', 'PART REPLACEMENT WITHOUT LABOUR CHARGE - AS PER MARKET RATE + 30 RS +Actual TRANSPORTATION CHARGES (ONLY BRANDED MATERIAL WILL BE USED)IF CUSTOMER WANTS TO PROVIDE REPLACING PART THEN WE WILL FIX THE SAME FREE OF COST (15 DAYS SERVICE WARRANTY NOT CONSIDER)', 'assets/img/package/userimage_545fe9e.jpg', 1, '2016-09-16 20:31:54', 'primary'),
-(10, 'AMC - CARPENTER + MODULAR KITCHEN', 104, '1', 12, 'WITHOUT MATERIAL CHANGING DOOR WINDOWS,LOCKS HOLE DROPS FITTINGS MODULAR KITCHEN REPAIRING ( IN COURSE OF REPAIR OR FITTINGS WALL AND TILES WILL BROKE OR DAMAGE WHICH IS PART OF SOLUTION FOR THAT ', 'PART REPLACEMENT WITHOUT LABOUR CHARGE - AS PER MARKET RATE +  30Rs + ACTUAL TRANSPORTATION CHARGES (ONLY BRANDED MATERIAL WILL BE USED)IF CUSTOMER WANTS TO PROVIDE REPLACING PART THEN WE WILL FIX THE SAME FREE OF COST (15 DAYS SERVICE WARRANTY NOT CONSIDER)', 'assets/img/package/userimage_752d25a.jpg', 0, '2016-09-22 10:56:59', 'primary');
+(10, 'AMC - CARPENTER + MODULAR KITCHEN', 104, '1', 12, 'WITHOUT MATERIAL CHANGING DOOR WINDOWS,LOCKS HOLE DROPS FITTINGS MODULAR KITCHEN REPAIRING ( IN COURSE OF REPAIR OR FITTINGS WALL AND TILES WILL BROKE OR DAMAGE WHICH IS PART OF SOLUTION FOR THAT ', 'PART REPLACEMENT WITHOUT LABOUR CHARGE - AS PER MARKET RATE +  30Rs + ACTUAL TRANSPORTATION CHARGES (ONLY BRANDED MATERIAL WILL BE USED)IF CUSTOMER WANTS TO PROVIDE REPLACING PART THEN WE WILL FIX THE SAME FREE OF COST (15 DAYS SERVICE WARRANTY NOT CONSIDER)', 'assets/img/package/userimage_752d25a.jpg', 1, '2016-09-22 10:56:59', 'primary');
 
 -- --------------------------------------------------------
 
@@ -140,6 +140,7 @@ CREATE TABLE IF NOT EXISTS `amc_service` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `amc_id` int(11) NOT NULL,
+  `amc_rel` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
   `due_date` datetime NOT NULL,
   `reference_by` int(11) NOT NULL,
@@ -153,11 +154,11 @@ CREATE TABLE IF NOT EXISTS `amc_service` (
 -- Dumping data for table `amc_service`
 --
 
-INSERT INTO `amc_service` (`id`, `user_id`, `amc_id`, `start_date`, `due_date`, `reference_by`, `create_date`, `amc_note`, `edited_at`) VALUES
-(1, 58, 7, '2016-12-04 00:00:00', '2016-12-09 00:00:00', 40, '2016-10-09 06:10:45', 'test', '0000-00-00 00:00:00'),
-(2, 58, 8, '2016-11-01 00:00:00', '2016-11-06 00:00:00', 40, '2016-10-09 06:10:45', 'test', '0000-00-00 00:00:00'),
-(3, 62, 7, '2016-11-10 19:37:30', '2016-11-15 19:37:30', 50, '2016-10-15 19:37:30', 'sdasadsa', '0000-00-00 00:00:00'),
-(4, 62, 8, '2016-10-11 19:37:30', '2016-11-15 19:37:30', 50, '2016-10-15 19:37:30', 'sdasadsa', '0000-00-00 00:00:00');
+INSERT INTO `amc_service` (`id`, `user_id`, `amc_id`, `amc_rel`, `start_date`, `due_date`, `reference_by`, `create_date`, `amc_note`, `edited_at`) VALUES
+(1, 69, 7, 1, '2017-02-11 00:00:00', '2017-02-26 00:00:00', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00'),
+(2, 69, 8, 2, '2016-11-21 00:00:00', '2016-11-26 00:00:00', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00'),
+(3, 69, 9, 3, '2016-10-23 09:19:22', '2016-10-26 09:19:22', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00'),
+(4, 69, 10, 4, '2016-10-23 09:19:22', '2016-10-26 09:19:22', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -175,17 +176,17 @@ CREATE TABLE IF NOT EXISTS `amc_service_history` (
   `reference_by` int(11) NOT NULL,
   `notes` varchar(500) NOT NULL,
   `complete_notes` varchar(255) NOT NULL,
+  `complete_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `amc_service_history`
 --
 
-INSERT INTO `amc_service_history` (`id`, `amc_id`, `amc_service_id`, `user_id`, `start_date`, `due_date`, `reference_by`, `notes`, `complete_notes`) VALUES
-(1, 8, 2, 58, '2016-09-04 06:10:45', '2016-09-06 06:10:45', 40, 'test', 'zxczxczxczxc'),
-(2, 8, 2, 58, '2016-10-01 00:00:00', '2016-10-06 00:00:00', 40, 'test', 'czczxczxczx'),
-(3, 7, 1, 58, '2016-10-09 00:00:00', '2016-11-09 06:10:45', 40, 'test', 'test');
+INSERT INTO `amc_service_history` (`id`, `amc_id`, `amc_service_id`, `user_id`, `start_date`, `due_date`, `reference_by`, `notes`, `complete_notes`, `complete_date`) VALUES
+(1, 7, 1, 69, '2016-10-23 09:19:22', '2016-10-26 09:19:22', 68, 'test', 'tesing', '2016-10-23 09:30:37'),
+(2, 8, 2, 69, '2016-10-23 09:19:22', '2016-10-26 09:19:22', 68, 'test', 'test', '2016-10-23 09:33:00');
 
 -- --------------------------------------------------------
 
@@ -911,34 +912,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   `annivery` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`user_email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_code`, `user_name`, `first_name`, `last_name`, `user_password`, `user_mobile`, `user_phone`, `user_email`, `user_profile`, `user_status`, `user_note`, `user_access_level`, `user_update`, `user_type`, `reference_by`, `document`, `address1`, `address2`, `user_city`, `user_country`, `user_postcode`, `dob`, `annivery`) VALUES
-(39, '0', 'sandy', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '0', '4444444444', 'ffd@dfd.jhj', 'assets/img/employee/userimage_7b5a1e3.jpg', 0, '', 3, '2016-09-13 20:25:48', '0', 0, '', 'dsadsa', '', 'dsd', 'dssa', '5435', '0000-00-00', '0000-00-00 00:00:00'),
-(40, '0', 'maddy2222', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '0', '1234567878', 'maddy1sas@me.com', 'assets/img/employee/userimage_ac450d1.jpg', 0, '', 3, '2016-09-13 20:26:09', '0', 0, '', 'test', '', 'rttr', 'rewrew', 'trtr', '0000-00-00', '0000-00-00 00:00:00'),
-(43, '0', 'Customer 1 ', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '0', '', 'Customer1@me.com', '', 1, '', 2, '2016-03-03 13:45:21', '0', 51, '', '', '', '', '', '', '0000-00-00', '0000-00-00 00:00:00'),
-(45, '0', 'Customer 3', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '0', '', 'Customer3@me.com', '', 1, '', 2, '2016-03-03 13:47:22', '0', 0, '', '', '', '', '', '', '0000-00-00', '0000-00-00 00:00:00'),
-(46, '0', 'Customer 4', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '0', '', 'rajat1@ignisitsolutions.com', '', 1, '', 2, '2016-03-21 12:23:11', '0', 0, '', '', '', '', '', '', '0000-00-00', '0000-00-00 00:00:00'),
 (47, '0', 'dsadsa', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '0', '12345678933', 'admin@mail.com', 'assets/img/user/userimage_3958bec.jpg', 1, 'dsdsa', 1, '2016-09-18 18:15:23', '0', 51, '', '543543', '', '54353', '5435', '5434534', '0000-00-00', '0000-00-00 00:00:00'),
-(49, '3232', 'dsadsa', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '0', '3333333333', '34343@wew.fgf', 'assets/img/employee/userimage_0555bb3.jpg', 1, 'fdfdf', 3, '2016-09-13 20:30:25', '0', 0, '', 'dsadsa', 'dsadsa', 'dsad', 'dsad', '4234', '0000-00-00', '0000-00-00 00:00:00'),
-(50, '0', 'dsadsa', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '0', '3432432423', 'admin113@mail.com', 'assets/img/employee/userimage_b7ab1aa.jpg', 1, '', 3, '2016-09-18 19:51:18', '0', 0, '', '3432', '', '432432', '3432', '4324', '0000-00-00', '0000-00-00 00:00:00'),
-(51, '0', 'dsadsa', 'test', 'dsfdsf', '827ccb0eea8a706c4c34a16891f84e7b', '0', '343432', 'admin113sss@mail.com', 'assets/img/employee/userimage_8b519f1.jpg', 1, '', 3, '2016-09-18 20:15:51', '0', 0, 'assets/attachment/employeeattachment_58473c0.pdf', 'dsf', '', 'rer', 'fdsf', '4234', '0000-00-00', '0000-00-00 00:00:00'),
-(52, '0', 'ewre', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '0', '432', 'admin1122www@mail.com', 'assets/img/employee/userimage_aa40df1.jpg', 1, '', 3, '2016-09-18 20:17:40', '0', 0, 'assets/attachment/employee/attachment_5691542.pdf', '32423', '4324', '434', '43', '3243', '0000-00-00', '0000-00-00 00:00:00'),
-(53, '0', 'maddy2222', 'Moddy', 'Lee', '827ccb0eea8a706c4c34a16891f84e7b', '0', '4343', 'admin11www@mail.com', 'assets/img/employee/userimage_45b865d.jpg', 1, '4324', 3, '2016-09-18 20:21:53', '0', 0, 'assets/attachment/employee/attachment_93c91c3.pdf', '4343', '432', '432432', '4324', '4324', '0000-00-00', '0000-00-00 00:00:00'),
-(54, '0', 'maddy2222', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '0', '4343', 'admin11w3232ww@mail.com', 'assets/img/employee/userimage_fe4fdc4.jpg', 0, '', 3, '2016-09-22 11:04:07', '0', 0, 'assets/attachment/employee/attachment_29a3d25.pdf', '4343', '', '432432', '4324', '4324', '0000-00-00', '0000-00-00 00:00:00'),
 (55, '0', 'maddy2222', 'Jolly', 'Yong', '827ccb0eea8a706c4c34a16891f84e7b', '0', '4343', 'admin11wwasaw@mail.com', 'assets/img/employee/userimage_2ef1388.jpg', 0, '', 4, '2016-09-18 20:45:07', '4', 0, 'assets/attachment/employee/attachment_8a7129b.pdf', '4343', '', '432432', '4324', '4324', '0000-00-00', '0000-00-00 00:00:00'),
-(56, '23232', 'Rajat Gupta', 'Rajat', 'Gupta', '', '9898989898', '454', 'sdsd@yt.jhjhj', 'assets/img/user/userimage_d0231cd.jpg', 1, 'test', 4, '2016-10-09 05:13:14', 'regular', 39, 'assets/attachment/employee/attachment_ae482b6.pdf', 'erere', 'dsfds', 'dfds', 'fdsfd', '53543', '2020-10-20', '2020-10-20 00:00:00'),
-(57, '553', 'Rajat Gupta', 'Rajat', 'Gupta', '', '0', '', 'adm3232in@mail.com', 'assets/img/user/userimage_c79d350.png', 1, '', 4, '2016-10-09 05:29:45', 'regular', 50, 'assets/attachment/user/attachment_995e1fd.pdf', 'dsdsad3', '', 'sds3', 'dsds3', '32233232', '2016-10-09', '2016-10-09 00:00:00'),
-(58, '0', 'Dharmendra Deora', 'Dharmendra', 'Deora', '', '0', '', 'dharmendra@gmail.com', 'assets/img/user/userimage_21d144c.jpg', 1, 'test', 4, '2016-10-09 06:10:45', 'premium', 40, 'assets/attachment/employee/attachment_22e7bec.pdf', 'Rajmohalla', '', 'Indore', 'India', '452002', '2020-10-20', '2020-10-20 00:00:00'),
-(59, '43434', '43 43', '43', '43', '', '434', '', 'adm3232ian@mail.com', 'assets/img/user/userimage_9352bfb.jpg', 1, 'test111', 4, '2016-10-09 05:05:56', 'premium', 51, '', '434', 'dssf', '43', '43', '434', '2020-09-20', '2020-09-20 00:00:00'),
-(60, 'admin', 'Rajat Gupta', 'Rajat', 'Gupta', '', '2147483647', '', 'admin11wwws@mail.com', 'assets/img/employee/userimage_e41bbd4.jpg', 0, '', 4, '2016-10-08 19:22:51', 'premium', 50, 'assets/attachment/employee/attachment_1cf33fc.pdf', 'sdsa', '', 'dsadsa', 'dcz', '5435', '2008-10-20', '2008-10-20 00:00:00'),
-(61, 'C111', 'Tom Hank', 'Tom', 'Hank', 'e10adc3949ba59abbe56e057f20f883e', '9858585858', '6666666666', 'tom@gmail.com', '', 1, 'test', 4, '2016-10-15 19:31:32', 'regular', 50, '', 'Biyabani', 'Rajmohalla', 'Indore', 'India', '452002', '2016-10-15', '2016-10-15 00:00:00'),
-(62, 'C111', 'Tom Hank', 'Tom', 'Hank', '827ccb0eea8a706c4c34a16891f84e7b', '9858585858', '', 'toma@gmail.com', '', 1, 'sdasadsa', 4, '2016-10-15 19:37:30', 'regular', 50, '', 'Biyabani', '', 'Indore', 'India', '452002', '2016-10-16', '2016-10-16 00:00:00'),
-(63, '', 'gdfgdfg', '', '', '', '', '', 'gdfgdfg@gdfg.hjh', '', 1, '', 2, '2016-10-16 07:02:29', '', 0, '', '', '', '', '', '', NULL, NULL);
+(68, 'Misra', 'Rajendra', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '', '987888888', 'sadsa@gmail.com', '', 1, '', 3, '2016-10-23 09:18:43', '', 0, 'assets/attachment/employee/attachment_802a5fd.jpg', 'Yogesh', '', 'Jabalpur', 'India', '452002', NULL, NULL),
+(69, 'F4343', 'Rajat Gupta', 'Rajat', 'Gupta', '827ccb0eea8a706c4c34a16891f84e7b', '9806803545', '', 'ravi@mail.com', '', 1, 'test', 4, '2016-10-23 09:19:22', 'premium', 68, '', 'Biyabani', '', 'Indore', 'India', '452002', '2016-10-23', '2016-10-23 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -956,19 +940,19 @@ CREATE TABLE IF NOT EXISTS `user_amc_rel` (
   `created_at` datetime NOT NULL,
   `edited_at` datetime NOT NULL,
   `amc_user_status` tinyint(1) NOT NULL,
+  `amc_count` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `user_amc_rel`
 --
 
-INSERT INTO `user_amc_rel` (`id`, `user_id`, `amc_id`, `amc_start_date`, `amc_end_date`, `reference_by`, `created_at`, `edited_at`, `amc_user_status`) VALUES
-(1, 58, 7, '2016-10-09 06:10:45', '2017-10-09 06:10:45', 40, '2016-10-09 06:10:45', '2016-10-09 06:10:45', 1),
-(2, 58, 8, '2016-10-09 06:10:45', '2017-10-09 06:10:45', 40, '2016-10-09 06:10:45', '2016-10-09 06:10:45', 1),
-(3, 61, 8, '2016-10-15 19:31:32', '2017-10-15 19:31:32', 50, '2016-10-15 19:31:32', '0000-00-00 00:00:00', 1),
-(4, 62, 7, '2016-10-15 19:37:30', '2017-10-15 19:37:30', 50, '2016-10-15 19:37:30', '0000-00-00 00:00:00', 1),
-(5, 62, 8, '2016-10-15 19:37:30', '2017-10-15 19:37:30', 50, '2016-10-15 19:37:30', '0000-00-00 00:00:00', 1);
+INSERT INTO `user_amc_rel` (`id`, `user_id`, `amc_id`, `amc_start_date`, `amc_end_date`, `reference_by`, `created_at`, `edited_at`, `amc_user_status`, `amc_count`) VALUES
+(1, 69, 7, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 1),
+(2, 69, 8, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 1),
+(3, 69, 9, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 0),
+(4, 69, 10, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 0);
 
 -- --------------------------------------------------------
 

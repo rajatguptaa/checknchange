@@ -43,13 +43,13 @@ define('GET_YEAR_CONSTANT','Y');
 define('GET_TIME_CONSTANT','h:i A');
 
 
-define('SMTP_HOST', "santro.websitewelcome.com");
-define('IMAP_HOST', "{santro.websitewelcome.com:993/imap/ssl}INBOX");
+define('SMTP_HOST', "checknchange.websitewelcome.com");
+define('IMAP_HOST', "{checknchange.websitewelcome.com:993/imap/ssl}INBOX");
 define("SMTP_PORT", "465");
-define("IMAP_USERNAME", "support@restroerp.com");
-define("SMTP_USERNAME", "support@restroerp.com");
-define("SMTP_PASSWORD", "support123");
-define("FROM_EMAIL", "support@ticketcrm.com");
+define("IMAP_USERNAME", "support@checknchange.com");
+define("SMTP_USERNAME", "support@checknchange.com");
+define("SMTP_PASSWORD", "checknchange123");
+define("FROM_EMAIL", "support@checknchange.com");
 require_once 'email_constants.php';
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
