@@ -30,12 +30,12 @@ $access_level = $user['user_access_level'];
                             <td>
                             <input type="checkbox" class="select_id" value="<?php echo $val['ticket_id']; ?>"></td>
                             <td class="text-capitalize">
-                                <a data-id="<?php echo $val['ticket_id']; ?>" href="#" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="<?php echo $val['ticket_status']; ?> popover-anchor ticket_edit"><?php echo substr($val['ticket_status'], 0, 1); ?></a>
+                                <a data-id="<?php echo $val['ticket_id']; ?>" href="#" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['amc_ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="<?php echo $val['ticket_status']; ?> popover-anchor ticket_edit"><?php echo substr($val['ticket_status'], 0, 1); ?></a>
             <?php echo $val['ticket_subject']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket_number']; ?></td>
                             <td class="text-capitalize"><?php echo getUserName($val['user_id']); ?></td>
                             <td><?php echo dateFormate($val['ticket_updated']); ?></td>
-                            <td class="text-capitalize"><?php echo $val['ticket_type']; ?></td>
+                            <td class="text-capitalize"><?php echo $val['amc_ticket_type']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket_priority']; ?></td>
                             <td class="text-capitalize col-pad">
                                 <?php if(access_check("ticket", "view")) :  ?>
@@ -80,7 +80,7 @@ $access_level = $user['user_access_level'];
                         <tr>
                             <td><input type="checkbox" class="select_id" value="<?php echo $val['ticket_id']; ?>"></td>
                             <td class="text-capitalize">
-                                <a href="#" data-id="<?php echo $val['ticket_id']; ?>" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="ticket_edit <?php echo $val['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket_status'], 0, 1); ?></a>
+                                <a href="#" data-id="<?php echo $val['ticket_id']; ?>" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['amc_ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="ticket_edit <?php echo $val['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket_status'], 0, 1); ?></a>
             <?php echo $val['ticket_subject']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket_number']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket_creater']; ?></td>
@@ -147,7 +147,7 @@ $access_level = $user['user_access_level'];
                         <tr>
                             <td><input type="checkbox" class="select_id" value="<?php echo $val['ticket_id']; ?>"></td>
                             <td class="text-capitalize">
-                                <a href="#" data-id="<?php echo $val['ticket_id']; ?>" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="ticket_edit <?php echo $val['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket_status'], 0, 1); ?>
+                                <a href="#" data-id="<?php echo $val['ticket_id']; ?>" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['amc_ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="ticket_edit <?php echo $val['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket_status'], 0, 1); ?>
                                 </a> 
             <?php echo $val['ticket_subject']; ?>
                             </td>
@@ -202,7 +202,7 @@ $access_level = $user['user_access_level'];
                         <tr>
                              
                             <td class="text-capitalize">
-                                <a href="#" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>"class="ticket_edit <?php echo $val['ticket_history_status']; ?> popover-anchor"><?php echo substr($val['ticket_history_status'], 0, 1); ?></a>
+                                <a href="#" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['amc_ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>"class="ticket_edit <?php echo $val['ticket_history_status']; ?> popover-anchor"><?php echo substr($val['ticket_history_status'], 0, 1); ?></a>
             <?php echo $val['ticket_subject']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket_number']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket_creater']; ?></td>
@@ -300,7 +300,7 @@ $access_level = $user['user_access_level'];
                         <tr>
                              <td><input type="checkbox" class="select_id" value="<?php echo $val['ticket_id']; ?>"></td>
                             <td class="text-capitalize">
-                                <a data-id="<?php echo $val['ticket_id']; ?>" href="#" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="ticket_edit <?php echo $val['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket_status'], 0, 1); ?>
+                                <a data-id="<?php echo $val['ticket_id']; ?>" href="#" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['amc_ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="ticket_edit <?php echo $val['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket_status'], 0, 1); ?>
                                 </a>
                             <?php echo $val['ticket_subject']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket_number']; ?></td>
@@ -362,7 +362,7 @@ $access_level = $user['user_access_level'];
                         <tr>
                             
                             <td class="text-capitalize">
-                                <a data-id="<?php echo $val['ticket_id']; ?>" href="#" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="ticket_edit <?php echo $val['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket_status'], 0, 1); ?></a>
+                                <a data-id="<?php echo $val['ticket_id']; ?>" href="#" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['amc_ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="ticket_edit <?php echo $val['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket_status'], 0, 1); ?></a>
                                 <?php echo $val['ticket_subject']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket_number']; ?></td>
                             <td><?php echo dateFormate($val['ticket_updated']); ?></td>
@@ -428,7 +428,7 @@ $access_level = $user['user_access_level'];
                         <tr >
                              <td><input type="checkbox" class="select_id" value="<?php echo $val['ticket_id']; ?>"></td>
                             <td class="text-capitalize">
-                                <a data-id="<?php echo $val['ticket_id']; ?>" href="#" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="ticket_edit <?php echo $val['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket_status'], 0, 1); ?></a>
+                                <a data-id="<?php echo $val['ticket_id']; ?>" href="#" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['amc_ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="ticket_edit <?php echo $val['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket_status'], 0, 1); ?></a>
             <?php echo $val['ticket_subject']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket_number']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket_creater']; ?></td>
@@ -473,7 +473,7 @@ $access_level = $user['user_access_level'];
                         <tr >
                              <td><input type="checkbox" class="select_id" value="<?php echo $val['ticket_id']; ?>"></td>
                             <td class="text-capitalize">
-                                <a data-id="<?php echo $val['ticket']['ticket_id']; ?>" href="#" data-popover="true" data-html="true" data-toggle="popover" data-content='<?php echo '<span class=' . $val['ticket']['ticket_status'] . '>' . $val['ticket']['ticket_status'] . '</span> ' . $val['ticket']['ticket_type'] . ' ' . $val['ticket']['ticket_number'] . '<br><br><b>' . $val['ticket']['ticket_subject'] . '</b><br>' . $val['ticket']['ticket_description']; ?>' class="ticket_edit <?php echo $val['ticket']['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket']['ticket_status'], 0, 1); ?></a>
+                                <a data-id="<?php echo $val['ticket']['ticket_id']; ?>" href="#" data-popover="true" data-html="true" data-toggle="popover" data-content='<?php echo '<span class=' . $val['ticket']['ticket_status'] . '>' . $val['ticket']['ticket_status'] . '</span> ' . $val['ticket']['amc_ticket_type'] . ' ' . $val['ticket']['ticket_number'] . '<br><br><b>' . $val['ticket']['ticket_subject'] . '</b><br>' . $val['ticket']['ticket_description']; ?>' class="ticket_edit <?php echo $val['ticket']['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket']['ticket_status'], 0, 1); ?></a>
                         <?php echo $val['ticket']['ticket_subject']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket']['ticket_number']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket']['ticket_creater']; ?></td>
@@ -520,12 +520,12 @@ $access_level = $user['user_access_level'];
                         <tr>
                              <td><input type="checkbox" class="select_id" value="<?php echo $val['ticket_id']; ?>"></td>
                             <td class="text-capitalize">
-                                <a data-id="<?php echo $val['ticket_id']; ?>" href="#" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="<?php echo $val['ticket_status']; ?> popover-anchor ticket_edit"><?php echo substr($val['ticket_status'], 0, 1); ?></a>
+                                <a data-id="<?php echo $val['ticket_id']; ?>" href="#" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['amc_ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="<?php echo $val['ticket_status']; ?> popover-anchor ticket_edit"><?php echo substr($val['ticket_status'], 0, 1); ?></a>
             <?php echo $val['ticket_subject']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket_number']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket_creater']; ?></td>
                             <td><?php echo dateFormate($val['ticket_updated']); ?></td>
-                            <td class="text-capitalize"><?php echo $val['ticket_type']; ?></td>
+                            <td class="text-capitalize"><?php echo $val['amc_ticket_type']; ?></td>
                             <td class="text-capitalize"><?php echo $val['ticket_priority']; ?></td>
                             <td class="text-capitalize col-pad">
                                 <?php if(access_check("ticket", "view")) :  ?>
@@ -625,7 +625,7 @@ $access_level = $user['user_access_level'];
                         <tr>
                              <td><input type="checkbox" class="select_id" value="<?php echo $val['ticket_id']; ?>"></td>
                             <td class="text-capitalize">
-                                <a href="#" data-id="<?php echo $val['ticket_id']; ?>" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="ticket_edit <?php echo $val['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket_status'], 0, 1); ?>
+                                <a href="#" data-id="<?php echo $val['ticket_id']; ?>" data-popover="true" data-html="true" data-toggle="popover" data-content="<span class=<?= $val['ticket_status'] ?>><?= $val['ticket_status'] ?></span><?= $val['amc_ticket_type'] . ' ' . $val['ticket_number']?><br><br><b><?= $val['ticket_subject']?></b><br><?= $val['ticket_description']; ?>" class="ticket_edit <?php echo $val['ticket_status']; ?> popover-anchor"><?php echo substr($val['ticket_status'], 0, 1); ?>
                                 </a> 
             <?php echo $val['ticket_subject']; ?>
                             </td>

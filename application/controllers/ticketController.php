@@ -21,7 +21,7 @@ class TicketController extends BaseController {
         }
     }
 
-    public function createEmployeeTicket($org_id) {
+    public function createEmployeeTicket($ticket_id=FALSE) {
         $user = $this->session->userdata('logged_in');
         if ($user['user_access_level'] != 2) {
 
@@ -52,7 +52,7 @@ class TicketController extends BaseController {
 
             $pagedata['mainHeading'] = "Ticket";
 
-            $pagedata['organisation'] = $this->crm->getData('organisation');
+//            $pagedata['organisation'] = $this->crm->getData('organisation');
 
 
             $join = array(
@@ -61,7 +61,7 @@ class TicketController extends BaseController {
             );
             $where['user_access_level'] = 2;
             $where['user_status'] = 1;
-            $where['user_organisation_rel.organisation_id'] = $org_id;
+//            $where['user_organisation_rel.organisation_id'] = $org_id;
         
             $pagedata['customer_details'] = $this->crm->getData('user', 'user.user_id,user_name,user_email', $where, $join, 'user.user_update', 'DESC');
           
@@ -78,7 +78,7 @@ class TicketController extends BaseController {
             $where = array();
             $where['user_access_level'] = 3;
             $where['user_status'] = 1;
-            $where['user_organisation_rel.organisation_id'] = $org_id;
+//            $where['user_organisation_rel.organisation_id'] = $org_id;
             $select = 'user.user_id,user_name';
             $employee_details = $this->crm->getData('user', $select, $where, $join, 'user.user_update', 'DESC');
 
@@ -105,14 +105,14 @@ class TicketController extends BaseController {
 
 
 
-            $pagedata['organisation_id'] = $org_id;
+//            $pagedata['organisation_id'] = $org_id;
             $join = array(
                 array('table' => 'user_organisation_rel',
                     'on' => 'user_organisation_rel.user_id=user.user_id'),
             );
             $where['user_access_level'] = 2;
             $where['user_status'] = 1;
-            $where['user_organisation_rel.organisation_id'] = $org_id;
+//            $where['user_organisation_rel.organisation_id'] = $org_id;
               $select = 'user.user_id,user_name,user_email';
             $pagedata['customer_details'] = $this->crm->getData('user', $select, $where, $join, 'user.user_update', 'DESC');
 	    $pagedata['userdata'] = getUserByAccessLevel(3);
@@ -131,7 +131,7 @@ class TicketController extends BaseController {
 
             $where['user_access_level'] = 3;
             $where['user_status'] = 1;
-            $where['user_organisation_rel.organisation_id'] = $org_id;
+//            $where['user_organisation_rel.organisation_id'] = $org_id;
             $select = 'user.user_id,user_name';
             $employee_details = $this->crm->getData('user', $select, $where, $join, 'user.user_update', 'DESC');
             foreach ($employee_details as $key => $emp_val) {
@@ -156,14 +156,13 @@ class TicketController extends BaseController {
 
             $pagedata['group'] = $finalEmpArray;
             if ($this->input->post()) {
-
                 $this->load->helper(array('form', 'url'));
                 $this->load->library('form_validation');
                 $this->form_validation->set_error_delimiters('<ul class="parsley-errors-list filled server_message" data-parsley-id="6"><li class="parsley-required">', '</li></ul>');
 
                 $this->form_validation->set_rules('ticket_subject', 'Ticket Subject', 'required');
-                $this->form_validation->set_rules('user_id', 'User', 'required');
-                $this->form_validation->set_rules('ticket_type', 'Ticket Type', 'required');
+                $this->form_validation->set_rules('amc_name', 'Amc Name', 'required');
+                $this->form_validation->set_rules('amc_ticket_type', 'Amc Ticket Type', 'required');
                 $this->form_validation->set_rules('ticket_priority', 'Ticket Priority', 'required');
                 $this->form_validation->set_rules('ticket_description', 'Ticket Description', 'required');
 
@@ -173,6 +172,7 @@ class TicketController extends BaseController {
                 } else {
 
                     $data = $this->input->post();
+//		    var_dump($this->input->post());die('tesdsds');
                     $cc_user =array();
                     if($this->input->post('user_cc')){
                     $cc = $this->input->post('user_cc');
@@ -180,18 +180,22 @@ class TicketController extends BaseController {
                       $cc_user = $cc;  
                     }
                     }
+		    $data['amc_id'] = $data['amc_name'];
                     unset($data['attachment_id']);
                     unset($data['tags']);
                     unset($data['assign_user']);
                     unset($data['orginasation_name']);
                     unset($data['user_cc']);
+                    unset($data['amc_name']);
+                    unset($data['employe_type']);
+                    unset($data['customer_type']);
                     $assign_user = $this->input->post('assign_user');
 
                     $data['ticket_status'] = 'Open';
 
                     $data['ticket_updated'] = date("Y-m-d H:i:s");
                     $data['ticket_created'] = date("Y-m-d H:i:s");
-                    $data['organisation_id'] = $org_id;
+//                    $data['organisation_id'] = $org_id;
                     $data['ticket_number'] = '#TKT' . random_string('numeric');
                     $attch_ids = $this->input->post('attachment_id');
                     if (strpos($attch_ids, ',')) {
@@ -202,7 +206,7 @@ class TicketController extends BaseController {
 
                     $ticket_id = $this->crm->rowInsert('ticket', $data);
 
-
+		    var_dump($ticket_id);die('ttrerer');
                     if ($ticket_id) {
                         if (!empty($attachment_id)) {
                             foreach ($attachment_id as $attch_val) {
@@ -1884,10 +1888,10 @@ class TicketController extends BaseController {
                         'table' => 'ticket_assign',
                         'on' => 'ticket.ticket_id=ticket_assign.ticket_id'),
                 );
-                    $where = "(`ticket`.`organisation_id` = $org_id) AND (`ticket_assign`.`user_id` = $user_id)  AND (`ticket_assign`.`current_working_user` = 1) AND (`ticket`.`ticket_status` = 'Open' OR `ticket`.`ticket_status` = 'Pending')";
+                    $where = "(`ticket_assign`.`user_id` = $user_id)  AND (`ticket_assign`.`current_working_user` = 1) AND (`ticket`.`ticket_status` = 'Open' OR `ticket`.`ticket_status` = 'Pending')";
                 } else {
                   $join=array();  
-                  $where = "(`ticket`.`organisation_id` = $org_id) AND (`ticket`.`ticket_status` = 'Open' OR `ticket`.`ticket_status` = 'Pending')";
+                  $where = "(`ticket`.`ticket_status` = 'Open' OR `ticket`.`ticket_status` = 'Pending')";
                 }
                 $ticketData = $this->crm->getData('ticket', 'ticket.*', $where, $join, FALSE, FALSE, $limit, ($limit * ($offset - 1)), FALSE);
                 $get = $this->crm->getData('ticket', 'ticket.*', $where, $join, FALSE, FALSE, FALSE, FALSE, FALSE);
@@ -1929,10 +1933,10 @@ class TicketController extends BaseController {
                         'on' => 'ticket.ticket_id=ticket_assign.ticket_id')
                 );
                 if ($user_id == '') {
-                    $where = "(ticket.organisation_id = $org_id) AND (ticket_assign.current_working_user = 1) AND ((ticket.ticket_status = 'Open') OR (ticket.ticket_status = 'Doing') OR (ticket.ticket_status = 'Pending'))";
+                    $where = "(ticket_assign.current_working_user = 1) AND ((ticket.ticket_status = 'Open') OR (ticket.ticket_status = 'Doing') OR (ticket.ticket_status = 'Pending'))";
                 } else {
                   
-                    $where = "(ticket.organisation_id = $org_id) AND (ticket_assign.user_id = $user_id) AND (ticket_assign.current_working_user = 1) AND ((ticket.ticket_status = 'Open') OR (ticket.ticket_status = 'Doing') OR (ticket.ticket_status = 'Pending'))";
+                    $where = "(ticket_assign.user_id = $user_id) AND (ticket_assign.current_working_user = 1) AND ((ticket.ticket_status = 'Open') OR (ticket.ticket_status = 'Doing') OR (ticket.ticket_status = 'Pending'))";
               
                 }
                 $ticketData = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,', $where, $join, FALSE, FALSE, $limit, ($limit * ($offset - 1)));
@@ -2019,7 +2023,7 @@ class TicketController extends BaseController {
                 );
 
 //                if ($user_id == '') {
-                    $where = array('ticket.organisation_id' => $org_id);
+//                    $where = array('ticket.organisation_id' => $org_id);
 //                } else {
 //                    $join[] = array(
 //                        'table' => 'ticket_assign',
@@ -2029,8 +2033,8 @@ class TicketController extends BaseController {
 //                }
 
 
-                $ticketData = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,', $where, $join, FALSE, FALSE, $limit, ($limit * ($offset - 1)));
-                $get = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,', $where, $join, FALSE, FALSE);
+                $ticketData = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,', FALSE, $join, FALSE, FALSE, $limit, ($limit * ($offset - 1)));
+                $get = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,', FALSE, $join, FALSE, FALSE);
                 $count = count($get);
 
                 break;
@@ -2294,7 +2298,7 @@ class TicketController extends BaseController {
                     'on' => 'ticket.ticket_id=ticket_assign.ticket_id'),
             );
 
-            $unsolvedwhere = array('ticket.organisation_id' => $org_id, 'ticket_assign.user_id' => $user_id, 'ticket.ticket_status != ' => 'Solved', 'ticket.ticket_status !=' => 'Pending');
+            $unsolvedwhere = array( 'ticket_assign.user_id' => $user_id, 'ticket.ticket_status != ' => 'Solved', 'ticket.ticket_status !=' => 'Pending');
             $unsolvedticketData = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,', $unsolvedwhere, $unsolved_join, FALSE, FALSE, FALSE, FALSE, FALSE, 'ticket_assign.ticket_id');
             $count['your_unsolved_tickets'] = count($unsolvedticketData);
         }
@@ -2312,10 +2316,10 @@ class TicketController extends BaseController {
                         'table' => 'ticket_assign',
                         'on' => 'ticket.ticket_id=ticket_assign.ticket_id'),
                 );
-                    $where = "(`ticket`.`organisation_id` = $org_id) AND (`ticket_assign`.`user_id` = $user_id)  AND (`ticket_assign`.`current_working_user` = 1) AND (`ticket`.`ticket_status` = 'Open' OR `ticket`.`ticket_status` = 'Pending')";
+                    $where = "(`ticket_assign`.`user_id` = $user_id)  AND (`ticket_assign`.`current_working_user` = 1) AND (`ticket`.`ticket_status` = 'Open' OR `ticket`.`ticket_status` = 'Pending')";
                 } else {
                   $join=array();  
-                  $where = "(`ticket`.`organisation_id` = $org_id) AND (`ticket`.`ticket_status` = 'Open' OR `ticket`.`ticket_status` = 'Pending')";
+                  $where = "(`ticket`.`ticket_status` = 'Open' OR `ticket`.`ticket_status` = 'Pending')";
                 }
         $ticketData = $this->crm->getData('ticket', 'ticket.*', $where, $join, FALSE, FALSE, FALSE, FALSE, FALSE);
         $count['new_open'] = count($ticketData);
@@ -2331,9 +2335,9 @@ class TicketController extends BaseController {
         );
 
         if ($user_id == '') {
-            $where = "(`ticket`.`organisation_id` = $org_id)  AND (`ticket_assign`.`current_working_user` = 1) AND (`ticket`.`ticket_status` != 'Closed')";
+            $where = "(`ticket_assign`.`current_working_user` = 1) AND (`ticket`.`ticket_status` != 'Closed')";
         } else {
-            $where = "(`ticket`.`organisation_id` = $org_id) AND (`ticket_assign`.`user_id` = $user_id)  AND (`ticket_assign`.`current_working_user` = 1) AND (`ticket`.`ticket_status` != 'Closed')";
+            $where = "(`ticket_assign`.`user_id` = $user_id)  AND (`ticket_assign`.`current_working_user` = 1) AND (`ticket`.`ticket_status` != 'Closed')";
         }
         $ticketData = $this->crm->getData('ticket', 'ticket.*,ucr.user_id,ucr.user_name as `ticket_creater`,ticket_assign.ticket_assign_id', $where, $join, FALSE, FALSE, FALSE, FALSE, FALSE, 'ticket.ticket_id');
         $count['assigned_tickets'] = count($ticketData);
@@ -2350,7 +2354,7 @@ class TicketController extends BaseController {
         );
 
 
-        $where = array('ticket.organisation_id' => $org_id, 'ticket.ticket_status' => 'Open', 'ticket_assign.ticket_id' => null);
+        $where = array('ticket.ticket_status' => 'Open', 'ticket_assign.ticket_id' => null);
         $ticketData = $this->crm->getData('ticket', 'ticket.*,ucr.user_id,ucr.user_name as `ticket_creater`,ticket_assign.ticket_assign_id', $where, $join, FALSE, FALSE, FALSE, FALSE, FALSE, 'ticket.ticket_id');
         $count['unassigned_tickets'] = count($ticketData);
 
@@ -2366,10 +2370,10 @@ class TicketController extends BaseController {
                         'on' => 'ticket.ticket_id=ticket_assign.ticket_id')
                 );
                 if ($user_id == '') {
-                    $where = "(ticket.organisation_id = $org_id) AND (ticket_assign.current_working_user = 1) AND ((ticket.ticket_status = 'Open') OR (ticket.ticket_status = 'Doing') OR (ticket.ticket_status = 'Pending'))";
+                    $where = "((ticket_assign.current_working_user = 1) AND ((ticket.ticket_status = 'Open') OR (ticket.ticket_status = 'Doing') OR (ticket.ticket_status = 'Pending'))";
                 } else {
                     
-                    $where = "(ticket.organisation_id = $org_id) AND (ticket_assign.user_id = $user_id) AND (ticket_assign.current_working_user = 1) AND ((ticket.ticket_status = 'Open') OR (ticket.ticket_status = 'Doing') OR (ticket.ticket_status = 'Pending'))";
+                    $where = "(ticket_assign.user_id = $user_id) AND (ticket_assign.current_working_user = 1) AND ((ticket.ticket_status = 'Open') OR (ticket.ticket_status = 'Doing') OR (ticket.ticket_status = 'Pending'))";
       
         }
         $ticketData = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,', $where, $join, FALSE, FALSE);
@@ -2394,9 +2398,9 @@ class TicketController extends BaseController {
         $time_stamp = date("Y-m-d H:i:s");
         $last_time_stamp = (date('Y-m-d h:i:s', strtotime('-1 hour')));
         if ($user_id == '') {
-            $where = "ticket.organisation_id = '$org_id' AND (ticket_history_created_at BETWEEN '$last_time_stamp'  AND '$time_stamp')";
+            $where = "(ticket_history_created_at BETWEEN '$last_time_stamp'  AND '$time_stamp')";
         } else {
-            $where = "(ticket.organisation_id = '$org_id') AND (ticket_history.ticket_updated_by = '$user_id') AND (ticket_history_created_at BETWEEN '$last_time_stamp'  AND '$time_stamp')";
+            $where = "(ticket_history.ticket_updated_by = '$user_id') AND (ticket_history_created_at BETWEEN '$last_time_stamp'  AND '$time_stamp')";
         }
         $ticketData = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,uasb.user_name as ticket_updater,ticket_history_created_at as updated_date,ticket_history_status', $where, $join, FALSE, FALSE);
         $count['recently_updated_tickets'] = count($ticketData);
@@ -2422,7 +2426,7 @@ class TicketController extends BaseController {
             );
 
 
-            $where = array('ticket.organisation_id' => $org_id, 'ticket_assign.user_id' => $user_id);
+            $where = array('ticket_assign.user_id' => $user_id);
             $ticket_rel_Data = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,ticket_assign.group_id', $where, $join, FALSE, FALSE);
             $ticketData = array();
             if (!empty($ticket_rel_Data)) {
@@ -2441,7 +2445,7 @@ class TicketController extends BaseController {
                 'table' => 'user as ucr',
                 'on' => 'ucr.user_id=ticket.user_id'),
         );
-        $where = array('ticket.organisation_id' => $org_id, 'ticket.ticket_status != ' => 'Solved', 'ticket.ticket_status !=' => 'Doing', 'ticket.ticket_status' => 'Pending');
+        $where = array('ticket.ticket_status != ' => 'Solved', 'ticket.ticket_status !=' => 'Doing', 'ticket.ticket_status' => 'Pending');
         $ticketData = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,', $where, $join, FALSE, FALSE);
         $count['pending_tickets'] = count($ticketData);
 
@@ -2464,9 +2468,9 @@ class TicketController extends BaseController {
         $time_stamp = date("Y-m-d h:i:s");
         $last_time_stamp = (date('Y-m-d h:i:s', strtotime('-1 day')));
         if ($user_id == '') {
-            $where = "(ticket_history_status = 'Closed')  AND (ticket.organisation_id = '$org_id') AND (ticket_updated BETWEEN '$last_time_stamp'  AND '$time_stamp')";
+            $where = "(ticket_history_status = 'Closed') AND (ticket_updated BETWEEN '$last_time_stamp'  AND '$time_stamp')";
         } else {
-            $where = "(ticket_history_status = 'Closed') AND (ticket.ticket_status = 'Closed') AND (ticket.organisation_id = '$org_id') AND (ticket_history.ticket_updated_by = '$user_id') AND (ticket_updated BETWEEN '$last_time_stamp'  AND '$time_stamp')";
+            $where = "(ticket_history_status = 'Closed') AND (ticket.ticket_status = 'Closed') AND (ticket_history.ticket_updated_by = '$user_id') AND (ticket_updated BETWEEN '$last_time_stamp'  AND '$time_stamp')";
         }
         $ticketData = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,uasb.user_name as ticket_updater,ticket_history_created_at as updated_date,ticket_history_status as ticket_status', $where, $join, FALSE, FALSE);
 
@@ -2494,7 +2498,7 @@ class TicketController extends BaseController {
             );
 
 
-            $where = "(ticket.organisation_id = $org_id) AND (ticket_assign.user_id = $user_id) AND ((ticket.ticket_status = 'Open') OR (ticket.ticket_status = 'Doing'))";
+            $where = "(ticket_assign.user_id = $user_id) AND ((ticket.ticket_status = 'Open') OR (ticket.ticket_status = 'Doing'))";
 
             $ticket_rel_Data = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,ticket_assign.group_id', $where, $join, FALSE, FALSE);
             foreach ($ticket_rel_Data as $key => $value) {
@@ -2537,7 +2541,7 @@ class TicketController extends BaseController {
         $ticket_rel_Data = array();
         $ticket_arr = array();
         $ticketData = array();
-        $where = array('ticket.organisation_id' => $org_id, 'ticket.ticket_status != ' => 'Solved', 'ticket.ticket_status !=' => 'Pending');
+        $where = array('ticket.ticket_status != ' => 'Solved', 'ticket.ticket_status !=' => 'Pending');
         $ticket_rel_Data = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,ticket_assign.group_id', $where, $join, FALSE, FALSE);
 
         if (!empty($ticket_rel_Data)) {
@@ -2571,7 +2575,7 @@ class TicketController extends BaseController {
                 );
 
 //                if ($user_id == '') {
-                    $where = array('ticket.organisation_id' => $org_id);
+//                    $where = array('ticket.organisation_id' => $org_id);
 //                } else {
 //                    $join[] = array(
 //                        'table' => 'ticket_assign',
@@ -2581,7 +2585,7 @@ class TicketController extends BaseController {
 //                }
 
 
-        $ticketData = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,', $where, $join, FALSE, FALSE);
+        $ticketData = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,', FALSE, $join, FALSE, FALSE);
         $count['all_tickets'] = count($ticketData);
         echo json_encode($count);
         die;

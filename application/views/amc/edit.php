@@ -54,19 +54,46 @@
 						  <?php echo form_error('amc_code'); ?>
 					     </div>
 					</div>
-					<div class="item form-group">
-					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address">Amc Duration <span class="required">*</span>
+					<div class="item form-group"> 
+					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address">AMC Type </label>
+					     <div class="col-md-6 col-sm-6 col-xs-12 ">
+						  <select class="form-control col-md-7 col-xs-12" name="amc_type" id="amc_type">
+						       <option value="primary" <?= ($form_data['amc_type'] == 'primary') ? 'selected' : '' ?>>PRIMARY SERVICE</option>
+						       <option value="secondary" <?= ($form_data['amc_type'] == 'secondary') ? 'selected' : '' ?>>SECONDARY SERVICE</option>
+						       <option value="home_appliance" <?= ($form_data['amc_type'] == 'home_appliance') ? 'selected' : '' ?>>HOME APPLIANCE</option>
+						       <option value="on_call" <?= ($form_data['amc_type'] == 'on_call') ? 'selected' : '' ?>>ON CALL AMC</option>
+						  </select>
+					     </div>
+					</div>
+
+					<div class="item form-group on-call">
+					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address">AMC Duration <span class="required">*</span>
 					     </label>
 					     <div class="col-md-6 col-sm-6 col-xs-12 ">
-						  <input type="text" value="<?= ( $method == "post") ? set_value('amc_duration') : $form_data['amc_duration']; ?>" data-parsley-error-message="The Duration field is required"  id="duaration" required="required" placeholder="Duration" name="amc_duration" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('amc_duration')) > 0) ? "parsley-error" : "" ?>">
+						  <select class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('amc_duration')) > 0) ? "parsley-error" : "" ?>" data-parsley-error-message="AMC Duration field is required" name="amc_duration" id="duaration" required="required">
+						       <option value="1" <?= ($form_data['amc_duration'] == 1) ? 'selected' : '' ?>>1 Year</option>
+						       <option value="2" <?= ($form_data['amc_duration'] == 2) ? 'selected' : '' ?>>2 Year</option>
+						       <option value="3" <?= ($form_data['amc_duration'] == 3) ? 'selected' : '' ?>>3 Year</option>
+						       <option value="4" <?= ($form_data['amc_duration'] == 4) ? 'selected' : '' ?>>4 Year</option>
+						       <option value="5" <?= ($form_data['amc_duration'] == 5) ? 'selected' : '' ?>>5 Year</option>
+						  </select>
 						  <?php echo form_error('amc_duration'); ?>
 					     </div>
-					</div>																  <div class="item form-group">                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address">AMC Type </label>                                    <div class="col-md-6 col-sm-6 col-xs-12 ">                                    <select class="form-control col-md-7 col-xs-12" name="amc_type" id="amc_type">									                                                                                                                                                                                       <option value="primary">PRIMARY SERVICE</option>									  <option value="secondary">SECONDARY SERVICE</option>									  <option value="home_appliance">HOME APPLIANCE</option>									  </select>                                                                   </div>                                 </div>
-					<div class="item form-group">
-					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address2">Amc Visits 
+					</div>
+
+					<div class="item form-group on-call">
+					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address2">AMC Visits 
 					     </label>
 					     <div class="col-md-6 col-sm-6 col-xs-12 ">
-						  <input type="text" value="<?= ( $method == "post") ? set_value('amc_visit') : $form_data['amc_visit']; ?>" data-parsley-error-message="The Visit field is required"  id="visits" required="required" placeholder="Visits" name="amc_visit" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('amc_visit')) > 0) ? "parsley-error" : "" ?>">
+
+
+						  <select class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('amc_visit')) > 0) ? "parsley-error" : "" ?>" data-parsley-error-message="AMC Visit field is required" name="amc_visit" id="amc_visit" required="required">
+						       <option value="2" <?= ($form_data['amc_visit'] == 2) ? 'selected' : '' ?>>2</option>
+						       <option value="4" <?= ($form_data['amc_visit'] == 4) ? 'selected' : '' ?>>4</option>
+						       <option value="6" <?= ($form_data['amc_visit'] == 6) ? 'selected' : '' ?>>6</option>
+						       <option value="8" <?= ($form_data['amc_visit'] == 8) ? 'selected' : '' ?>>8</option>
+						       <option value="12" <?= ($form_data['amc_visit'] == 12) ? 'selected' : '' ?>>12</option>
+						  </select>
 					     </div>
 					</div>
 					<div class="item form-group">
@@ -80,7 +107,7 @@
 					<div class="item form-group">
 					     <label class="control-label col-md-3 col-sm-3 col-xs-12">Status<span class="required"></span></label>
 					     <div class="col-md-6 col-sm-6 col-xs-12">
-						 
+
 						  <input type="hidden" class="form-control col-md-7 col-xs-12" name='amc_status' value="0" /> <input type="checkbox" class="form-control col-md-7 col-xs-12" name='amc_status' <?php echo($form_data['amc_status'] ? 'checked' : ''); ?> value="1" id="amc_status"/>
 					     </div>
 					</div>
@@ -146,6 +173,24 @@
 	       animate: 'true',
 	       onColor: 'success',
 	       offColor: 'danger',
+	  });
+	  var value = $('#amc_type').val();
+	       if (value == 'on_call') {
+
+		    $('.on-call').hide();
+	       } else {
+
+		    $('.on-call').show();
+	       }
+	  $('body').on('change', '#amc_type', function () {
+
+	       if ($(this).val() == 'on_call') {
+
+		    $('.on-call').hide();
+	       } else {
+
+		    $('.on-call').show();
+	       }
 	  });
      });
 </script>

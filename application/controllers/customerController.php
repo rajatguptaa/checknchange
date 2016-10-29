@@ -100,6 +100,10 @@ class CustomerController extends BaseController {
 	       if ($delete_acccess) {
 		    $link .= '<a class="btn btn-danger btn-xs delete" title="Delete" data-id="' . $val['user_id'] . '"><i class="fa fa-trash-o"></i> Delete</a>';
 	       }
+	       $dob = 'N/A';
+	       if($val['dob']!=NULL && $val['dob']!='0000-00-00'){
+		$dob =     dateFormateOnly($val['dob']);
+	       }
 	       $user_type = "<label class='btn btn-success'>" . strtoupper($val['user_type']) . "</label>";
 	       $output['aaData'][] = array(
 		   "DT_RowId" => $val['user_id'],
@@ -107,7 +111,7 @@ class CustomerController extends BaseController {
 		   '<img src="' . base_url() . getUsersImage($val['user_id'], 'small') . '" class="img-responsive" alt="Cinque Terre" style="max-width:100px"> ',
 		   $val['first_name'] . ' ' . $val['last_name'],
 		   $val['user_mobile'],
-		   dateFormateOnly($val['dob']),
+		   $dob,
 		   $val['reffirst_name'] . ' ' . $val['reflast_name'],
 		   $user_type,
 		   $link
@@ -119,6 +123,7 @@ class CustomerController extends BaseController {
      }
 
      public function createCustomer() {
+	  var_dump(amc_service_create(date('Y-m-d H:i:s'),7,69));die;
 	  $pagedata['mainHeading'] = 'Customer';
 	  $pagedata['subHeading'] = 'create';
 	  $pagedata['organisation'] = $this->crm->getData('organisation');
@@ -203,7 +208,7 @@ class CustomerController extends BaseController {
 				   $user_amc_rel = $this->crm->rowInsert('user_amc_rel', $user_amc);
 				   //service relation
 				   if($user_amc_rel>0){
-				   $service_date = firstServiceDate(date('Y-m-d H:i:s'), $amc_value);
+				   $service_date = amc_service_create(date('Y-m-d H:i:s'), $amc_value,$user_id);
 				   $amc_service['user_id'] = $user_id;
 				   $amc_service['amc_id'] = $amc_value;
 				   $amc_service['amc_code'] = 'CNC' . random_string('numeric');
@@ -620,8 +625,10 @@ class CustomerController extends BaseController {
 
 //	       $org_id = $this->input->post('org_id');
 	       
-
+	       $name_arr = explode(' ',$data['user_name']);
 	       $data['user_status'] = 1;
+	       $data['user_type'] = 'on call';
+	       $data['first_name'] = $name_arr[0];
 	       $data['user_access_level'] = 4;
 	       $data['user_update'] = date("Y-m-d H:i:s");
 	       unset($data['org_id']);
@@ -631,11 +638,7 @@ class CustomerController extends BaseController {
 		    $user_detail = getUserDetails($last_user_id);
 
 
-//		    $org_data = array('user_id' => $last_user_id, 'organisation_id' => $org_id);
-		    //Add Organisation 
-//		    $org_rel_id = $this->crm->rowInsert('user_organisation_rel', $org_data);
-//		    if ($org_rel_id) {
-//			 $org = getUserOrginasationDetails($user_detail['user_id']);
+
 			 $unique_id = uniqid();
 			 $forget_data = array(
 			     'user_id' => $user_detail['user_id'],
@@ -659,7 +662,7 @@ class CustomerController extends BaseController {
 
 
 
-			      $mailResponse = mymail($user_detail['user_email'], sprintf(WELCOME_SUB, $org['organisation_name']), $message);
+//			      $mailResponse = mymail($user_detail['user_email'], sprintf(WELCOME_SUB, $org['organisation_name']), $message);
 			 }
 
 			 $result['result'] = TRUE;

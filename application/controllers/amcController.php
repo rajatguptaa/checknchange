@@ -49,8 +49,10 @@ class AmcController extends BaseController {
             $this->form_validation->set_error_delimiters('<ul class="parsley-errors-list filled server_message" id="parsley-id-10"><li class="parsley-required">', '</li></ul>');
             $this->form_validation->set_rules('amc_name', 'Name', 'required|is_unique[organisation.organisation_name]');
             $this->form_validation->set_rules('amc_code', 'Title', 'required');
-            $this->form_validation->set_rules('amc_duration', 'Duration', 'required');
-            $this->form_validation->set_rules('amc_visit', 'Phone', 'required');
+	    if($this->input->post('amc_type')=="on_call"){
+            $this->form_validation->set_rules('amc_duration', 'Amc Duration', 'required');
+            $this->form_validation->set_rules('amc_visit', 'Amc Visit', 'required'); 
+	    }
             $this->form_validation->set_rules('image', 'Image', 'callback_image_validate');
             $this->form_validation->set_rules('amc_criteria', 'Amc Criteria', 'required');
             $this->form_validation->set_rules('amc_description', 'Notes', 'trim');
@@ -68,6 +70,10 @@ class AmcController extends BaseController {
                 
             } else {
                 $insertdata = $this->input->post();
+		if($this->input->post('amc_type')=="on_call"){
+		     $insertdata['amc_duration'] = 0;
+		     $insertdata['amc_visit'] = 0;
+		}
                 $filename = image_upload('image', 'package');
                 if (is_array($filename)) {
                     $insertdata['package_logo'] = 'assets/img/package/' . $filename['file_name'];
@@ -116,8 +122,10 @@ class AmcController extends BaseController {
             $this->form_validation->set_error_delimiters('<ul class="parsley-errors-list filled server_message" id="parsley-id-10"><li class="parsley-required">', '</li></ul>');
             $this->form_validation->set_rules('amc_name', 'Name', 'required|is_unique[organisation.organisation_name]');
             $this->form_validation->set_rules('amc_code', 'Title', 'required');
-            $this->form_validation->set_rules('amc_duration', 'Duration', 'required');
-            $this->form_validation->set_rules('amc_visit', 'Phone', 'required');
+	    if($this->input->post('amc_type')=="on_call"){
+            $this->form_validation->set_rules('amc_duration', 'Amc Duration', 'required');
+            $this->form_validation->set_rules('amc_visit', 'Amc Visit', 'required'); 
+	    }
             $this->form_validation->set_rules('image', 'Image', 'callback_image_validate');
             $this->form_validation->set_rules('amc_criteria', 'Amc Criteria', 'required');
             $this->form_validation->set_rules('amc_description', 'Notes', 'trim');
@@ -137,6 +145,10 @@ class AmcController extends BaseController {
                 } else {
                     $updatedata['package_logo'] = $updatedata['package_old_logo'];
                 }
+		if($this->input->post('amc_type')=="on_call"){
+		     $updatedata['amc_duration'] = 0;
+		     $updatedata['amc_visit'] = 0;
+		}
                 $updatedata['package_update'] = date("Y-m-d H:i:s");
                 unset($updatedata['package_old_logo']);
                 $org_id = $this->crm->rowUpdate($this->tabelename, $updatedata, array("id" => $amc_id));

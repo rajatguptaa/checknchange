@@ -24,24 +24,16 @@ class ServiceController extends CI_Controller {
 	  $pagedata['mainHeading'] = "AMC Service";
 	  // Loading CSS on view
 	  $pagedata["style_to_load"] = array(
-//	      "assets/css/datatablenew/dataTables.responsive.css"
-	      "assets/jquery-ui/jquery-ui.min.css"
 	  );
 
 	  // Loading JS on view
 	  $pagedata['scripts_to_load'] = array(
-//	      "assets/js/datatablenew/jquery.dataTables.js",
-//	      "assets/js/datatables/data-table/dataTables.bootstrap.min.js",
 	      "assets/js/datatables/data-table/jquery.dataTables.min.js",
-//	      "assets/js/datatables/button/buttons.colVis.min.js",
-//	      "assets/js/datatables/button/buttons.flash.min.js",
 	      "assets/js/datatables/pdfmake/build/pdfmake.min.js",
 	      "assets/js/datatables/pdfmake/build/vfs_fonts.js",
 	      "assets/js/datatables/button/buttons.html5.min.js",
 	      "assets/js/datatables/button/buttons.print.min.js",
 	      "assets/js/datatables/button/dataTables.buttons.min.js",
-	      "assets/jquery-ui/jquery-ui.min.js",
-//	      "assets/js/datatablenew/dataTables.responsive.min.js",
 	      "assets/js/bootbox/bootbox.js"
 	  );
 	  $this->load->template('/service/index', $pagedata);
@@ -139,7 +131,12 @@ class ServiceController extends CI_Controller {
 	  foreach ($data as $val) {
 	       $link = "";
 	       $due = '';
-	       if ($val['due_date'] < date('Y-m-d H:i:s')) {
+	       $date = new DateTime($val['due_date']);
+	       $now = new DateTime();
+//	       echo $now.'==='.$val['due_date'];
+	       $diff = date_diff($date,$now);
+//	       echo $diff->format("%a");
+	       if ($diff->format("%a")>=3) {
 		    $due = 'due-cls';
 	       }
 	       if ($edit_acccess) {
@@ -185,7 +182,7 @@ class ServiceController extends CI_Controller {
 	  );
 	  $where = array('amc_service.id' => $post['amc_sevice_id'], 'user_id' => $post['user_id']);
 	  $arr_data = $this->crm->getData($this->tablename, '*', $where);
-//	  var_dump($arr_data);
+
 	  $arr_data[0]['complete_notes'] = $post['user_note'];
 	  $arr_data[0]['notes'] = $arr_data[0]['amc_note'];
 	  $arr_data[0]['amc_service_id'] = $arr_data[0]['id'];
@@ -210,9 +207,17 @@ class ServiceController extends CI_Controller {
 	  }
 	  $this->crm->rowInsert('amc_service_history', $arr_data[0]);
 	  $date = amc_service_create($post['due_date'], $post['amc_id']);
+	  if($date && !empty($date)){
 	  $date_logic = array('start_date' => $date['start_date'], 'due_date' => $date['end_date']);
 	  $res = $this->crm->rowUpdate('amc_service', $date_logic, array('amc_service.id' => $post['amc_sevice_id'], 'user_id' => $post['user_id']));
 	  $data['result'] = $res;
+	       
+	  }else{
+	  $res = $this->crm->rowsDelete('amc_service', array('amc_service.id' => $post['amc_sevice_id'], 'user_id' => $post['user_id']));
+	  $data['result'] = FALSE;
+	       
+	       
+	  }
 	  echo json_encode($data);
      }
 

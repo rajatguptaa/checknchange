@@ -11,8 +11,7 @@ $access_level = $user['user_access_level'];
 
 			      <?php // if (access_check("organisation", "view")) : ?>
                               <label for="orginasation_search">Amc Type </label>
-			      <select name="amc_type" id="amc_type" tabindex="-1" class=" chossen form-control" >    
-				   <option value="">Select type</option>
+			      <select name="amc_type" id="amc_type" tabindex="-1" class=" chossen form-control" required="" data-parsley-error-message="Amc type field is required.">    
 				   <option value="primary">Primary</option>
 				   <option value="secondary">Secondary</option>
 			      </select>   
@@ -23,7 +22,7 @@ $access_level = $user['user_access_level'];
 
 			      <?php // if (access_check("organisation", "view")) : ?>
                               <label for="orginasation_search">Amc Name </label>
-			      <select name="amc_name" id="amc_name" tabindex="-1" class=" chossen form-control" >    
+			      <select name="amc_name" id="amc_name" tabindex="-1" class=" chossen form-control" required="" data-parsley-error-message="Amc name field is required.">    
 				    <?php if($amcdata){
 					      foreach ($amcdata as $amcvalue) {
 						   ?>
@@ -40,7 +39,7 @@ $access_level = $user['user_access_level'];
 
                               <label for="orginasation_search">Amc Ticket Type</label>
 			      <select name="amc_ticket_type" id="amc_ticket_type" tabindex="-1" class=" chossen form-control" >    
-				   <option value="new">New Amc Ticket</option>
+				   <option value="on_call">On Call Amc Ticket</option>
 				   <option value="existing">Existing Amc Ticket</option>
 			      </select>   
 
@@ -59,7 +58,7 @@ $access_level = $user['user_access_level'];
 
 
 
-			      <select class="form-control" id="user_select" name="user_id">
+			      <select class="form-control" id="user_select" name="user_id" required="" data-parsley-error-message="Requester field is required.">
 				   <?php
 				   if ($usercustomerdata) {
 					foreach ($usercustomerdata as $uservalue) {
@@ -78,30 +77,8 @@ $access_level = $user['user_access_level'];
 			      </div>
 			 </div>
 			 <div class="form-group col-md-12">
-			      <label for="filter">Cc </label>
-
-			      <select data-choosen-extra="false"  id="user_cc" name="user_cc[]" tabindex="-1" class="customer_div form-control col-md-7 col-xs-12" multiple="">                                                                  <?php
-				   foreach ($customer_details as $customer_details_cc) {
-					?>
-     				   <option value="<?php echo $customer_details_cc['user_email']; ?>">
-					     <?php
-					     $email = $customer_details_cc['user_email'];
-					     echo getUserName($customer_details_cc['user_id']) . '&lt' . $email . '&gt;
-';
-					     ?>
-     				   </option>
-<?php }
-?>
-			      </select>   
-
-			      <div class="pull-right">
-				   <button type="button" class="btn btn-success  btn-xs btn-square active pull-right add_button" data-type="cc" data-toggle="modal" data-target="#addCustomer"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				   </button>
-			      </div>
-			 </div>
-			 <div class="form-group col-md-12">
 			      <label for="contain">Assignee*</label>
-			      <select name="customer_type" id="" tabindex="-1" class=" chossen form-control" >    
+			      <select name="employe_type" id="" tabindex="-1" class=" chossen form-control" >    
 				   <option value="">Select type</option>
 				   <?php
 				   if ($userdata) {
@@ -120,7 +97,7 @@ $access_level = $user['user_access_level'];
 		    <div class="ticket_left"> 
 			 <div class="form-group col-md-12">
 			      <label for="filter">Priority </label>
-			      <select class="form-control chossen" name="ticket_priority" required="" data-parsley-error-message="Priority  type field is required.">
+			      <select class="form-control chossen" name="ticket_priority" required="" data-parsley-error-message="Priority type field is required.">
 				   <option value="" selected>-</option>
 				   <option value="normal">Normal</option>
 				   <option value="high">High</option>
@@ -163,7 +140,7 @@ $access_level = $user['user_access_level'];
 		    <input type="hidden" id="attach_ids" name="attachment_id"> 
 		    <input type="hidden" id="pre_ids"> 
 		    <input type="hidden" id="group_ids"> 
-		    <input type="hidden" id="organisation_type" value="<?php echo $organisation_id; ?>"> 
+		    <!--<input type="hidden" id="organisation_type" value="<?php echo $organisation_id; ?>">--> 
 	       </div>
 	  </form>
      </div>
@@ -516,6 +493,7 @@ $access_level = $user['user_access_level'];
 	     
 	     
 	  });
+	  $('.existing_amc_ids').hide();   
 	   $('body').on('change','#amc_ticket_type',function(){
 		var ticket_type = $(this).val();
 		if(ticket_type=='new'){
