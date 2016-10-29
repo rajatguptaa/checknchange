@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2016 at 07:07 PM
+-- Generation Time: Oct 29, 2016 at 03:16 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -147,18 +147,20 @@ CREATE TABLE IF NOT EXISTS `amc_service` (
   `create_date` datetime NOT NULL,
   `amc_note` text NOT NULL,
   `edited_at` datetime NOT NULL,
+  `amc_code` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `amc_service`
 --
 
-INSERT INTO `amc_service` (`id`, `user_id`, `amc_id`, `amc_rel`, `start_date`, `due_date`, `reference_by`, `create_date`, `amc_note`, `edited_at`) VALUES
-(1, 69, 7, 1, '2017-02-11 00:00:00', '2017-02-26 00:00:00', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00'),
-(2, 69, 8, 2, '2016-11-21 00:00:00', '2016-11-26 00:00:00', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00'),
-(3, 69, 9, 3, '2016-10-23 09:19:22', '2016-10-26 09:19:22', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00'),
-(4, 69, 10, 4, '2016-10-23 09:19:22', '2016-10-26 09:19:22', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00');
+INSERT INTO `amc_service` (`id`, `user_id`, `amc_id`, `amc_rel`, `start_date`, `due_date`, `reference_by`, `create_date`, `amc_note`, `edited_at`, `amc_code`) VALUES
+(1, 69, 7, 1, '2017-02-11 00:00:00', '2017-02-26 00:00:00', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00', 5454),
+(2, 69, 8, 2, '2016-11-21 00:00:00', '2016-11-26 00:00:00', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00', 5454),
+(3, 69, 9, 3, '2016-10-23 09:19:22', '2016-10-26 09:19:22', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00', 5454),
+(4, 69, 10, 4, '2016-10-23 09:19:22', '2016-10-26 09:19:22', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00', 5454),
+(5, 70, 8, 5, '2016-10-24 18:27:40', '2016-10-27 18:27:40', 68, '2016-10-24 18:27:40', '', '0000-00-00 00:00:00', 5454);
 
 -- --------------------------------------------------------
 
@@ -326,7 +328,7 @@ CREATE TABLE IF NOT EXISTS `attachment` (
   `attachment_type` enum('audio','video','image','doc','extra','object') NOT NULL,
   `attachment_update` datetime NOT NULL,
   PRIMARY KEY (`attachment_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `attachment`
@@ -342,7 +344,9 @@ INSERT INTO `attachment` (`attachment_id`, `attachment_name`, `attachment_path`,
 (7, 'Lenovo_ThinkPad_X1_Ultrabook.jpg', 'assets/attachment/image/1459335285_Lenovo_ThinkPad_X1_Ultrabook.jpg', 'image', '2016-03-30 12:54:45'),
 (8, 'composite.gif', 'assets/attachment/image/1459335492_composite.gif', 'image', '2016-03-30 12:58:12'),
 (9, 'complaince_check.png', 'assets/attachment/image/1459335498_complaince_check.png', 'image', '2016-03-30 12:58:18'),
-(10, 'favicon.png', 'assets/attachment/image/1459335501_favicon.png', 'image', '2016-03-30 12:58:21');
+(10, 'favicon.png', 'assets/attachment/image/1459335501_favicon.png', 'image', '2016-03-30 12:58:21'),
+(11, '10169205_219951188337247_4014068942968777191_n.jpg', 'assets/attachment/image/1477590877_10169205_219951188337247_4014068942968777191_n.jpg', 'image', '2016-10-27 18:54:37'),
+(12, '10349983_422375857936446_6431713811344540796_n.jpg', 'assets/attachment/image/1477590880_10349983_422375857936446_6431713811344540796_n.jpg', 'image', '2016-10-27 18:54:40');
 
 -- --------------------------------------------------------
 
@@ -449,7 +453,7 @@ CREATE TABLE IF NOT EXISTS `forget_password` (
   `forget_token` varchar(256) NOT NULL,
   `forget_update` datetime NOT NULL,
   PRIMARY KEY (`forget_password_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `forget_password`
@@ -460,7 +464,9 @@ INSERT INTO `forget_password` (`forget_password_id`, `user_id`, `forget_token`, 
 (2, 44, '56d831fecf612', '2016-03-03 13:45:50'),
 (3, 45, '56d8325a298f5', '2016-03-03 13:47:22'),
 (4, 46, '56d832755e5b1', '2016-03-03 13:47:49'),
-(5, 63, '580317f5a2a83', '2016-10-16 07:02:29');
+(5, 63, '580317f5a2a83', '2016-10-16 07:02:29'),
+(6, 71, '5812388463ddb', '2016-10-27 18:25:24'),
+(7, 72, '581245ba7d884', '2016-10-27 19:21:46');
 
 -- --------------------------------------------------------
 
@@ -728,6 +734,9 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `organisation_id` int(11) NOT NULL,
   `ticket_updated` datetime NOT NULL,
   `ticket_created` datetime NOT NULL,
+  `amc_code` int(11) NOT NULL,
+  `amc_type` varchar(255) NOT NULL,
+  `amc_id` int(11) NOT NULL,
   PRIMARY KEY (`ticket_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -735,8 +744,8 @@ CREATE TABLE IF NOT EXISTS `ticket` (
 -- Dumping data for table `ticket`
 --
 
-INSERT INTO `ticket` (`ticket_id`, `ticket_number`, `ticket_subject`, `ticket_description`, `ticket_priority`, `ticket_status`, `ticket_type`, `user_id`, `organisation_id`, `ticket_updated`, `ticket_created`) VALUES
-(1, '#TKT29578900', 'srsef', 'dsffdsfds', 'high', 'Solved', 'question', 46, 2, '2016-04-01 11:06:58', '2016-03-31 16:17:44');
+INSERT INTO `ticket` (`ticket_id`, `ticket_number`, `ticket_subject`, `ticket_description`, `ticket_priority`, `ticket_status`, `ticket_type`, `user_id`, `organisation_id`, `ticket_updated`, `ticket_created`, `amc_code`, `amc_type`, `amc_id`) VALUES
+(1, '#TKT29578900', 'srsef', 'dsffdsfds', 'high', 'Solved', 'question', 46, 2, '2016-04-01 11:06:58', '2016-03-31 16:17:44', 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -912,7 +921,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `annivery` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`user_email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
 
 --
 -- Dumping data for table `user`
@@ -922,7 +931,10 @@ INSERT INTO `user` (`user_id`, `user_code`, `user_name`, `first_name`, `last_nam
 (47, '0', 'dsadsa', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '0', '12345678933', 'admin@mail.com', 'assets/img/user/userimage_3958bec.jpg', 1, 'dsdsa', 1, '2016-09-18 18:15:23', '0', 51, '', '543543', '', '54353', '5435', '5434534', '0000-00-00', '0000-00-00 00:00:00'),
 (55, '0', 'maddy2222', 'Jolly', 'Yong', '827ccb0eea8a706c4c34a16891f84e7b', '0', '4343', 'admin11wwasaw@mail.com', 'assets/img/employee/userimage_2ef1388.jpg', 0, '', 4, '2016-09-18 20:45:07', '4', 0, 'assets/attachment/employee/attachment_8a7129b.pdf', '4343', '', '432432', '4324', '4324', '0000-00-00', '0000-00-00 00:00:00'),
 (68, 'Misra', 'Rajendra', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '', '987888888', 'sadsa@gmail.com', '', 1, '', 3, '2016-10-23 09:18:43', '', 0, 'assets/attachment/employee/attachment_802a5fd.jpg', 'Yogesh', '', 'Jabalpur', 'India', '452002', NULL, NULL),
-(69, 'F4343', 'Rajat Gupta', 'Rajat', 'Gupta', '827ccb0eea8a706c4c34a16891f84e7b', '9806803545', '', 'ravi@mail.com', '', 1, 'test', 4, '2016-10-23 09:19:22', 'premium', 68, '', 'Biyabani', '', 'Indore', 'India', '452002', '2016-10-23', '2016-10-23 00:00:00');
+(69, 'F4343', 'Rajat Gupta', 'Rajat', 'Gupta', '827ccb0eea8a706c4c34a16891f84e7b', '9806803545', '', 'ravi@mail.com', '', 1, 'test', 4, '2016-10-23 09:19:22', 'premium', 68, '', 'Biyabani', '', 'Indore', 'India', '452002', '2016-10-23', '2016-10-23 00:00:00'),
+(70, 'C001', 'test test', 'test', 'test', '827ccb0eea8a706c4c34a16891f84e7b', '1234567898', '1234569874', 'raka@gmail.com', '', 1, '', 4, '2016-10-24 18:27:40', 'regular', 68, '', 'Test', 'testt', 'test', 'test', 'tse', '2016-10-24', '2016-10-24 00:00:00'),
+(71, '', 'test', '', '', '', '', '', 'test@mail.com', '', 1, '', 4, '2016-10-27 18:25:24', '', 0, '', '', '', '', '', '', NULL, NULL),
+(72, '', 'sasas', '', '', '', '1234567898', '', 'raviasasa@mail.com', '', 1, '', 4, '2016-10-27 19:21:46', '', 0, '', 'Biyabani', '', '', '', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -941,18 +953,20 @@ CREATE TABLE IF NOT EXISTS `user_amc_rel` (
   `edited_at` datetime NOT NULL,
   `amc_user_status` tinyint(1) NOT NULL,
   `amc_count` int(11) NOT NULL,
+  `amc_code` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `user_amc_rel`
 --
 
-INSERT INTO `user_amc_rel` (`id`, `user_id`, `amc_id`, `amc_start_date`, `amc_end_date`, `reference_by`, `created_at`, `edited_at`, `amc_user_status`, `amc_count`) VALUES
-(1, 69, 7, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 1),
-(2, 69, 8, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 1),
-(3, 69, 9, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 0),
-(4, 69, 10, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 0);
+INSERT INTO `user_amc_rel` (`id`, `user_id`, `amc_id`, `amc_start_date`, `amc_end_date`, `reference_by`, `created_at`, `edited_at`, `amc_user_status`, `amc_count`, `amc_code`) VALUES
+(1, 69, 7, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 1, 0),
+(2, 69, 8, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 1, 0),
+(3, 69, 9, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 0, 0),
+(4, 69, 10, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 0, 0),
+(5, 70, 8, '2016-10-24 18:27:40', '2017-10-24 18:27:40', 68, '2016-10-24 18:27:40', '0000-00-00 00:00:00', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -994,7 +1008,7 @@ CREATE TABLE IF NOT EXISTS `user_organisation_rel` (
   `organisation_id` int(11) NOT NULL,
   `user_organisation_update` datetime NOT NULL,
   PRIMARY KEY (`user_organisation_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `user_organisation_rel`
@@ -1013,7 +1027,8 @@ INSERT INTO `user_organisation_rel` (`user_organisation_id`, `user_id`, `organis
 (14, 50, 1, '0000-00-00 00:00:00'),
 (15, 51, 1, '0000-00-00 00:00:00'),
 (16, 52, 1, '0000-00-00 00:00:00'),
-(17, 63, 5, '0000-00-00 00:00:00');
+(17, 63, 5, '0000-00-00 00:00:00'),
+(18, 71, 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
