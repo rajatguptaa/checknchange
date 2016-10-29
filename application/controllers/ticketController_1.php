@@ -115,9 +115,7 @@ class TicketController extends BaseController {
             $where['user_organisation_rel.organisation_id'] = $org_id;
               $select = 'user.user_id,user_name,user_email';
             $pagedata['customer_details'] = $this->crm->getData('user', $select, $where, $join, 'user.user_update', 'DESC');
-	    $pagedata['userdata'] = getUserByAccessLevel(3);
-	    $pagedata['usercustomerdata'] = getUserByAccessLevel(4);
-	    $pagedata['amcdata'] = getAMC('primary');
+
 
             $group = $this->crm->getData('group', '');
 
@@ -2752,33 +2750,9 @@ class TicketController extends BaseController {
     }
     
     
-    function getAmc(){
-     $type = $this->input->post('type');
-     if($type!=''){
-	  
-     $amc = $this->crm->getData('amc','amc.*',array('amc_type'=>$type));
-     }else{
-     $amc = $this->crm->getData('amc','amc.*');
-	  
-     }
     
-     echo json_encode($amc);die;
-    }
    
-    function getAmcServiceCode(){
-	 
-     $amc_name = $this->input->post('amc_name');
-     $amc_type = $this->input->post('amc_type');
-	 $join = array(
-	     array('table'=>'amc',
-		 'on'=>'amc.id=amc_service.amc_id'
-		 )
-	 );
-    $data =  $this->crm->getData('amc_service','amc_service.*',array('amc_service.amc_id'=>$amc_name,'amc_type'=>$amc_type,'amc_service.start_date <'=>date('Y-m-d H:i:s')),$join);
-    
-//    echo $this->crm->db->last_query();
-    echo json_encode($data);die;
-    }
+
 }
 
 ?>

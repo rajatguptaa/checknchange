@@ -194,6 +194,7 @@ class CustomerController extends BaseController {
 				   
 				   $user_amc['user_id'] = $user_id;
 				   $user_amc['amc_id'] = $amc_value;
+				   $user_amc['amc_code'] = 'CNC' . random_string('numeric');
 				   $user_amc['amc_start_date'] = date('Y-m-d H:i:s');
 				   $user_amc['amc_end_date'] = amc_date_create(date('Y-m-d H:i:s'), $amc_value);
 				   $user_amc['reference_by'] = $data['reference_by'];
@@ -205,6 +206,7 @@ class CustomerController extends BaseController {
 				   $service_date = firstServiceDate(date('Y-m-d H:i:s'), $amc_value);
 				   $amc_service['user_id'] = $user_id;
 				   $amc_service['amc_id'] = $amc_value;
+				   $amc_service['amc_code'] = 'CNC' . random_string('numeric');
 				   $amc_service['amc_rel'] = $user_amc_rel;
 				   $amc_service['start_date'] = $service_date['start_date'];
 				   $amc_service['due_date'] = $service_date['end_date'];
@@ -616,11 +618,11 @@ class CustomerController extends BaseController {
 	       $data = $this->input->post();
 
 
-	       $org_id = $this->input->post('org_id');
-	       ;
+//	       $org_id = $this->input->post('org_id');
+	       
 
 	       $data['user_status'] = 1;
-	       $data['user_access_level'] = 2;
+	       $data['user_access_level'] = 4;
 	       $data['user_update'] = date("Y-m-d H:i:s");
 	       unset($data['org_id']);
 
@@ -629,11 +631,11 @@ class CustomerController extends BaseController {
 		    $user_detail = getUserDetails($last_user_id);
 
 
-		    $org_data = array('user_id' => $last_user_id, 'organisation_id' => $org_id);
+//		    $org_data = array('user_id' => $last_user_id, 'organisation_id' => $org_id);
 		    //Add Organisation 
-		    $org_rel_id = $this->crm->rowInsert('user_organisation_rel', $org_data);
-		    if ($org_rel_id) {
-			 $org = getUserOrginasationDetails($user_detail['user_id']);
+//		    $org_rel_id = $this->crm->rowInsert('user_organisation_rel', $org_data);
+//		    if ($org_rel_id) {
+//			 $org = getUserOrginasationDetails($user_detail['user_id']);
 			 $unique_id = uniqid();
 			 $forget_data = array(
 			     'user_id' => $user_detail['user_id'],
@@ -666,7 +668,7 @@ class CustomerController extends BaseController {
 			 $result['detail'] = $user_detail;
 
 			 echo json_encode($result);
-		    }
+//		    }
 	       }
 	  }
      }
