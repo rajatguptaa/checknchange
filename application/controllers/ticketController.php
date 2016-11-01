@@ -97,14 +97,6 @@ class TicketController extends BaseController {
             }
 
 
-
-
-
-
-
-
-
-
 //            $pagedata['organisation_id'] = $org_id;
             $join = array(
                 array('table' => 'user_organisation_rel',
@@ -206,7 +198,7 @@ class TicketController extends BaseController {
 
                     $ticket_id = $this->crm->rowInsert('ticket', $data);
 
-		    var_dump($ticket_id);die('ttrerer');
+//		    var_dump($ticket_id);die('ttrerer');
                     if ($ticket_id) {
                         if (!empty($attachment_id)) {
                             foreach ($attachment_id as $attch_val) {
@@ -231,13 +223,13 @@ class TicketController extends BaseController {
 
 
 
-                            $assignee = explode('_', $assign_user);
-                            if ($parent_user != $assignee[0]) {
+//                            $assignee = explode('_', $assign_user);
+                            if ($parent_user != $assignee) {
                                 $assign_data = array(
                                     'assigned_by' => getLoginUser(),
                                     'ticket_id' => $ticket_id,
-                                    'user_id' => $assignee[0],
-                                    'group_id' => $assignee[1],
+                                    'user_id' => $assignee,
+                                    'group_id' => 0,
                                     'parent_user_id' => $parent_user,
                                     'ticket_assign_at' => date("Y-m-d H:i:s"),
                                     'current_working_user' => 1
@@ -248,7 +240,7 @@ class TicketController extends BaseController {
                                 $attch_id = $this->crm->rowInsert('ticket_assign', $assign_data);
                                 $group_data = array(
                                     'ticket_id' => $ticket_id,
-                                    'group_id' => $assignee[1],
+                                    'group_id' => 0,
                                     'ticket_group_update' => date("Y-m-d H:i:s")
                                 );
                                 $this->crm->rowsDelete('ticket_group_rel', array('ticket_id' => $ticket_id));
@@ -261,50 +253,50 @@ class TicketController extends BaseController {
 
 
                             // Email Content When Assign Ticket
-                            $user_id = $assignee[0];
-                            $user_details = getUserDetails($user_id);
-                            $adminDetails = getAdminDetails();
-
-                            $ticket_detail = $this->getTicketData($ticket_id, $org_id);
-
-                            foreach ($ticket_detail['assign_user'] as $tkt) {
-                                if ($tkt['current_working_user'] == 1) {
-                                    $assign_at = $tkt['ticket_assign_at'];
-                                    $assign_by = getUserName($tkt['assigned_by']);
-                                }
-                            }
-
-
-                            $status_html = getStatus($ticket_detail['ticket_status']);
-                            $priority_html = getPriority($ticket_detail['ticket_priority']);
-
-                            $maildata['content'] = sprintf(TICKET_ASSIGN, $status_html, $ticket_detail['ticket_subject'], $ticket_detail['ticket_number'], $priority_html, $ticket_detail['ticket_description'], $assign_by, dateFormate($assign_at));
-
-                            $maildata['ticket_detail'] = $ticket_detail;
-                            $maildata['link'] = base_url('request/ticket/view/' . $ticket_id);
-                            $maildata['btntitle'] = 'View Ticket';
-                            $message .= $this->load->view('/email_template/email_header', FALSE, TRUE);
-                            $message .= $this->load->view('/email_template/email_view', $maildata, TRUE);
-                            $message .= $this->load->view('/email_template/email_footer', FALSE, TRUE);
-                            mymail($user_details['user_email'], TICKET_ASSIGN_SUB, $message,False,FALSE,FALSE);
-
-
-
-                            // email for customer when ticket create   
-                            $maildata = array();
-                            $message = '';
-                            $user_id = $data['user_id'];
-                            $user_details = getUserDetails($user_id);
-                            $adminDetails = getAdminDetails();
-                            $maildata['content'] = sprintf(CUSTOMER_TICKET_CREATION, getUserName($user_id), $data['ticket_number']);
-//                      $maildata['email_heading'] = sprintf(EMAILHEADING,$org['organisation_name']);
-                            $maildata['ticket_detail'] = array();
-                            $maildata['link'] = base_url('request/ticket/view/' . $ticket_id);
-                            $maildata['btntitle'] = 'View Ticket';
-                            $message .= $this->load->view('/email_template/email_header', FALSE, TRUE);
-                            $message .= $this->load->view('/email_template/email_view', $maildata, TRUE);
-                            $message .= $this->load->view('/email_template/email_footer', FALSE, TRUE);
-                            mymail($user_details['user_email'], TICKET_CREATE_SUB, $message,False,FALSE,FALSE);
+//                            $user_id = $assignee[0];
+//                            $user_details = getUserDetails($user_id);
+//                            $adminDetails = getAdminDetails();
+//
+//                            $ticket_detail = $this->getTicketData($ticket_id, $org_id);
+//
+//                            foreach ($ticket_detail['assign_user'] as $tkt) {
+//                                if ($tkt['current_working_user'] == 1) {
+//                                    $assign_at = $tkt['ticket_assign_at'];
+//                                    $assign_by = getUserName($tkt['assigned_by']);
+//                                }
+//                            }
+//
+//
+//                            $status_html = getStatus($ticket_detail['ticket_status']);
+//                            $priority_html = getPriority($ticket_detail['ticket_priority']);
+//
+//                            $maildata['content'] = sprintf(TICKET_ASSIGN, $status_html, $ticket_detail['ticket_subject'], $ticket_detail['ticket_number'], $priority_html, $ticket_detail['ticket_description'], $assign_by, dateFormate($assign_at));
+//
+//                            $maildata['ticket_detail'] = $ticket_detail;
+//                            $maildata['link'] = base_url('request/ticket/view/' . $ticket_id);
+//                            $maildata['btntitle'] = 'View Ticket';
+//                            $message .= $this->load->view('/email_template/email_header', FALSE, TRUE);
+//                            $message .= $this->load->view('/email_template/email_view', $maildata, TRUE);
+//                            $message .= $this->load->view('/email_template/email_footer', FALSE, TRUE);
+//                            mymail($user_details['user_email'], TICKET_ASSIGN_SUB, $message,False,FALSE,FALSE);
+//
+//
+//
+//                            // email for customer when ticket create   
+//                            $maildata = array();
+//                            $message = '';
+//                            $user_id = $data['user_id'];
+//                            $user_details = getUserDetails($user_id);
+//                            $adminDetails = getAdminDetails();
+//                            $maildata['content'] = sprintf(CUSTOMER_TICKET_CREATION, getUserName($user_id), $data['ticket_number']);
+////                      $maildata['email_heading'] = sprintf(EMAILHEADING,$org['organisation_name']);
+//                            $maildata['ticket_detail'] = array();
+//                            $maildata['link'] = base_url('request/ticket/view/' . $ticket_id);
+//                            $maildata['btntitle'] = 'View Ticket';
+//                            $message .= $this->load->view('/email_template/email_header', FALSE, TRUE);
+//                            $message .= $this->load->view('/email_template/email_view', $maildata, TRUE);
+//                            $message .= $this->load->view('/email_template/email_footer', FALSE, TRUE);
+//                            mymail($user_details['user_email'], TICKET_CREATE_SUB, $message,False,FALSE,FALSE);
                             // Admin Mail
 //                        $message = '';
 //                       $maildata['content'] = sprintf(ADMIN_TICKET_CREATION,getUserName($user_id),$data['ticket_number']);
@@ -319,93 +311,93 @@ class TicketController extends BaseController {
                             $history_response = $this->crm->rowInsert('ticket_history', array('ticket_id' => $ticket_id, 'ticket_updated_by' => getLoginUser(), 'ticket_history_status' => $data['ticket_status'], 'ticket_history_created_at' => date('Y-m-d H:i:s')));
                         } else {
                             $count = $this->crm->getRowCount('ticket_assign', '*', array('ticket_id' => $ticket_id));
-                            if ($count > 0) {
-                                $updatedata['current_working_user'] = 0;
-                                $this->crm->rowUpdate('ticket_assign', array('current_working_user' => 0), array('ticket_id' => $ticket_id));
-                            }
-                            $message = '';
-                            // Email Content When Created Ticket
-                            $user_id = $data['user_id'];
-                            $user_details = getUserDetails($user_id);
-                            $adminDetails = getAdminDetails();
-                            $maildata['content'] = sprintf(CUSTOMER_TICKET_CREATION, getUserName($user_id), $data['ticket_number']);
-//                      
-                            $maildata['link'] = base_url('request/ticket/view/' . $ticket_id);
-                            $maildata['btntitle'] = 'View Ticket';
-                            $message .= $this->load->view('/email_template/email_header', FALSE, TRUE);
-                            $message .= $this->load->view('/email_template/email_view', $maildata, TRUE);
-                            $message .= $this->load->view('/email_template/email_footer', FALSE, TRUE);
-
-                            mymail($user_details['user_email'], TICKET_CREATE_SUB, $message,False,FALSE,FALSE);
-                            $maildata = array();
-                            // Admin Mail
-                            $message = '';
-                            $maildata['content'] = sprintf(ADMIN_TICKET_CREATION, getUserName($user_id), $data['ticket_number']);
-//                    
-                            $maildata['link'] = base_url('request/ticket/view/' . $ticket_id);
-                            $maildata['btntitle'] = 'View Ticket';
-                            $message .= $this->load->view('/email_template/email_header', FALSE, TRUE);
-                            $message .= $this->load->view('/email_template/email_view', $maildata, TRUE);
-                            $message .= $this->load->view('/email_template/email_footer', FALSE, TRUE);
-                           
-                            if(!empty($cc_user)){
-                            mymail($adminDetails['user_email'], TICKET_CREATE_SUB, $message,False,FALSE,FALSE,FALSE);
-                           }else{
-                            mymail($adminDetails['user_email'], TICKET_CREATE_SUB, $message,False,FALSE,FALSE,$cc_user);
-                           }
+//                            if ($count > 0) {
+//                                $updatedata['current_working_user'] = 0;
+//                                $this->crm->rowUpdate('ticket_assign', array('current_working_user' => 0), array('ticket_id' => $ticket_id));
+//                            }
+//                            $message = '';
+//                            // Email Content When Created Ticket
+//                            $user_id = $data['user_id'];
+//                            $user_details = getUserDetails($user_id);
+//                            $adminDetails = getAdminDetails();
+//                            $maildata['content'] = sprintf(CUSTOMER_TICKET_CREATION, getUserName($user_id), $data['ticket_number']);
+////                      
+//                            $maildata['link'] = base_url('request/ticket/view/' . $ticket_id);
+//                            $maildata['btntitle'] = 'View Ticket';
+//                            $message .= $this->load->view('/email_template/email_header', FALSE, TRUE);
+//                            $message .= $this->load->view('/email_template/email_view', $maildata, TRUE);
+//                            $message .= $this->load->view('/email_template/email_footer', FALSE, TRUE);
+//
+//                            mymail($user_details['user_email'], TICKET_CREATE_SUB, $message,False,FALSE,FALSE);
+//                            $maildata = array();
+//                            // Admin Mail
+//                            $message = '';
+//                            $maildata['content'] = sprintf(ADMIN_TICKET_CREATION, getUserName($user_id), $data['ticket_number']);
+////                    
+//                            $maildata['link'] = base_url('request/ticket/view/' . $ticket_id);
+//                            $maildata['btntitle'] = 'View Ticket';
+//                            $message .= $this->load->view('/email_template/email_header', FALSE, TRUE);
+//                            $message .= $this->load->view('/email_template/email_view', $maildata, TRUE);
+//                            $message .= $this->load->view('/email_template/email_footer', FALSE, TRUE);
+//                           
+//                            if(!empty($cc_user)){
+//                            mymail($adminDetails['user_email'], TICKET_CREATE_SUB, $message,False,FALSE,FALSE,FALSE);
+//                           }else{
+//                            mymail($adminDetails['user_email'], TICKET_CREATE_SUB, $message,False,FALSE,FALSE,$cc_user);
+//                           }
                         }
 
 
 
 
 
-                        $tags = $this->input->post('tags');
-                        if (!empty($tags)) {
-                            foreach ($tags as $tag_val) {
-                                // get group data 
-                                if (is_numeric($tag_val)) {
-                                    $tag_data = array(
-                                        'tag_heading' => $tag_val,
-                                        'organisation_id' => $org_id,
-                                        'tag_created_at' => date("Y-m-d H:i:s")
-                                    );
-                                    // add group user detail 
-                                    $last_tag_id = $this->crm->rowInsert('ticket_tag', $tag_data);
-                                } else {
-                                    $tag_id = explode('_', $tag_val);
-                                    $create_tag = array(
-                                        'tag_heading' => $tag_id[1],
-                                        'organisation_id' => $org_id,
-                                        'tag_created_at' => date("Y-m-d H:i:s")
-                                    );
-                                    $last_tag_id = $this->crm->rowInsert('ticket_tag', $create_tag);
-                                    $ticket_tag_rel = array(
-                                        'tag_id' => $last_tag_id,
-                                        'ticket_id' => $ticket_id,
-                                        'ticket_tag_update' => date("Y-m-d H:i:s")
-                                    );
-                                    // add group user detail 
-                                    $tag_rel_id = $this->crm->rowInsert('ticket_tag_rel', $ticket_tag_rel);
-                                }
-                            }
-                        }
+//                        $tags = $this->input->post('tags');
+//                        if (!empty($tags)) {
+//                            foreach ($tags as $tag_val) {
+//                                // get group data 
+//                                if (is_numeric($tag_val)) {
+//                                    $tag_data = array(
+//                                        'tag_heading' => $tag_val,
+//                                        'organisation_id' => $org_id,
+//                                        'tag_created_at' => date("Y-m-d H:i:s")
+//                                    );
+//                                    // add group user detail 
+//                                    $last_tag_id = $this->crm->rowInsert('ticket_tag', $tag_data);
+//                                } else {
+//                                    $tag_id = explode('_', $tag_val);
+//                                    $create_tag = array(
+//                                        'tag_heading' => $tag_id[1],
+//                                        'organisation_id' => $org_id,
+//                                        'tag_created_at' => date("Y-m-d H:i:s")
+//                                    );
+//                                    $last_tag_id = $this->crm->rowInsert('ticket_tag', $create_tag);
+//                                    $ticket_tag_rel = array(
+//                                        'tag_id' => $last_tag_id,
+//                                        'ticket_id' => $ticket_id,
+//                                        'ticket_tag_update' => date("Y-m-d H:i:s")
+//                                    );
+//                                    // add group user detail 
+//                                    $tag_rel_id = $this->crm->rowInsert('ticket_tag_rel', $ticket_tag_rel);
+//                                }
+//                            }
+//                        }
                         
-                        if(!empty($cc_user)){
-                          foreach ($cc_user as $cc_data) {
-                               
-                                    $cc_data = array(
-                                        'ticket_cc_email' => $cc_data,
-                                        'ticket_id' => $ticket_id,
-                                        'ticket_cc_created_at' => date("Y-m-d H:i:s")
-                                    );
-                                    // add group user detail 
-                                    $last_tag_id = $this->crm->rowInsert('ticket_cc', $cc_data);
-                               
-                            }   
-                            
-                        }
+//                        if(!empty($cc_user)){
+//                          foreach ($cc_user as $cc_data) {
+//                               
+//                                    $cc_data = array(
+//                                        'ticket_cc_email' => $cc_data,
+//                                        'ticket_id' => $ticket_id,
+//                                        'ticket_cc_created_at' => date("Y-m-d H:i:s")
+//                                    );
+//                                    // add group user detail 
+//                                    $last_tag_id = $this->crm->rowInsert('ticket_cc', $cc_data);
+//                               
+//                            }   
+//                            
+//                        }
 
-                        $this->session->set_flashdata('ticket_success', 'Ticket Added Successfully');
+                     $this->session->set_flashdata('ticket_success', 'Ticket Added Successfully');
                      redirect('request', 'refresh');
                     } else {
                         $this->session->set_flashdata('ticket_warning', 'Something went wrong');
@@ -1894,6 +1886,8 @@ class TicketController extends BaseController {
                   $where = "(`ticket`.`ticket_status` = 'Open' OR `ticket`.`ticket_status` = 'Pending')";
                 }
                 $ticketData = $this->crm->getData('ticket', 'ticket.*', $where, $join, FALSE, FALSE, $limit, ($limit * ($offset - 1)), FALSE);
+               
+               
                 $get = $this->crm->getData('ticket', 'ticket.*', $where, $join, FALSE, FALSE, FALSE, FALSE, FALSE);
                 $count = count($get);
                 break;
