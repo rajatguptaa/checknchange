@@ -10,22 +10,7 @@ $access_level = $user['user_access_level'];
             </div>
             <div class="title_right">
                 <div class="col-md-4 col-sm-4 col-xs-12 form-group pull-right top_search">
-                    <div class="">
-                        <?php if (access_check("organisation", "view")) : ?>
-                            <select name="orginasation_name" id="orginasation_search" tabindex="-1" class="select_organisation form-control" onchange="">    
-                                <?php foreach ($organisation as $org) { ?>
-                                    <option value=<?php echo $org['organisation_id']; ?>><?= $org['organisation_name'] ?></option>
-                                <?php } ?>
-                            </select>   
-                        <?php else :
-                            ?>
-                            <input type="hidden" name="orginasation_name" id="orginasation_search" value="<?php
-                            $org = getUserOrginasationDetails($user['user_id']);
-                            echo $org['organisation_id'];
-                            ?>">
-                               <?php endif; ?>
-                        <input type="hidden" name="user_id" id="ticket_user_id" value="<?php echo $user['user_id']; ?>">
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -298,8 +283,8 @@ $access_level = $user['user_access_level'];
         }
         getTabCount(org_id, user_id);
         getAssigni(org_id, grp_id);
-        $('body').find("#create_button").attr('href', base_url + 'request/employee/add/' + org_id);
-        $('body').find("#grid_button").attr('href', base_url + 'request/employee/ticket/grid/' + org_id);
+        $('body').find("#create_button").attr('href', base_url + 'request/employee/add/0');
+        $('body').find("#grid_button").attr('href', base_url + 'request/employee/ticket/grid/0');
 
         $("body").on("click", ".load_extra a", function() {
             var obj = $(this);
@@ -566,7 +551,7 @@ $access_level = $user['user_access_level'];
     function getTabCount(org_id, user_id) {
 //        TicketCount
         var base_url = $("#base_url").val();
-
+org_id = 0;
         $.ajax({
             type: "GET",
             url: base_url + 'ticketController/TicketCount/' + org_id + "/" + user_id,

@@ -145,7 +145,7 @@ class ServiceController extends CI_Controller {
 	       }
 
 	       if ($delete_acccess) {
-                $link .= '<a class="btn btn-danger btn-xs ticket" title="Ticket" data-id="' . $val['service_id'] . '" href="'.base_url().'request/'.$val['service_id'].'"><i class="fa fa-bug"></i> Ticket</a>';
+                $link .= '<a class="btn btn-danger btn-xs ticket" title="Ticket" data-id="' . $val['service_id'] . '" href="'.base_url().'request/employee/add/'.$val['service_id'].'"><i class="fa fa-bug"></i> Ticket</a>';
 	       }
 	       $output['aaData'][] = array(
 		   "DT_RowId" => $val['service_id'],

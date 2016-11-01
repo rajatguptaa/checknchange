@@ -4,16 +4,64 @@ $access_level = $user['user_access_level'];
 ?>
 <div class="container">
      <div class="col-md-12 col-sm-12 ticket">
+		 <?php  if($this->uri->segment('4')>0){
+		      $amc_id = $this->uri->segment('4');
+		    $detail =   getAmcDetail($amc_id);
+//		    var_dump($detail);
+		    
+		   ?>
+	  <input type="hidden"  id="amc_service_id" value="<?php echo $amc_id;?>">
+	   <div class="ticket_left existing_amc_block">
+		
+		<label for="filter"><span>Amc Detail</span></label>
+			 <div class="form-group col-sm-6 col-xs-6 col-sm-6">
+			      <label for="filter">Amc Name </label>
+			      <label for="filter"><span><?php echo  $detail['amc_name'];?></span></label>
+			      
+<?php echo form_error('ticket_priority'); ?>
+			 </div>
+			 <div class="form-group col-md-6 col-sm-6 col-xs-6">
+			      <label for="filter">Customer Name </label>
+			      <label for="filter"><span><?php echo $detail['first_name'].' '.$detail['last_name'];?></span> </label>
+			 </div>
+			 <div class="form-group col-md-6 col-sm-6 col-xs-6">
+			      <label for="filter">Due Date</label>
+			      <label for="filter"><span><?php echo date('d-m-Y',  strtotime($detail['due_date']));?></span> </label>
+			 </div>
+		    </div>
+		<?php
+//		      $user_id = $detail['user_id'];
+		 }else{
+//		      $user_id = 0;
+		      ?>
+	  <input type="hidden" id="amc_service_id" value="0">
+	  <?php
+	  
+		 }?>
 	  <form data-parsley-validate id="employee_ticket"  class="form-horizontal form-label-left"   action="" method="post" enctype="multipart/form-data">
+	       
 	       <div class="col-md-4 col-sm-5 left">
 		    <div class="ticket_left">
                          <div class="form-group col-md-12">
 
 			      <?php // if (access_check("organisation", "view")) : ?>
                               <label for="orginasation_search">Amc Type </label>
-			      <select name="amc_type" id="amc_type" tabindex="-1" class=" chossen form-control" required="" data-parsley-error-message="Amc type field is required.">    
+			      <select name="amc_type" id="amc_type" tabindex="-1" class=" chossen form-control" required="" data-parsley-error-message="Amc type field is required.">				       <?php   
+					  if(!empty($this->uri->segment('4'))){
+					 $amc_id = $this->uri->segment('4');
+					  $detail =   getAmcDetail($amc_id);
+					   ?>
+				   <option value="primary" <?= ($detail['amc_type']=='primary')?'selected':'';?>>Primary</option>
+				   <option value="secondary" <?= ($detail['amc_type']=='secondary')?'selected':'';?>>Secondary</option>
+				   <?php
+					  }else{
+					       ?>
 				   <option value="primary">Primary</option>
 				   <option value="secondary">Secondary</option>
+				   <?php
+					  }
+				   ?>
+				   
 			      </select>   
 			      <?php // endif; ?>
 
@@ -24,13 +72,24 @@ $access_level = $user['user_access_level'];
                               <label for="orginasation_search">Amc Name </label>
 			      <select name="amc_name" id="amc_name" tabindex="-1" class=" chossen form-control" required="" data-parsley-error-message="Amc name field is required.">    
 				    <?php if($amcdata){
+					 
+					  
+					
+					   if(!empty($detail)){
+					 
 					      foreach ($amcdata as $amcvalue) {
 						   ?>
-					      <option <?php echo set_select('user_amc[]', $amcvalue['id']); ?> value="<?php echo $amcvalue['id']; ?>"><?php echo $amcvalue['amc_name']; ?></option>
+					      <option <?= ($amcvalue['id']==$detail['service_id'])?'selected':'';?>  value="<?php echo $amcvalue['id']; ?>"><?php echo $amcvalue['amc_name']; ?></option>
 					      <?php
 						   }
 						   
-					      }?>
+				    }else{
+					 foreach ($amcdata as $amcvalue) {
+					 ?>
+					        <option   value="<?php echo $amcvalue['id']; ?>"><?php echo $amcvalue['amc_name']; ?></option>
+					      <?php
+					      
+				    }}}?>
 			      </select>   
 			      <?php // endif; ?>
 
@@ -39,8 +98,11 @@ $access_level = $user['user_access_level'];
 
                               <label for="orginasation_search">Amc Ticket Type</label>
 			      <select name="amc_ticket_type" id="amc_ticket_type" tabindex="-1" class=" chossen form-control" >    
-				   <option value="on_call">On Call Amc Ticket</option>
-				   <option value="existing">Existing Amc Ticket</option>
+				   <?php   
+					 $amc_id = $this->uri->segment('4');
+					  ?>
+				   <option value="on_call" <?= ($amc_id<0)?'selected':'';?>>On Call Amc Ticket</option>
+				   <option value="existing" <?= ($amc_id>0)?'selected':'';?>>Existing Amc Ticket</option>
 			      </select>   
 
 			 </div>
@@ -63,7 +125,7 @@ $access_level = $user['user_access_level'];
 				   if ($usercustomerdata) {
 					foreach ($usercustomerdata as $uservalue) {
 					     ?>
-	  				   <option <?php echo set_select('reference_by', $uservalue['user_id']); ?> value="<?php echo $uservalue['user_id']; ?>"><?php echo $uservalue['user_name']; ?></option>
+	  				   <option <?=($uservalue['user_id'])?'selected':''; ?>  value="<?php echo $uservalue['user_id']; ?>"><?php echo $uservalue['user_name']; ?></option>
 					     <?php
 					}
 				   }
@@ -493,7 +555,45 @@ $access_level = $user['user_access_level'];
 	     
 	     
 	  });
-	  $('.existing_amc_ids').hide();   
+	  
+	  
+
+	  var ticket_type = $('#amc_ticket_type').val();
+		if(ticket_type=='on_call'){
+		$('.existing_amc_ids').hide();   
+		console.log('fdfd');
+		    $('.existing_amc_ids').hide();   
+		     
+		}else{
+		$('.existing_amc_ids').show();   
+		  var amc_name = $('#amc_name').val();
+		  var amc_type = $('#amc_type').val();
+	         $.ajax({
+            url: base_url + 'ticketController/getAmcServiceCode', // point to server-side PHP script 
+            data: {amc_type:amc_type,amc_name:amc_name},
+            type: 'post',
+            success: function (response) {
+              response = $.parseJSON(response);
+	      var option = '';
+	      if(response.length>0){
+		  var amc_id =  $('#amc_service_id').val();
+		  console.log(amc_id);
+		var select = '';  
+		   $.each(response,function(key,value){
+		    if(amc_id==value.id){
+			    select = 'selected';
+		       }
+			option +="<option "+select+" value='"+value.id+"'>"+value.amc_code+"</option>";
+		   });
+	      }
+	      $('#amc_code').html(option);
+	      $('#amc_code').trigger("chosen:updated");
+	    
+	    
+            }
+        }); 
+	       
+		}
 	   $('body').on('change','#amc_ticket_type',function(){
 		var ticket_type = $(this).val();
 		if(ticket_type=='new'){

@@ -135,13 +135,18 @@ $access_level = $user['user_access_level'];
                         <label for="filter">Requester</label>
                         </div>
                         <div class="form-group col-md-10 col-sm-12 col-xs-8">    
-                        <select class="form-control" id="user_select" name="user_id">
-                                <?php
-                                foreach ($customer_details as $customer_details_list) {
-                                    ?>
-                                    <option <?php echo ($customer_details_list['user_id']==$form_data['user_id'])?'selected':'' ?> value="<?php echo $customer_details_list['user_id']; ?>"><?php echo getUserName($customer_details_list['user_id']); ?></option>
-                                <?php }
-                                ?>
+			     <select class="form-control" id="user_select" name="user_id">
+			     <?php
+			     
+				   if ($usercustomerdata) {
+					foreach ($usercustomerdata as $uservalue) {
+					     ?>
+	  				   <option <?php echo ($uservalue['user_id']==$form_data['user_id'])?'selected':'' ?>  value="<?php echo $uservalue['user_id']; ?>"><?php echo $uservalue['user_name']; ?></option>
+					     <?php
+					}
+				   }
+				   ?>
+                              
                        </select>
                        
                     <div class="pull-right">
@@ -149,35 +154,7 @@ $access_level = $user['user_access_level'];
                         </button>
                     </div>
                          </div></div>
-                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                         <div class="form-group col-md-2 col-sm-12 col-xs-4"> <label for="filter"> CC</label> </div>
-                              <div class="form-group col-md-10 col-sm-12 col-xs-8">  
-                       <select data-choosen-extra="false"  id="user_cc" name="user_cc[]" tabindex="-1" class="customer_div form-control col-md-7 col-xs-12" multiple="">                                                                  <?php
-                                if(!empty($customer_details)){
-                                foreach ($customer_details as $customer_details_cc) {
-                                    if(!empty($cc_data)){
-                                     if(in_array($customer_details_cc['user_email'],$cc_data)){   
-                                     $selectd = "selected";
-                                    }else{
-                                     $selectd = "";   
-                                    }
-                                }
-                                    ?>
-                                    <option <?php echo $selectd;?> value="<?php echo $customer_details_cc['user_email']; ?>">
-                                    <?php 
-                                    $email = $customer_details_cc['user_email']; 
-                                    echo getUserName($customer_details_cc['user_id']).'&lt'.$email.'&gt;
-';?>
-                                    </option>
-                                        <?php }}
-                                ?>
-                     </select>   
-                       
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-success  btn-xs btn-square active pull-right add_button" data-type="cc" data-toggle="modal" data-target="#addCustomer"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                              </div></div>
+                     
                         
                         </div> </div> 
                                                        
@@ -229,13 +206,12 @@ $access_level = $user['user_access_level'];
                                                             <div class="form-group col-md-6 col-sm-6 col-xs-12 ">
                                                                 
                                                                 <label for="filter">Type * </label>
-                                                                <select class="form-control chossen assign_field" data-parsley-error-message="Ticket type field is required." name="ticket_type" required="">
+                                                                <select class="form-control chossen assign_field" data-parsley-error-message="Ticket type field is required." name="amc_ticket_type" required="">
 
-                                                                    <option value="question" <?= ( $method == "post") ? (set_value('ticket_type') == "question") ? "selected" : "" : ($form_data['ticket_type'] == "question" ) ? "selected" : ""; ?>>Question</option>
-                                                                    <option value="task" <?= ( $method == "post") ? (set_value('ticket_type') == "task") ? "selected" : "" : ($form_data['ticket_type'] == "task" ) ? "selected" : ""; ?>>Task</option>
-                                                                    <option value="problem"  <?= ( $method == "post") ? (set_value('ticket_type') == "problem") ? "selected" : "" : ($form_data['ticket_type'] == "problem" ) ? "selected" : ""; ?>>Problem</option>
+                                                                    <option value="existing" <?= ( $method == "post") ? (set_value('amc_ticket_type') == "existing") ? "selected" : "" : ($form_data['amc_ticket_type'] == "existing" ) ? "selected" : ""; ?>>existing</option>
+                                                                    <option value="new" <?= ( $method == "post") ? (set_value('amc_ticket_type') == "new") ? "selected" : "" : ($form_data['amc_ticket_type'] == "new" ) ? "selected" : ""; ?>>new</option>
                                                                 </select>
-                                                                <?php echo form_error('ticket_type'); ?>
+                                                                <?php echo form_error('amc_ticket_type'); ?>
                                                             </div>
                                                             </div>
 
@@ -284,26 +260,7 @@ $access_level = $user['user_access_level'];
                                                     </div>
                
               
-                                  <div class="col-md-12 col-sm-12 col-xs-12">
-                                          <div class="form-group col-md-12"> 
-                                         <label for="filter">Tags </label>
-                                     <select   name="tags[]" tabindex="-1" class="tags form-control col-md-7 col-xs-12 chosen-select assign_field" multiple="">                                          
-                                     </select>           
-                                         </div>
-                                      
-                                      <?php if(!empty($tag))
-      {
-        foreach($tag as $tag_detail){
-        $sel[]=$tag_detail['tag_id'];
-     }?>
-     
-        <?php }
-        else{
-           $sel=array(); 
-        }
-        ?>
-   <input type='hidden' value='<?php echo json_encode($sel);?>' id='select_array'>      
-                                  </div>
+                                  
                                  
                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                     <button id="create_ticket" type="submit" class="btn btn-success pull-right btn-xs">Update</button>
@@ -315,7 +272,7 @@ $access_level = $user['user_access_level'];
 
 
 <?php } ?>
-                                                         <input type="hidden" id="org_id" value="<?php echo $form_data['organisation_id'];?>">
+                                                         <!--<input type="hidden" id="org_id" value="<?php echo $form_data['organisation_id'];?>">-->
                                    
                                     <div class="col-md-12 col-sm-12 col-xs-12 no-border">
                                     <div class="row">
@@ -497,7 +454,7 @@ $access_level = $user['user_access_level'];
                                         <div class="organisation_notes_div" style="display:none">
                                          <textarea name="organisation_notes" id="organisation_notes" class="form-control"></textarea>
                                          <p class="error" id="organisation_error"></p>
-                                         <button data_organisation="<?php echo $org_detail['organisation_id'] ;?>" type="button" id="organisation_notes_btn"  class="notes_button btn btn-success btn-xs pull-right">Update</button>
+                                         <button  type="button" id="organisation_notes_btn"  class="notes_button btn btn-success btn-xs pull-right">Update</button>
                                                  
                                         </div>
                                         <div class="clearfix"></div>
@@ -534,44 +491,61 @@ $access_level = $user['user_access_level'];
           <div class="loader-center"><img height='50' width='50' src='<?php echo base_url(); ?>assets/images/ajax-loader_1.gif'></div>
 </div>
 <div class="modal modal-md" id="addCustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-       <form data-parsley-validate action="<?php echo base_url('customerController/createCustomerByEmployee');?>" method="post" id="create_user_form">
-  <div class="modal-dialog" role="document">
-      
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="exampleModalLabel">New Customer</h4>
-      </div>
-      <div class="modal-body clearfix">
-     
-          <div class="form-group col-md-12">
-              <div class="col-md-2 col-md-offset-1">
-            <label for="recipient-name" class="control-label">Name *</label>
-              </div>
-              <div class="col-md-8 col-md-offset-1">
-                  <input data-parsley-error-message="The Name field is required." required="" type="text" class="form-control" id="user_name" name="user_name" placeholder="Enter Name">
-            <ul class="parsley-errors-list filled user_name"><li class="parsley-custom-error-message "></li></ul>
-              </div>
-          </div>
-          <div class="form-group col-md-12">
-               <div class="col-md-2 col-md-offset-1">
-            <label for="message-text" class="control-label">Email *</label>
-               </div>
-               <div class="col-md-8 col-md-offset-1">
-            <input required="required" type="email" class="form-control" id="user_email" name="user_email"  placeholder="Enter Email" data-parsley-error-message="The Email field is required.">
-             <ul class="parsley-errors-list filled user_email"><li class="parsley-custom-error-message "></li></ul>
-               </div>
-          </div>
-          
-           <input type="hidden" name="org_id" id="org_id" value="<?php echo $form_data['organisation_id'];?>">
-          <input type="hidden" id="user_type">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-success btn-sm">Submit</button>
-      </div>
-    </div>
-  </div></form>
+     <form data-parsley-validate action="<?php echo base_url('customerController/createCustomerByEmployee'); ?>" method="post" id="create_user_form">
+	  <div class="modal-dialog" role="document">
+
+	       <div class="modal-content">
+		    <div class="modal-header">
+			 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			 <h4 class="modal-title" id="exampleModalLabel">New Customer</h4>
+		    </div>
+		    <div class="modal-body clearfix">
+
+			 <div class="form-group col-md-12">
+			      <div class="col-md-2 col-md-offset-1">
+				   <label for="recipient-name" class="control-label">Name *</label>
+			      </div>
+			      <div class="col-md-8 col-md-offset-1">
+				   <input data-parsley-error-message="The Name field is required." required="" type="text" class="form-control" id="user_name" name="user_name" placeholder="Enter Name">
+				   <ul class="parsley-errors-list filled user_name"><li class="parsley-custom-error-message "></li></ul>
+			      </div>
+			 </div>
+			 <div class="form-group col-md-12">
+			      <div class="col-md-2 col-md-offset-1">
+				   <label for="message-text" class="control-label">Email *</label>
+			      </div>
+			      <div class="col-md-8 col-md-offset-1">
+				   <input required="required" type="email" class="form-control" id="user_email" name="user_email"  placeholder="Enter Email" data-parsley-error-message="The Email field is required.">
+				   <ul class="parsley-errors-list filled user_email"><li class="parsley-custom-error-message "></li></ul>
+			      </div>
+			 </div>
+			 <div class="form-group col-md-12">
+			      <div class="col-md-2 col-md-offset-1">
+				   <label for="message-text" class="control-label">Mobile *</label>
+			      </div>
+			      <div class="col-md-8 col-md-offset-1">
+				   <input required="required" type="text" class="form-control" id="user_mobile" name="user_mobile"  placeholder="Enter Mobile" data-parsley-error-message="The Mobile No field is required.">
+				   <ul class="parsley-errors-list filled user_mobile"><li class="parsley-custom-error-message "></li></ul>
+			      </div>
+			 </div>
+			 <div class="form-group col-md-12">
+			      <div class="col-md-2 col-md-offset-1">
+				   <label for="message-text" class="control-label">Address *</label>
+			      </div>
+			      <div class="col-md-8 col-md-offset-1">
+				   <input required="required" type="text" class="form-control" id="address" name="address1"  placeholder="Enter Address" data-parsley-error-message="The Address field is required.">
+				   <ul class="parsley-errors-list filled address"><li class="parsley-custom-error-message "></li></ul>
+			      </div>
+			 </div>
+
+			 <input type="hidden" id="user_type" >
+		    </div>
+		    <div class="modal-footer">
+			 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+			 <button type="submit" class="btn btn-success btn-sm">Submit</button>
+		    </div>
+	       </div>
+	  </div></form>
 
 </div>
 <input type="hidden" value="<?php echo $form_data['ticket_id']; ?>" id="ticket_cmt_id">
@@ -584,8 +558,8 @@ $access_level = $user['user_access_level'];
         //load comment view...
         var ticket_id = $('body').find('#ticket_cmt_id').val();
         var org_id = $('body').find('#org_id').val();
-        loadCommentView(ticket_id,org_id);
-<?php if ($access_level != 2) { ?>
+//        loadCommentView(ticket_id,org_id);
+	  <?php if ($access_level != 2) { ?>
             var log_id = <?php echo getLoginUser();?>;
             var status = '<?php echo $form_data['ticket_status'];?>';
             $("#user_cc").chosen({width: "95%", include_group_label_in_selected: true,placeholder:"Select User"});
@@ -814,8 +788,10 @@ $access_level = $user['user_access_level'];
           }
         });
         
-    function getTabCount(org_id, user_id) {
+    function getTabCount(org_id=0, user_id=0) {
 //        TicketCount
+	  var user_id = 0;
+	  var org_id = 0;
         var base_url = $("#base_url").val();
 
         $.ajax({
@@ -1155,6 +1131,7 @@ if ($attachment_info != '') {
     });
 
     function loadCommentView(ticket_id,org_id) {
+	 org_id = 0;
         var base_url = $("#base_url").val();
         // load comment view....
         $("body").find('#comment_view').load(base_url + 'commentController/index/' + ticket_id + '/' +org_id, {}, function () {
