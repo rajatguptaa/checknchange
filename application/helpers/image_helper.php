@@ -177,9 +177,7 @@ function getUsersImage($user_id = NULL, $small = FALSE) {
 
         $orgDetails = $CI->auth_model->getUserDetails($user_id);
 
-
-        if ($orgDetails['user_profile'] != NULL && $orgDetails['user_profile'] != "" && file_exists($orgDetails['user_profile'])) {
-
+        if ($orgDetails['user_profile'] != NULL &&  file_exists($orgDetails['user_profile'])) {
             $explod_name = explode('.', $orgDetails['user_profile']);
 
             if ($small == 'small') {

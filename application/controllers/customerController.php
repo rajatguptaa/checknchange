@@ -102,7 +102,7 @@ class CustomerController extends BaseController {
 	       if($val['dob']!=NULL && $val['dob']!='0000-00-00'){
 		$dob =     dateFormateOnly($val['dob']);
 	       }
-	       $user_type = "<label class='btn btn-success'>" . strtoupper($val['user_type']) . "</label>";
+	       $user_type = "<span class='label label-info'>" . strtoupper($val['user_type']) . "</span>";
 	       $output['aaData'][] = array(
 		   "DT_RowId" => $val['user_id'],
 		   $val['user_id'],
@@ -114,7 +114,9 @@ class CustomerController extends BaseController {
 		   $user_type,
 		   $link
 	       );
-	  }
+//	 echo '<img src="' . base_url() . getUsersImage($val['user_id'], 'small') . '" class="img-responsive" alt="Cinque Terre" style="max-width:100px">';
+	       }
+	  
 
 	  echo json_encode($output);
 	  die;
@@ -157,15 +159,15 @@ class CustomerController extends BaseController {
 	       } else {
 		    $data = $this->input->post();
 		    if (array_key_exists('document', $_FILES) && ($_FILES['document']['size'] > 0)) {
-			 $filename1 = document_upload('document', 'employee');
+			 $filename1 = document_upload('document', 'user');
 			 if (is_array($filename1)) {
-			      $data['document'] = 'assets/attachment/employee/' . $filename1['file_name'];
+			      $data['document'] = 'assets/attachment/user/' . $filename1['file_name'];
 			 }
 		    }
 		    if (array_key_exists('image', $_FILES) && ($_FILES['image']['size'] > 0)) {
 			 $filename = image_upload('image', 'user');
 			 if (is_array($filename)) {
-			      $data['user_profile'] = 'assets/img/employee/' . $filename['file_name'];
+			      $data['user_profile'] = 'assets/img/user/' . $filename['file_name'];
 			 }
 		    }
 		    $amc = $data['user_amc'];
