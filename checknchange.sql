@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2016 at 03:16 PM
+-- Generation Time: Nov 08, 2016 at 09:41 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `access` (
   PRIMARY KEY (`access_id`),
   KEY `access_group_id_idx` (`access_level_id`),
   KEY `access_module_id` (`access_module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
 
 --
 -- Dumping data for table `access`
@@ -74,7 +74,8 @@ INSERT INTO `access` (`access_id`, `access_level_id`, `access_module_id`, `acces
 (28, 1, 14, 1, 1, 1, 1),
 (29, 2, 14, 1, 1, 1, 1),
 (30, 1, 15, 1, 1, 1, 1),
-(31, 2, 15, 1, 1, 1, 1);
+(31, 2, 15, 1, 1, 1, 1),
+(32, 1, 16, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -108,7 +109,7 @@ INSERT INTO `access_level` (`access_level_id`, `access_level_name`, `access_leve
 CREATE TABLE IF NOT EXISTS `amc` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `amc_name` varchar(255) NOT NULL,
-  `amc_code` int(11) NOT NULL,
+  `amc_code` varchar(255) NOT NULL,
   `amc_duration` varchar(255) NOT NULL,
   `amc_visit` int(11) NOT NULL,
   `amc_criteria` varchar(255) NOT NULL,
@@ -118,17 +119,21 @@ CREATE TABLE IF NOT EXISTS `amc` (
   `package_update` datetime NOT NULL,
   `amc_type` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `amc`
 --
 
 INSERT INTO `amc` (`id`, `amc_name`, `amc_code`, `amc_duration`, `amc_visit`, `amc_criteria`, `amc_description`, `package_logo`, `amc_status`, `package_update`, `amc_type`) VALUES
-(7, 'AMC - RO MAINTENANCE', 101, '1', 4, ' CLEANING AND SERVICE COMMITMENT', 'PART REPLACEMENT WITHOUT LABOUR CHARGE - CHANGING MAM-BRAN,CARBON AND FILTER REPLACEMENT LABOUR FREE (WATER  HARDNESS  LAB TEST*)', 'assets/img/package/userimage_2890633.jpg', 1, '2016-09-16 20:29:15', 'primary'),
-(8, 'AMC - ELECTRIC/INVERTER BATTERY', 102, '1', 12, 'WITHOUT MATERIAL CHANGING SWITCHES ,ELECTRIC WIRING FAULT DETECTION AND SOLUTION ,HANGING FAN AND REPLACEMENT OF LIGHTS BULB TUBE AT HOME ( CIVIL WORK NOT A PART OF AMC* ITS COST YOU EXTRA ON SITE TO SITE CONDITION)', 'PART REPLACEMENT WITHOUT LABOUR CHARGE - AS PER MARKET RATE + 30 RS + Actual TRANSPORTATION CHARGES (ONLY BRANDED MATERIAL WILL BE USED)IF CUSTOMER WANTS TO PROVIDE REPLACING PART THEN WE WILL FIX THE SAME FREE OF COST (15 DAYS SERVICE WARRANTY NOT CONSIDER)', 'assets/img/package/userimage_897a4be.jpg', 1, '2016-09-16 20:30:30', 'primary'),
-(9, 'PLUMBER', 103, '1', 12, 'CRITERIA - WITHOUT MATERIAL CHANGING TAPS AND SHOWERS ,LEAKAGE DETECTION AND SOLUTION OUTER FITTINGS( IN COURSE OF LEAKAGE REPAIR OR FITTINGS WALL AND TILES WILL BROKE OR DAMAGE WHICH IS PART OF SOLUTION FOR THAT ', 'PART REPLACEMENT WITHOUT LABOUR CHARGE - AS PER MARKET RATE + 30 RS +Actual TRANSPORTATION CHARGES (ONLY BRANDED MATERIAL WILL BE USED)IF CUSTOMER WANTS TO PROVIDE REPLACING PART THEN WE WILL FIX THE SAME FREE OF COST (15 DAYS SERVICE WARRANTY NOT CONSIDER)', 'assets/img/package/userimage_545fe9e.jpg', 1, '2016-09-16 20:31:54', 'primary'),
-(10, 'AMC - CARPENTER + MODULAR KITCHEN', 104, '1', 12, 'WITHOUT MATERIAL CHANGING DOOR WINDOWS,LOCKS HOLE DROPS FITTINGS MODULAR KITCHEN REPAIRING ( IN COURSE OF REPAIR OR FITTINGS WALL AND TILES WILL BROKE OR DAMAGE WHICH IS PART OF SOLUTION FOR THAT ', 'PART REPLACEMENT WITHOUT LABOUR CHARGE - AS PER MARKET RATE +  30Rs + ACTUAL TRANSPORTATION CHARGES (ONLY BRANDED MATERIAL WILL BE USED)IF CUSTOMER WANTS TO PROVIDE REPLACING PART THEN WE WILL FIX THE SAME FREE OF COST (15 DAYS SERVICE WARRANTY NOT CONSIDER)', 'assets/img/package/userimage_752d25a.jpg', 1, '2016-09-22 10:56:59', 'primary');
+(7, 'AMC - RO MAINTENANCE', '101', '1', 4, ' CLEANING AND SERVICE COMMITMENT', 'PART REPLACEMENT WITHOUT LABOUR CHARGE - CHANGING MAM-BRAN,CARBON AND FILTER REPLACEMENT LABOUR FREE (WATER  HARDNESS  LAB TEST*)', 'assets/img/package/userimage_2890633.jpg', 1, '2016-09-16 20:29:15', 'primary'),
+(8, 'AMC - ELECTRIC/INVERTER BATTERY', '102', '1', 12, 'WITHOUT MATERIAL CHANGING SWITCHES ,ELECTRIC WIRING FAULT DETECTION AND SOLUTION ,HANGING FAN AND REPLACEMENT OF LIGHTS BULB TUBE AT HOME ( CIVIL WORK NOT A PART OF AMC* ITS COST YOU EXTRA ON SITE TO SITE CONDITION)', 'PART REPLACEMENT WITHOUT LABOUR CHARGE - AS PER MARKET RATE + 30 RS + Actual TRANSPORTATION CHARGES (ONLY BRANDED MATERIAL WILL BE USED)IF CUSTOMER WANTS TO PROVIDE REPLACING PART THEN WE WILL FIX THE SAME FREE OF COST (15 DAYS SERVICE WARRANTY NOT CONSIDER)', 'assets/img/package/userimage_897a4be.jpg', 1, '2016-09-16 20:30:30', 'primary'),
+(9, 'PLUMBER', '103', '1', 12, 'CRITERIA - WITHOUT MATERIAL CHANGING TAPS AND SHOWERS ,LEAKAGE DETECTION AND SOLUTION OUTER FITTINGS( IN COURSE OF LEAKAGE REPAIR OR FITTINGS WALL AND TILES WILL BROKE OR DAMAGE WHICH IS PART OF SOLUTION FOR THAT ', 'PART REPLACEMENT WITHOUT LABOUR CHARGE - AS PER MARKET RATE + 30 RS +Actual TRANSPORTATION CHARGES (ONLY BRANDED MATERIAL WILL BE USED)IF CUSTOMER WANTS TO PROVIDE REPLACING PART THEN WE WILL FIX THE SAME FREE OF COST (15 DAYS SERVICE WARRANTY NOT CONSIDER)', 'assets/img/package/userimage_545fe9e.jpg', 1, '2016-09-16 20:31:54', 'primary'),
+(10, 'AMC - CARPENTER + MODULAR KITCHEN', '104', '1', 12, 'WITHOUT MATERIAL CHANGING DOOR WINDOWS,LOCKS HOLE DROPS FITTINGS MODULAR KITCHEN REPAIRING ( IN COURSE OF REPAIR OR FITTINGS WALL AND TILES WILL BROKE OR DAMAGE WHICH IS PART OF SOLUTION FOR THAT ', 'PART REPLACEMENT WITHOUT LABOUR CHARGE - AS PER MARKET RATE +  30Rs + ACTUAL TRANSPORTATION CHARGES (ONLY BRANDED MATERIAL WILL BE USED)IF CUSTOMER WANTS TO PROVIDE REPLACING PART THEN WE WILL FIX THE SAME FREE OF COST (15 DAYS SERVICE WARRANTY NOT CONSIDER)', 'assets/img/package/userimage_752d25a.jpg', 1, '2016-09-22 10:56:59', 'primary'),
+(11, 'Paste Control', '0', '1', 2, 'terrere', 'fdsfdsfds', '', 0, '2016-10-29 22:22:04', 'on_call'),
+(12, 'Paste Control', '0', '0', 0, 'terrere', 'fdsfdsfds', '', 1, '2016-10-29 22:25:32', 'on_call'),
+(13, 'dsadas', 'AMC47403025', '1', 2, 'dsadsad', 'dsads', '', 0, '2016-11-04 18:00:15', 'home_appliance'),
+(14, 'dsadas', 'AMC47403025', '1', 2, 'dsadsad', 'dsads', '', 0, '2016-11-04 18:00:15', 'home_appliance');
 
 -- --------------------------------------------------------
 
@@ -149,18 +154,22 @@ CREATE TABLE IF NOT EXISTS `amc_service` (
   `edited_at` datetime NOT NULL,
   `amc_code` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `amc_service`
 --
 
 INSERT INTO `amc_service` (`id`, `user_id`, `amc_id`, `amc_rel`, `start_date`, `due_date`, `reference_by`, `create_date`, `amc_note`, `edited_at`, `amc_code`) VALUES
-(1, 69, 7, 1, '2017-02-11 00:00:00', '2017-02-26 00:00:00', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00', 5454),
-(2, 69, 8, 2, '2016-11-21 00:00:00', '2016-11-26 00:00:00', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00', 5454),
-(3, 69, 9, 3, '2016-10-23 09:19:22', '2016-10-26 09:19:22', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00', 5454),
-(4, 69, 10, 4, '2016-10-23 09:19:22', '2016-10-26 09:19:22', 68, '2016-10-23 09:19:22', 'test', '0000-00-00 00:00:00', 5454),
-(5, 70, 8, 5, '2016-10-24 18:27:40', '2016-10-27 18:27:40', 68, '2016-10-24 18:27:40', '', '0000-00-00 00:00:00', 5454);
+(1, 49, 7, 1, '0000-00-00 00:00:00', '2016-11-08 20:19:43', 48, '2016-11-05 20:19:43', '', '0000-00-00 00:00:00', 0),
+(2, 49, 8, 2, '0000-00-00 00:00:00', '2016-11-08 20:19:44', 48, '2016-11-05 20:19:44', '', '0000-00-00 00:00:00', 0),
+(3, 49, 9, 3, '0000-00-00 00:00:00', '2016-11-08 20:19:44', 48, '2016-11-05 20:19:44', '', '0000-00-00 00:00:00', 0),
+(4, 49, 10, 4, '0000-00-00 00:00:00', '2016-11-08 20:19:44', 48, '2016-11-05 20:19:44', '', '0000-00-00 00:00:00', 0),
+(5, 50, 7, 5, '0000-00-00 00:00:00', '2016-11-08 20:20:04', 48, '2016-11-05 20:20:04', '', '0000-00-00 00:00:00', 0),
+(6, 50, 8, 6, '0000-00-00 00:00:00', '2016-11-08 20:20:04', 48, '2016-11-05 20:20:04', '', '0000-00-00 00:00:00', 0),
+(7, 50, 9, 7, '0000-00-00 00:00:00', '2016-11-08 20:20:04', 48, '2016-11-05 20:20:04', '', '0000-00-00 00:00:00', 0),
+(8, 50, 10, 8, '0000-00-00 00:00:00', '2016-11-08 20:20:04', 48, '2016-11-05 20:20:04', '', '0000-00-00 00:00:00', 0),
+(9, 51, 9, 9, '2016-11-08 20:29:55', '2016-11-11 20:29:55', 48, '2016-11-08 20:29:55', 'sadsasa', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -179,16 +188,9 @@ CREATE TABLE IF NOT EXISTS `amc_service_history` (
   `notes` varchar(500) NOT NULL,
   `complete_notes` varchar(255) NOT NULL,
   `complete_date` datetime NOT NULL,
+  `amc_code` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `amc_service_history`
---
-
-INSERT INTO `amc_service_history` (`id`, `amc_id`, `amc_service_id`, `user_id`, `start_date`, `due_date`, `reference_by`, `notes`, `complete_notes`, `complete_date`) VALUES
-(1, 7, 1, 69, '2016-10-23 09:19:22', '2016-10-26 09:19:22', 68, 'test', 'tesing', '2016-10-23 09:30:37'),
-(2, 8, 2, 69, '2016-10-23 09:19:22', '2016-10-26 09:19:22', 68, 'test', 'test', '2016-10-23 09:33:00');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -328,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `attachment` (
   `attachment_type` enum('audio','video','image','doc','extra','object') NOT NULL,
   `attachment_update` datetime NOT NULL,
   PRIMARY KEY (`attachment_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `attachment`
@@ -346,7 +348,8 @@ INSERT INTO `attachment` (`attachment_id`, `attachment_name`, `attachment_path`,
 (9, 'complaince_check.png', 'assets/attachment/image/1459335498_complaince_check.png', 'image', '2016-03-30 12:58:18'),
 (10, 'favicon.png', 'assets/attachment/image/1459335501_favicon.png', 'image', '2016-03-30 12:58:21'),
 (11, '10169205_219951188337247_4014068942968777191_n.jpg', 'assets/attachment/image/1477590877_10169205_219951188337247_4014068942968777191_n.jpg', 'image', '2016-10-27 18:54:37'),
-(12, '10349983_422375857936446_6431713811344540796_n.jpg', 'assets/attachment/image/1477590880_10349983_422375857936446_6431713811344540796_n.jpg', 'image', '2016-10-27 18:54:40');
+(12, '10349983_422375857936446_6431713811344540796_n.jpg', 'assets/attachment/image/1477590880_10349983_422375857936446_6431713811344540796_n.jpg', 'image', '2016-10-27 18:54:40'),
+(13, '61.jpg', 'assets/attachment/image/1478024384_61.jpg', 'image', '2016-11-01 18:19:44');
 
 -- --------------------------------------------------------
 
@@ -453,7 +456,7 @@ CREATE TABLE IF NOT EXISTS `forget_password` (
   `forget_token` varchar(256) NOT NULL,
   `forget_update` datetime NOT NULL,
   PRIMARY KEY (`forget_password_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `forget_password`
@@ -466,7 +469,9 @@ INSERT INTO `forget_password` (`forget_password_id`, `user_id`, `forget_token`, 
 (4, 46, '56d832755e5b1', '2016-03-03 13:47:49'),
 (5, 63, '580317f5a2a83', '2016-10-16 07:02:29'),
 (6, 71, '5812388463ddb', '2016-10-27 18:25:24'),
-(7, 72, '581245ba7d884', '2016-10-27 19:21:46');
+(7, 72, '581245ba7d884', '2016-10-27 19:21:46'),
+(8, 73, '58150e34c54b3', '2016-10-29 22:01:40'),
+(9, 74, '58181aedc7411', '2016-11-01 04:32:45');
 
 -- --------------------------------------------------------
 
@@ -661,7 +666,7 @@ CREATE TABLE IF NOT EXISTS `module` (
   `module_position` enum('menu','profile','submenu') NOT NULL,
   `module_order` int(11) NOT NULL,
   PRIMARY KEY (`module_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `module`
@@ -677,7 +682,8 @@ INSERT INTO `module` (`module_id`, `module_parent`, `module_name`, `module_descr
 (8, 0, 'ticket', 'Ticket', 'request', 'fa fa-bug', 'menu', 6),
 (11, 0, 'AMC', 'Package name', 'amc', 'glyphicon glyphicon-cog', 'menu', 2),
 (14, 0, 'AMC Service', 'AMC Service list of customer', 'service', 'glyphicon glyphicon-wrench', 'menu', 3),
-(15, 0, 'AMC Service History', 'Amc service history', 'history', 'glyphicon glyphicon-random', 'menu', 4);
+(15, 0, 'AMC Service History', 'Amc service history', 'history', 'glyphicon glyphicon-random', 'menu', 4),
+(16, 0, 'archive', 'archive', 'archive', 'fi-archive', 'menu', 12);
 
 -- --------------------------------------------------------
 
@@ -729,9 +735,8 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `ticket_description` text NOT NULL,
   `ticket_priority` enum('normal','high','low','urgent') NOT NULL,
   `ticket_status` enum('Open','Pending','Solved','Doing','Closed') NOT NULL,
-  `ticket_type` enum('question','task','problem') NOT NULL,
+  `amc_ticket_type` enum('existing','new') NOT NULL,
   `user_id` int(11) NOT NULL,
-  `organisation_id` int(11) NOT NULL,
   `ticket_updated` datetime NOT NULL,
   `ticket_created` datetime NOT NULL,
   `amc_code` int(11) NOT NULL,
@@ -744,8 +749,8 @@ CREATE TABLE IF NOT EXISTS `ticket` (
 -- Dumping data for table `ticket`
 --
 
-INSERT INTO `ticket` (`ticket_id`, `ticket_number`, `ticket_subject`, `ticket_description`, `ticket_priority`, `ticket_status`, `ticket_type`, `user_id`, `organisation_id`, `ticket_updated`, `ticket_created`, `amc_code`, `amc_type`, `amc_id`) VALUES
-(1, '#TKT29578900', 'srsef', 'dsffdsfds', 'high', 'Solved', 'question', 46, 2, '2016-04-01 11:06:58', '2016-03-31 16:17:44', 0, '', 0);
+INSERT INTO `ticket` (`ticket_id`, `ticket_number`, `ticket_subject`, `ticket_description`, `ticket_priority`, `ticket_status`, `amc_ticket_type`, `user_id`, `ticket_updated`, `ticket_created`, `amc_code`, `amc_type`, `amc_id`) VALUES
+(1, '#TKT04742835', 'dsadsad', 'dsdfsfdsfds', 'high', 'Open', '', 51, '2016-11-08 20:40:23', '2016-11-08 20:40:23', 0, 'primary', 8);
 
 -- --------------------------------------------------------
 
@@ -763,7 +768,15 @@ CREATE TABLE IF NOT EXISTS `ticket_assign` (
   `current_working_user` int(11) NOT NULL,
   `ticket_assign_at` datetime NOT NULL,
   PRIMARY KEY (`ticket_assign_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `ticket_assign`
+--
+
+INSERT INTO `ticket_assign` (`ticket_assign_id`, `user_id`, `group_id`, `ticket_id`, `assigned_by`, `parent_user_id`, `current_working_user`, `ticket_assign_at`) VALUES
+(1, 48, 0, 8, 47, 0, 1, '2016-11-01 18:26:34'),
+(2, 48, 0, 1, 47, 0, 1, '2016-11-08 20:40:23');
 
 -- --------------------------------------------------------
 
@@ -776,14 +789,21 @@ CREATE TABLE IF NOT EXISTS `ticket_attachment_rel` (
   `ticket_id` int(11) NOT NULL,
   `attachment_id` int(11) NOT NULL,
   PRIMARY KEY (`ticket_attachment_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `ticket_attachment_rel`
 --
 
 INSERT INTO `ticket_attachment_rel` (`ticket_attachment_id`, `ticket_id`, `attachment_id`) VALUES
-(1, 1, 0);
+(1, 1, 0),
+(2, 3, 13),
+(3, 4, 0),
+(4, 5, 0),
+(5, 6, 0),
+(6, 7, 0),
+(7, 8, 0),
+(8, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -850,7 +870,7 @@ CREATE TABLE IF NOT EXISTS `ticket_history` (
   `ticket_history_status` enum('Open','Pending','Solved','Doing','Closed') NOT NULL,
   `ticket_history_created_at` datetime NOT NULL,
   PRIMARY KEY (`ticket_history_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `ticket_history`
@@ -858,7 +878,25 @@ CREATE TABLE IF NOT EXISTS `ticket_history` (
 
 INSERT INTO `ticket_history` (`ticket_history_id`, `ticket_id`, `ticket_updated_by`, `ticket_history_status`, `ticket_history_created_at`) VALUES
 (1, 1, 1, 'Doing', '2016-04-01 09:50:21'),
-(2, 1, 1, 'Solved', '2016-04-01 11:07:04');
+(2, 1, 1, 'Solved', '2016-04-01 11:07:04'),
+(3, 1, 47, 'Pending', '2016-10-31 16:14:27'),
+(4, 1, 47, 'Pending', '2016-10-31 17:02:05'),
+(5, 1, 47, 'Doing', '2016-11-01 04:13:41'),
+(6, 2, 47, 'Solved', '2016-11-01 04:13:45'),
+(7, 1, 47, 'Open', '2016-11-01 04:13:49'),
+(8, 1, 47, 'Doing', '2016-11-01 04:14:01'),
+(9, 1, 47, 'Doing', '2016-11-01 04:14:20'),
+(10, 1, 47, 'Open', '2016-11-01 04:16:36'),
+(11, 2, 47, 'Open', '2016-11-01 04:16:39'),
+(12, 2, 47, 'Doing', '2016-11-01 04:16:42'),
+(13, 2, 47, 'Solved', '2016-11-01 04:19:59'),
+(14, 1, 47, 'Open', '2016-11-01 04:58:44'),
+(15, 4, 47, 'Open', '2016-11-01 18:23:04'),
+(16, 5, 47, 'Open', '2016-11-01 18:24:58'),
+(17, 8, 47, 'Open', '2016-11-01 18:26:34'),
+(18, 1, 47, 'Open', '2016-11-03 19:44:21'),
+(19, 1, 47, 'Open', '2016-11-03 19:44:21'),
+(20, 1, 47, 'Open', '2016-11-08 20:40:23');
 
 -- --------------------------------------------------------
 
@@ -921,7 +959,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `annivery` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`user_email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
 
 --
 -- Dumping data for table `user`
@@ -929,12 +967,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`user_id`, `user_code`, `user_name`, `first_name`, `last_name`, `user_password`, `user_mobile`, `user_phone`, `user_email`, `user_profile`, `user_status`, `user_note`, `user_access_level`, `user_update`, `user_type`, `reference_by`, `document`, `address1`, `address2`, `user_city`, `user_country`, `user_postcode`, `dob`, `annivery`) VALUES
 (47, '0', 'dsadsa', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '0', '12345678933', 'admin@mail.com', 'assets/img/user/userimage_3958bec.jpg', 1, 'dsdsa', 1, '2016-09-18 18:15:23', '0', 51, '', '543543', '', '54353', '5435', '5434534', '0000-00-00', '0000-00-00 00:00:00'),
-(55, '0', 'maddy2222', 'Jolly', 'Yong', '827ccb0eea8a706c4c34a16891f84e7b', '0', '4343', 'admin11wwasaw@mail.com', 'assets/img/employee/userimage_2ef1388.jpg', 0, '', 4, '2016-09-18 20:45:07', '4', 0, 'assets/attachment/employee/attachment_8a7129b.pdf', '4343', '', '432432', '4324', '4324', '0000-00-00', '0000-00-00 00:00:00'),
-(68, 'Misra', 'Rajendra', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '', '987888888', 'sadsa@gmail.com', '', 1, '', 3, '2016-10-23 09:18:43', '', 0, 'assets/attachment/employee/attachment_802a5fd.jpg', 'Yogesh', '', 'Jabalpur', 'India', '452002', NULL, NULL),
-(69, 'F4343', 'Rajat Gupta', 'Rajat', 'Gupta', '827ccb0eea8a706c4c34a16891f84e7b', '9806803545', '', 'ravi@mail.com', '', 1, 'test', 4, '2016-10-23 09:19:22', 'premium', 68, '', 'Biyabani', '', 'Indore', 'India', '452002', '2016-10-23', '2016-10-23 00:00:00'),
-(70, 'C001', 'test test', 'test', 'test', '827ccb0eea8a706c4c34a16891f84e7b', '1234567898', '1234569874', 'raka@gmail.com', '', 1, '', 4, '2016-10-24 18:27:40', 'regular', 68, '', 'Test', 'testt', 'test', 'test', 'tse', '2016-10-24', '2016-10-24 00:00:00'),
-(71, '', 'test', '', '', '', '', '', 'test@mail.com', '', 1, '', 4, '2016-10-27 18:25:24', '', 0, '', '', '', '', '', '', NULL, NULL),
-(72, '', 'sasas', '', '', '', '1234567898', '', 'raviasasa@mail.com', '', 1, '', 4, '2016-10-27 19:21:46', '', 0, '', 'Biyabani', '', '', '', '', NULL, NULL);
+(48, 'EMP88826783', 'Rajendra', '', '', '827ccb0eea8a706c4c34a16891f84e7b', '5454323456', '5454323456', 'admin2@mail.com', '', 1, '', 3, '2016-11-05 19:04:58', '', 0, 'assets/attachment/employee/attachment_e801f99.jpg', '12121', '', 'india', 'indore', '4234', NULL, NULL),
+(49, 'CUS26174089', 'Dharmendra Gupta', 'Dharmendra', 'Gupta', '827ccb0eea8a706c4c34a16891f84e7b', '1234567898', '', 'adfgfgfmin@mail.com', '', 1, '', 4, '2016-11-06 16:14:58', 'premium', 48, '', 'Biyabani', 'fdsf', 'Indore', 'India', '54454', '2020-11-20', '2020-11-20 00:00:00'),
+(50, 'CUS86551542', 'Dharmendra Gupta', 'Dharmendra', 'Gupta', '827ccb0eea8a706c4c34a16891f84e7b', '1234567898', '', 'adfgfgdfdffmin@mail.com', '', 1, 'fdsfds', 4, '2016-11-06 15:59:57', 'premium', 48, '', 'Biyabani', '', 'Indore', 'India', '54454', '2020-11-20', '2020-11-20 00:00:00'),
+(51, 'CUS09161798', 'dsdsa sad', 'dsdsa', 'sad', '827ccb0eea8a706c4c34a16891f84e7b', '1111111177', '1111111177', 'admissn@mail.com', 'assets/img/user/userimage_234e5dc.jpg', 1, 'sadsasa', 4, '2016-11-08 20:29:55', 'premium', 48, '', 'sds', 'sadsa', 'india', 'fdsf', 'rer', '2016-11-09', '2016-11-09 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -955,18 +991,22 @@ CREATE TABLE IF NOT EXISTS `user_amc_rel` (
   `amc_count` int(11) NOT NULL,
   `amc_code` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `user_amc_rel`
 --
 
 INSERT INTO `user_amc_rel` (`id`, `user_id`, `amc_id`, `amc_start_date`, `amc_end_date`, `reference_by`, `created_at`, `edited_at`, `amc_user_status`, `amc_count`, `amc_code`) VALUES
-(1, 69, 7, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 1, 0),
-(2, 69, 8, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 1, 0),
-(3, 69, 9, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 0, 0),
-(4, 69, 10, '2016-10-23 09:19:22', '2017-10-23 09:19:22', 68, '2016-10-23 09:19:22', '0000-00-00 00:00:00', 1, 0, 0),
-(5, 70, 8, '2016-10-24 18:27:40', '2017-10-24 18:27:40', 68, '2016-10-24 18:27:40', '0000-00-00 00:00:00', 1, 0, 0);
+(1, 49, 7, '2016-11-05 20:19:43', '2017-11-05 20:19:43', 48, '2016-11-05 20:19:43', '2016-11-06 16:14:58', 1, 0, 0),
+(2, 49, 8, '2016-11-05 20:19:43', '2017-11-05 20:19:43', 48, '2016-11-05 20:19:43', '2016-11-06 16:14:58', 1, 0, 0),
+(3, 49, 9, '2016-11-05 20:19:44', '2017-11-05 20:19:44', 48, '2016-11-05 20:19:44', '2016-11-06 16:14:58', 1, 0, 0),
+(4, 49, 10, '2016-11-05 20:19:44', '2017-11-05 20:19:44', 48, '2016-11-05 20:19:44', '2016-11-06 16:14:58', 1, 0, 0),
+(5, 50, 7, '2016-11-05 20:20:04', '2017-11-05 20:20:04', 48, '2016-11-05 20:20:04', '2016-11-06 15:59:57', 1, 0, 0),
+(6, 50, 8, '2016-11-05 20:20:04', '2017-11-05 20:20:04', 48, '2016-11-05 20:20:04', '2016-11-06 15:59:57', 1, 0, 0),
+(7, 50, 9, '2016-11-05 20:20:04', '2017-11-05 20:20:04', 48, '2016-11-05 20:20:04', '2016-11-06 15:59:57', 1, 0, 0),
+(8, 50, 10, '2016-11-05 20:20:04', '2017-11-05 20:20:04', 48, '2016-11-05 20:20:04', '2016-11-06 15:59:57', 1, 0, 0),
+(9, 51, 9, '2016-11-08 20:29:55', '2017-11-08 20:29:55', 48, '2016-11-08 20:29:55', '0000-00-00 00:00:00', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -980,21 +1020,7 @@ CREATE TABLE IF NOT EXISTS `user_group_rel` (
   `user_id` int(11) NOT NULL,
   `user_group_update` datetime NOT NULL,
   PRIMARY KEY (`user_group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
-
---
--- Dumping data for table `user_group_rel`
---
-
-INSERT INTO `user_group_rel` (`user_group_id`, `group_id`, `user_id`, `user_group_update`) VALUES
-(1, 2, 38, '2016-03-03 13:42:22'),
-(2, 4, 38, '2016-03-03 13:42:22'),
-(3, 2, 39, '2016-03-03 13:42:54'),
-(4, 3, 39, '2016-03-03 13:42:54'),
-(5, 2, 40, '2016-03-03 13:43:21'),
-(7, 1, 42, '2016-03-03 13:44:36'),
-(8, 4, 42, '2016-03-03 13:44:36'),
-(9, 2, 41, '2016-03-04 10:22:12');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
