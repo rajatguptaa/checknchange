@@ -34,7 +34,7 @@ $access_level = $user['user_access_level'];
 				   <div class="row">
 					<div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
 					     <div class="title_right">
-						  <label>Archive Employee</label>
+						  <label>Latest Amc Due</label>
 					     </div>
 					</div>
 				   </div>
@@ -77,7 +77,7 @@ $access_level = $user['user_access_level'];
 				   <div class="row">
 					<div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
 					     <div class="title_right">
-						  <label>Archive Customer </label>
+						  <label>Latest Amc Complete</label>
 					     </div>
 					</div>
 				   </div>
