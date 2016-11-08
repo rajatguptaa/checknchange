@@ -209,7 +209,7 @@ class TicketController extends BaseController {
                                 $attch_id = $this->crm->rowInsert('ticket_attachment_rel', $attch_data);
                             }
                         }
-                        $assign_user = $this->input->post('user_id');
+                        $assign_user = $this->input->post('employe_type');
 
                         if ($assign_user != '') {
                             $assign_details = $this->crm->getData('ticket_assign', '*', array('ticket_id' => $ticket_id, 'current_working_user' => 1));
