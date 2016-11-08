@@ -37,6 +37,14 @@ function amc_service_create($start_date, $amc_id, $user_id) {
      }
 }
 
+function first_time() {
+
+
+      $start_date = date('d-m-Y H:i:s');
+     $end_date = date('Y-m-d H:i:s', strtotime("+3 day", strtotime($start_date)));
+     return array('start_date' => $start_date, 'end_date' => $end_date);
+}
+
 function getEmail($user_type = 4) {
      $CI = & get_instance();
      $join = array(
@@ -162,21 +170,22 @@ function getUserByAccessHistory($access_level = 3) {
 	  return FALSE;
      }
 }
-function getAmcDetail($amc_id){
-     
+
+function getAmcDetail($amc_id) {
+
      $CI = & get_instance();
-     $where = array('amc_service.id'=>$amc_id);
+     $where = array('amc_service.id' => $amc_id);
      $join = array(
-	array(
-	    'table'=>'amc',
-	    'on'=>'amc.id=amc_service.amc_id'
-	), 
-	array(
-	    'table'=>'user',
-	    'on'=>'user.user_id=amc_service.user_id'
-	) 
+	 array(
+	     'table' => 'amc',
+	     'on' => 'amc.id=amc_service.amc_id'
+	 ),
+	 array(
+	     'table' => 'user',
+	     'on' => 'user.user_id=amc_service.user_id'
+	 )
      );
-     $user_email_data = $CI->crm->getData('amc_service','user.user_id,amc.id as service_id,amc.amc_name,user.first_name,last_name,amc_type,amc_service.due_date',$where,$join);
+     $user_email_data = $CI->crm->getData('amc_service', 'user.user_id,amc.id as service_id,amc.amc_name,user.first_name,last_name,amc_type,amc_service.due_date', $where, $join);
      if (!empty($user_email_data)) {
 	  return $user_email_data[0];
      } else {

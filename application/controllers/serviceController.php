@@ -206,7 +206,7 @@ class ServiceController extends CI_Controller {
 	       $this->crm->rowUpdate('user_amc_rel', array('amc_count'=>$count), array('id'=>$post['amc_rel']));
 	  }
 	  $this->crm->rowInsert('amc_service_history', $arr_data[0]);
-	  $date = amc_service_create($post['due_date'], $post['amc_id']);
+	  $date = amc_service_create($post['due_date'], $post['amc_id'],$post['user_id']);
 	  if($date && !empty($date)){
 	  $date_logic = array('start_date' => $date['start_date'], 'due_date' => $date['end_date']);
 	  $res = $this->crm->rowUpdate('amc_service', $date_logic, array('amc_service.id' => $post['amc_sevice_id'], 'user_id' => $post['user_id']));

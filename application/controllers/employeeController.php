@@ -81,6 +81,7 @@ class EmployeeController extends BaseController {
                 $data['user_password'] = md5($this->input->post('user_password'));
                 $data['user_access_level'] = 3;
                 $data['user_update'] = date("Y-m-d H:i:s");
+                $data['user_mobile'] = $this->input->post('user_phone');
 //                $org_id = $this->input->post('orginasation_type');
                 $user_id = $this->crm->rowInsert('user', $data);
                
@@ -195,6 +196,7 @@ class EmployeeController extends BaseController {
                 unset($data['passconf']);
                 unset($data['old_image']);
                 unset($data['old_document']);
+		$data['user_mobile'] = $this->input->post('user_phone');
                 if ($this->input->post('user_status')) {
                     $data['user_status'] = 1;
                 } else {
@@ -230,8 +232,8 @@ class EmployeeController extends BaseController {
     public function deleteEmployee($id) {
        $user_id[]=$id;
         $this->load->model("employee_model", "emp");
-        $this->emp->delete_user($user_id);
-        
+//        $this->emp->delete_user($user_id);
+        $this->crm->rowUpdate($this->tabelename,array('user_status'=>0),array('user_id'=>$id));
         $this->session->set_flashdata('employee_success', 'Employee Deleted Successfully');
         redirect('employee', 'refresh');
     }
@@ -313,6 +315,7 @@ class EmployeeController extends BaseController {
 //        }
 
         $where['user_access_level'] = 3;
+        $where['user_status'] = 1;
 //        if ($org_id != '') {
 //            $where['user_organisation_rel.organisation_id'] = $org_id;
 //        }

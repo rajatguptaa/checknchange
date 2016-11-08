@@ -40,8 +40,6 @@ class CustomerController extends BaseController {
 
 	  $col_sort = array("user`.`user_code", "user`.`user_profile", "user`.`first_name", "user`.`user_mobile", 'user`.`dob', 'u`.`first_name', 'user`.`user_type');
 	  $select = array("user.user_id", "user.user_code", "user.user_name", "u.first_name as reffirst_name", "u.last_name as reflast_name", "user.first_name", "user.last_name", 'user.user_mobile', 'user.dob', 'user.user_type');
-//, "last_name", "user_mobile","user_phone",'user_profile','user_status'
-//            'user_amc','address1','address2','user_city','user_country','user_postcode'
 	  $order_by = "user_id";
 	  $order = 'DESC';
 
@@ -123,7 +121,6 @@ class CustomerController extends BaseController {
      }
 
      public function createCustomer() {
-	  var_dump(amc_service_create(date('Y-m-d H:i:s'),7,69));die;
 	  $pagedata['mainHeading'] = 'Customer';
 	  $pagedata['subHeading'] = 'create';
 	  $pagedata['organisation'] = $this->crm->getData('organisation');
@@ -131,7 +128,7 @@ class CustomerController extends BaseController {
 	  $pagedata['style_to_load'] = array('assets/css/chosen/chosen.css', 'assets/css/datepicker/bootstrap-datetimepicker.css');
 
 	  $pagedata['userdata'] = getUserByAccessLevel(3);
-	  $pagedata['amcdata'] = getAMC(1);
+	  $pagedata['amcdata'] = getAMC('primary');
 	  if ($this->input->post()) {
 	       $this->load->helper(array('form', 'url'));
 	       $this->load->library('form_validation');
@@ -208,7 +205,7 @@ class CustomerController extends BaseController {
 				   $user_amc_rel = $this->crm->rowInsert('user_amc_rel', $user_amc);
 				   //service relation
 				   if($user_amc_rel>0){
-				   $service_date = amc_service_create(date('Y-m-d H:i:s'), $amc_value,$user_id);
+				   $service_date = first_time();
 				   $amc_service['user_id'] = $user_id;
 				   $amc_service['amc_id'] = $amc_value;
 				   $amc_service['amc_code'] = 'CNC' . random_string('numeric');
@@ -257,7 +254,7 @@ class CustomerController extends BaseController {
 	  $pagedata['style_to_load'] = array('assets/css/chosen/chosen.css', 'assets/css/datepicker/bootstrap-datetimepicker.css', 'assets/css/switchery/bootstrap-switch.css');
 
 	  $pagedata['userdata'] = getUserByAccessLevel(3);
-	  $pagedata['amcdata'] = getAMC(1);
+	  $pagedata['amcdata'] = getAMC('primary');
 	  $amc_id = $this->crm->getData('user_amc_rel', 'amc_id', array('user_id' => $user_id));
 	  $amc_value = array();
 	  foreach ($amc_id as $value) {
@@ -346,7 +343,10 @@ class CustomerController extends BaseController {
 			 $data['user_status'] = 0;
 		    }
 		    $amc = '';
+		    if(isset($data['user_amc'])){
+			 
 		    $amc = $data['user_amc'];
+		    }
 		    $dob = $data['dob'];
 		    $annivery = $data['annivery'];
 		    unset($data['passconf']);

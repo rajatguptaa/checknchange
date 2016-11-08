@@ -168,10 +168,8 @@ class AmcController extends BaseController {
     }
 
     public function deleteAmc($id) {
-
-        $this->load->model("employee_model", "emp");
-    
-        $this->crm->rowsDelete($this->tabelename,array('id'=>$id));
+	$this->crm->rowUpdate($this->tabelename,array('amc_status'=>0),array('id'=>$id));
+//        $this->crm->rowsDelete($this->tabelename,array('id'=>$id));
 
         $this->session->set_flashdata('organisation_success', 'Amc Deleted Successfully');
         redirect('amc', 'refresh');
@@ -332,25 +330,11 @@ class AmcController extends BaseController {
             'amc_code' => $word
         );
         $join = array();
-//        $join[] = array(
-//            'table' => 'access_level',
-//            'on' => 'user.user_access_level=access_level.access_level_id'
-//        );
-//        if ($org_id != '') {
-//            $join[] = array('table' => 'user_organisation_rel',
-//                'on' => 'user_organisation_rel.user_id=user.user_id');
-//        $join[] = array('table' => 'organisation',
-//            'on' => 'organisation.organisation_id=user_organisation_rel.organisation_id');
-//        }
 
-//        $where['user_access_level'] = 3;
-//        if ($org_id != '') {
-//            $where['user_organisation_rel.organisation_id'] = $org_id;
-//        }
+	$where = array('amc_status'=>1);
+        $pagedata['user_detail'] = $this->crm->getData('amc', '', $where, FALSE, 'amc.id', 'desc', $limit, ($limit * ($offset - 1)), $search_array);
 
-        $pagedata['user_detail'] = $this->crm->getData('amc', '', FALSE, FALSE, 'amc.id', 'desc', $limit, ($limit * ($offset - 1)), $search_array);
-
-        $pagedata['count'] = $this->crm->getRowCount('amc', '', FALSE, FALSE, 'amc.id', 'desc', $search_array);
+        $pagedata['count'] = $this->crm->getRowCount('amc', '', $where, FALSE, 'amc.id', 'desc', $search_array);
         if (!empty($pagedata['user_detail'])) {
             $html = $this->load->view('/amc/search_view', $pagedata, TRUE);
         } else {

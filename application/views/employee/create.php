@@ -50,7 +50,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employee_code">Employee Code <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12 ">
-                                        <input data-parsley-error-message="The Code field is required." id="employee_code" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('user_code')) > 0) ? "parsley-error" : "" ?>" value="<?php echo set_value('user_code'); ?>" name="user_code" placeholder="Employee code" required="required" type="text">
+					 <input data-parsley-error-message="The Code field is required." id="employee_code" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('user_code')) > 0) ? "parsley-error" : "" ?>" value="<?php echo 'EMP' . random_string('numeric'); ?>" readonly="" name="user_code" placeholder="Employee code" required="required" type="text">
                                         <?php echo form_error('user_code'); ?>
                                     </div>
                                 </div>

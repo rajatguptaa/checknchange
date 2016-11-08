@@ -178,5 +178,8 @@ $route['service'] = 'serviceController/index';
 
 $route['history'] = 'historyController/index';
 
+// archive 
+$route['archive'] = 'archiveController/index';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -467,7 +467,7 @@ $access_level = $user['user_access_level'];
 
         setLocalStorage("org_id", org_id);
         setLocalStorage("active_tab", type);
-
+	org_id = 0;
 
 
         var url = base_url + 'ticketController/ticketTableView';
@@ -556,10 +556,10 @@ org_id = 0;
             type: "GET",
             url: base_url + 'ticketController/TicketCount/' + org_id + "/" + user_id,
             success: function(data) {
+		     console.log(data);
                 var dataArray = $.parseJSON(data);
 
                 $.each(dataArray, function(key, value) {
-
                     $("body").find("." + key).text(value);
 
                 })
