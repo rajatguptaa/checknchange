@@ -16,7 +16,7 @@ $loginuser = $this->session->userdata('logged_in');
 		    </div>
 	       </div>
 	       <div class="clearfix"></div>
-	       <div class="clearfix"></div>
+	       
 	       <div class="row">
 		    <?php if ($this->session->flashdata('archive_danger')) : ?>
      		    <div class="alert alert-danger">

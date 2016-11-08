@@ -40,7 +40,7 @@ function amc_service_create($start_date, $amc_id, $user_id) {
 function first_time() {
 
 
-      $start_date = date('d-m-Y H:i:s');
+      $start_date = date('Y-m-d H:i:s');
      $end_date = date('Y-m-d H:i:s', strtotime("+3 day", strtotime($start_date)));
      return array('start_date' => $start_date, 'end_date' => $end_date);
 }

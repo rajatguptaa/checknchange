@@ -14,210 +14,272 @@ class DashboardController extends BaseController {
             redirect('login');
         } else {
 
-            $data['scripts_to_load'] = array(
-                'assets/js/chosen/chosen.jquery.js', 'assets/js/modules/dashboard.js'
-            );
-            $data['style_to_load'] = array('assets/css/chosen/chosen.css');
-            $data['organisation'] = $this->crm->getData('organisation');
+            
+              $data["style_to_load"] = array(
+	      "assets/css/datatablenew/dataTables.responsive.css"
+	  );
+
+	  // Loading JS on view
+	  $data['scripts_to_load'] = array(
+	      
+//	      "assets/js/modules/dashboard.js",
+	      "assets/js/datatablenew/jquery.dataTables.js",
+	      "assets/js/datatablenew/dataTables.responsive.min.js",
+	      "assets/js/bootbox/bootbox.js"
+	  );
             $this->load->template('/dashboard/index', $data);
         }
     }
+    
+    
+      function getAmcService() {
 
-    public function createDashboard() {
+	  $col_sort = array("amc_service`.`due_date", "amc_service`.`id", "amc`.`amc_name", "user`.`user_name", "user`.`address2", "user`.`address1", "user`.`user_mobile", "user`.`user_email", "amc_service`.`start_date", "user`.`user_type");
+	  $select = array("amc_service.id as service_id", "amc.id as amc_id","amc_rel", "amc.amc_name", "user.user_name", "user.first_name", "user.address1", "user.user_mobile", 'user.user_email', "amc_service.user_id", "amc_service.start_date", "amc_service.due_date", "amc_service.reference_by", "amc_service.amc_note", "user.last_name", 'user.user_mobile', 'user.dob', 'amc_note', 'user.user_type');
 
-        $this->load->template('/dashboard/create', $data);
-    }
+	  $order_by = "amc_service.due_date";
+	  $order = 'ASC';
 
-//    public function supportForum() {
-//    
-//        $organisation_id = $this->input->post('organisation_id');
-//        $where = array('organisation_id' => $organisation_id);
-//        $data['category_detail'] = $this->crm->getData('forum_category', '*', $where);
-//        $data['title'] = getOrganiasationTitle($organisation_id);
-//        $data['org_name'] = getOrganiasationName($organisation_id);
-//      
-//        
-//        
-//         if (getLoginUser() <= 1) {
-//             $data['open_ticket'] = $this->openTicket($organisation_id);
-//             $data['group_open_ticket']=$this->openGroupTicket($organisation_id);
-//             $data['good_ticket']=$this->goodticket($organisation_id);
-//             $data['bad_ticket']=$this->badticket($organisation_id);
-//             $data['solved_ticket']=$this->solvedTicket($organisation_id);
-//             $data['name'] = getOrganiasationName($organisation_id);
-//             $data['image'] = getOrganiasationImage($organisation_id,TRUE);
-//            } else {
-//                $user_id = (int)getLoginUser();
-//                $data['open_ticket'] = $this->openTicket($organisation_id,$user_id);   
-//                $data['group_open_ticket']=$this->openGroupTicket($organisation_id,$user_id);
-//                 $data['good_ticket']=$this->goodticket($organisation_id,$user_id);
-//                $data['bad_ticket']=$this->badticket($organisation_id,$user_id);
-//                $data['solved_ticket']=$this->solvedTicket($organisation_id,$user_id);
-//                $data['name'] = getUserName($user_id);
-//                $data['image'] = getUserImage($user_id,TRUE);
-//            }
-//            
-//    
-//        echo $this->load->view('dashboard/viewsupport', $data, true);
-//    }
-//
-//    public function unpinforumpost() {
-//
-//        $postid = $this->input->post('postid');
-//        $where = array('forum_article_id' => $postid);
-//        $insertdata = array('forum_article_homepage_status' => 0);
-//        $update_post = $this->crm->rowUpdate('forum_article', $insertdata, $where);
-//
-//        echo $update_post;
-//    }
-//
-//    public function openTicket($organisation_id,$user_id=NULL) {
-//       ;
-//               
-//                if ($user_id != '') {
-//                     $join = array(
-//                  array(
-//                        'table' => 'ticket_assign',
-//                        'on' => 'ticket.ticket_id=ticket_assign.ticket_id'),
-//                );
-//                    $where = "(`ticket`.`organisation_id` = $organisation_id) AND (`ticket_assign`.`user_id` = $user_id)  AND (`ticket_assign`.`current_working_user` = 1) AND (`ticket`.`ticket_status` = 'Open')";
-//                } else {
-//                  $join=array();  
-//                  $where = "(`ticket`.`organisation_id` = $organisation_id) AND (`ticket`.`ticket_status` = 'Open')";
-//                }
-//             
-//                $get = $this->crm->getData('ticket', 'ticket.*', $where, $join, FALSE, FALSE, FALSE, FALSE, FALSE);
-//               return count($get); 
-//    }
-//
-//    public function openGroupTicket($organisation_id,$user_id=NULL) {
-//        if ($user_id == '') {
-//            
-//            $group = getAllGroupDetails();
-// 
-//            $group_arr = array();
-//            $grp_id = array();
-//            foreach ($group as $grp_val) {
-//                $group_arr[$grp_val['group_id']] = $grp_val;
-//                $grp_id[] = $grp_val['group_id'];
-//            }
-//
-//            $join = array(
-//                array(
-//                    'table' => 'ticket_group_rel',
-//                    'on' => 'ticket_group_rel.ticket_id=ticket.ticket_id'));
-//            $where = array('ticket.organisation_id' => $organisation_id,'ticket.ticket_status' => 'Open','ticket_group_rel.group_id !=' => 'null');
-//            $get = $this->crm->getData('ticket', 'ticket.*', $where, $join, FALSE, FALSE);
-//            $grp_count = count($get);
-//        } else {
-//            $group = getUserGroupDetails($user_id);
-//           
-//
-//            $group_arr = array();
-//            $grp_id = array();
-//            foreach ($group as $grp_val) {
-//                $group_arr[$grp_val['group_id']] = $grp_val;
-//                $grp_id[] = $grp_val['group_id'];
-//            }
-//
-//            $join = array(
-//                array(
-//                    'table' => 'user as ucr',
-//                    'on' => 'ucr.user_id=ticket.user_id'),
-//                array(
-//                    'table' => 'ticket_assign',
-//                    'on' => 'ticket.ticket_id=ticket_assign.ticket_id'),
-//            );
-//
-//
-//            $where = array('ticket.organisation_id' => $organisation_id,'ticket_assign.user_id' => $user_id,'ticket.ticket_status' => 'Open');
-//          
-//            $get = $this->crm->getData('ticket', 'ticket.*,ucr.user_name as ticket_creater,ticket_assign.group_id', $where, $join, FALSE, FALSE);
-//            $grp_count = count($get);
-//        }
-//        
-//       
-//        return $grp_count;
-//    }
-//
-//    public function goodticket($organisation_id,$user_id=NULL) {
-//     $start_date = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'). "  -7 days"));
-//     $end_date = date('Y-m-d H:i:s');
-//     
-//        $join = array(
-//                        array(
-//                            'table' => 'feedback',
-//                            'on' => 'feedback.ticket_id = ticket.ticket_id'),
-//                        array(
-//                            'table' => 'ticket_history',
-//                            'on' => 'ticket_history.ticket_id = ticket.ticket_id')
-//                    );
-//
-//                   $where = "(`ticket`.`organisation_id` = $organisation_id) AND (`ticket`.`ticket_status` = 'Closed') AND (`feedback_type` = 'good')  AND (`ticket`.`ticket_updated` BETWEEN '$start_date'  AND '$end_date')";
-//                     $good_detail = $this->crm->getData('ticket', 'ticket.*,ticket_history.ticket_updated_by,feedback_comment',$where, $join, FALSE, FALSE, FALSE, FALSE, FALSE, 'ticket.ticket_id');
-//                     return count($good_detail);
-//    }
-//    public function badticket($organisation_id,$user_id=NULL) {
-//     $start_date = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'). "  -7 days"));
-//     $end_date = date('Y-m-d H:i:s');
-//     
-//        $join = array(
-//                        array(
-//                            'table' => 'feedback',
-//                            'on' => 'feedback.ticket_id = ticket.ticket_id'),
-//                        array(
-//                            'table' => 'ticket_history',
-//                            'on' => 'ticket_history.ticket_id = ticket.ticket_id')
-//                    );
-//
-//                   $where = "(`ticket`.`organisation_id` = $organisation_id) AND (`ticket`.`ticket_status` = 'Closed') AND (`feedback_type` = 'bad')  AND (`ticket`.`ticket_updated` BETWEEN '$start_date'  AND '$end_date')";
-//                     $bad_ticket = $this->crm->getData('ticket', 'ticket.*,ticket_history.ticket_updated_by,feedback_comment',$where, $join, FALSE, FALSE, FALSE, FALSE, FALSE, 'ticket.ticket_id');
-//                     return count($bad_ticket);
-//    }
-//    
-//    public function solvedTicket($organisation_id,$user_id=NULL){
-//          $start_date = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'). "  -7 days"));
-//         $end_date = date('Y-m-d H:i:s');
-//           $join = array(
-//                        array(
-//                            'table' => 'ticket_history',
-//                            'on' => 'ticket_history.ticket_id=ticket.ticket_id'
-//                        ),
-//                         array(
-//                            'table' => 'ticket_assign',
-//                            'on' => 'ticket.ticket_id = ticket_assign.ticket_id')
-//                    );
-//                    if ($user_id == '') {
-//                        $where = "(ticket_history_status = 'Solved') AND (ticket.ticket_status = 'Solved')   AND (ticket.organisation_id = '$organisation_id')  AND (`ticket_assign`.`current_working_user` = 1) AND (`ticket`.`ticket_updated` BETWEEN '$start_date'  AND '$end_date')";
-//                    } else {
-//                        $where = "(ticket_history_status = 'Solved') AND (ticket.ticket_status = 'Solved') AND (ticket.organisation_id = '$organisation_id')  AND (`ticket_assign`.`current_working_user` = 1)  AND (`ticket_assign`.`user_id` = $user_id)  AND (`ticket`.`ticket_updated` BETWEEN '$start_date'  AND '$end_date')";
-//                    }
-//                    $reportData = $this->crm->getData('ticket', 'ticket.*,ticket_history_status as ticket_status,ticket_history.ticket_updated_by', $where, $join, FALSE, FALSE, FALSE, FALSE, FALSE, 'ticket.ticket_id');
-//                     return count($reportData);
-//    }
-//
-//
-//
-// public function updateOrgansationTitle() {
-//        if ($this->input->post()) {
-//            $data = $this->input->post();
-//            if ($data['organisation_title'] == '') {
-//                $return_data['msg'] = "Organisation Title Required";
-//                $return_data['result'] = "False";
-//            } else {
-//                $this->crm->rowUpdate('organisation', array('organisation_title' => $data['organisation_title'],'organisation_text' => $data['organisation_text']), array('organisation_id' => $data['organisation_id']));
-//                $result = array(
-//                 'organisation_title' =>$data['organisation_title'],
-//                 'organisation_text' =>$data['organisation_text'],
-//                 );
-//                $return_data['msg'] =$result;
-//                $return_data['result'] = "True";
-//            }
-//
-//            echo json_encode($return_data);
-//        }
-//    }
-//    
+	  $str_point = FALSE;
+	  $lenght = 10;
+
+	  $search_array = FALSE;
+
+	  if (isset($_GET['iSortCol_0'])) {
+	       $index = $_GET['iSortCol_0'];
+	       $order = $_GET['sSortDir_0'] === 'asc' ? 'asc' : 'desc';
+	       $order_by = $col_sort[$index];
+	  }
+
+	  if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
+	       $words = $_GET['sSearch'];
+	       $search_array = array();
+	       for ($i = 0; $i < count($col_sort); $i++) {
+		    $search_array[$col_sort[$i]] = $words;
+	       }
+	  }
+	  $where = '';
+
+	  $where .= "amc_service.start_date <= '" . date('Y-m-d H:i:s') . "' ";
+	  $join = array(
+	      array('table' => 'user',
+		  'on' => 'user.user_id=amc_service.user_id'),
+	      array('table' => 'user as u',
+		  'on' => 'u.user_id=amc_service.reference_by'),
+	      array('table' => 'amc',
+		  'on' => 'amc.id=amc_service.amc_id')
+	  );
+	  if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
+	       $str_point = intval($_GET['iDisplayStart']);
+	       $lenght = intval($_GET['iDisplayLength']);
+	  }
+
+	  if (isset($_GET['sSearch_2']) && $_GET['sSearch_2'] != "") {
+
+
+	       $words = $_GET['sSearch_2'];
+	       $where .=" and ( amc.id REGEXP '$words'
+                         ) ";
+	  }
+	  if (isset($_GET['sSearch_3']) && $_GET['sSearch_3'] != "") {
+
+	       $words = $_GET['sSearch_3'];
+	       $where .=" and ( user.user_id REGEXP '$words'
+                         ) ";
+	  }
+	  if (isset($_GET['sSearch_6']) && $_GET['sSearch_6'] != "") {
+
+	       $words = $_GET['sSearch_6'];
+	       $where .=" and ( user.user_id REGEXP '$words'
+                         ) ";
+	  }
+	  if (isset($_GET['sSearch_7']) && $_GET['sSearch_7'] != "") {
+
+	       $words = $_GET['sSearch_7'];
+	       $where .=" and ( amc_service.due_date REGEXP '$words'
+                         ) ";
+	  }
+	  if (isset($_GET['sSearch_8']) && $_GET['sSearch_8'] != "") {
+
+	       $words = $_GET['sSearch_8'];
+	       $where .=" and ( user.user_type REGEXP '$words'
+                         ) ";
+	  }
+	  $group_by = 'amc_service.id';
+	  $data = $this->crm->getData('amc_service', $select, $where, $join, $order_by, $order, 5, $str_point, $search_array);
+//	  echo $this->db->last_query();
+	  $rowCount = $this->crm->getRowCount('amc_service', $select, $where, $join, $order_by, $order);
+
+
+	  $output = array(
+	      "sEcho" => intval($_GET['sEcho']),
+	      "iTotalRecords" => 5,
+	      "iTotalDisplayRecords" => 5,
+	      "aaData" => []
+	  );
+
+	  $edit_acccess = access_check("service", "edit");
+	  $delete_acccess = access_check("service", "delete");
+
+	  foreach ($data as $val) {
+	       $link = "";
+	       $due = '';
+	       $date = new DateTime($val['due_date']);
+	       $now = new DateTime();
+//	       echo $now.'==='.$val['due_date'];
+	       $diff = date_diff($date,$now);
+//	       echo $diff->format("%a");
+	       if ($diff->format("%a")>=3) {
+		    $due = 'due-cls';
+	       }
+	       if ($edit_acccess) {
+
+//		    $link .= '<a data-toggle="modal" data-target="#completeModel" id="completeCheck" class="btn btn-success btn-xs completeCheck ' . $due . '"  title="Complete" data_id="' . $val['user_id'] . '" data_name="' . $val['amc_name'] . '" data_due="' . dateFormateOnly($val['due_date']) . '"  referenceby= "' . $val['reference_by'] . '"  userid="' . $val['user_id'] . '" amc_id="' . $val['amc_id'] . '" start_date="' . $val['start_date'] . '" notes="' . $val['amc_note'] . '" amc_sevice_id="' . $val['service_id'] . '" amc_rel_id="' . $val['amc_rel'] . '" ><i class="fa fa-list-alt"></i>Complete</a>&nbsp;&nbsp;';
+	       }
+
+	       if ($delete_acccess) {
+                $link .= '<a class="btn btn-danger btn-xs ticket" title="Ticket" data-id="' . $val['service_id'] . '" href="'.base_url().'request/employee/add/'.$val['service_id'].'"><i class="fa fa-bug"></i> Ticket</a>';
+	       }
+	       $output['aaData'][] = array(
+		   "DT_RowId" => $val['service_id'],
+		   $val['amc_name'],
+		   $val['user_name'],
+		   $val['user_mobile'],
+		   dateFormateOnly($val['due_date']),
+		   $link
+	       );
+	  }
+
+
+	  echo json_encode($output);
+	  die;
+     }
+     function history_amc(){
+	  
+	  
+	    $col_sort = array("amc_service_history`.`due_date", "amc_service_history`.`id", "amc`.`amc_name", "user`.`user_name", "user`.`address2", "user`.`address1", "user`.`user_mobile", "user`.`user_email", "amc_service_history`.`start_date", "user`.`user_type");
+	  $select = array("amc_service_history.id as service_id", "amc.id as amc_id", "amc.amc_name", "user.user_name", "user.first_name", "user.address1", "user.user_mobile", 'user.user_email', "amc_service_history.user_id", "amc_service_history.start_date", "amc_service_history.due_date", "amc_service_history.reference_by", "amc_service_history.notes", "user.last_name", 'user.user_mobile', 'user.dob','complete_notes', 'notes', 'user.user_type');
+
+	  $order_by = "amc_service_history.due_date";
+	  $order = 'ASC';
+
+	  $str_point = FALSE;
+	  $lenght = 10;
+
+	  $search_array = FALSE;
+
+	  if (isset($_GET['iSortCol_0'])) {
+	       $index = $_GET['iSortCol_0'];
+	       $order = $_GET['sSortDir_0'] === 'asc' ? 'asc' : 'desc';
+	       $order_by = $col_sort[$index];
+	  }
+
+	  if (isset($_GET['sSearch']) && $_GET['sSearch'] != "") {
+	       $words = $_GET['sSearch'];
+	       $search_array = array();
+	       for ($i = 0; $i < count($col_sort); $i++) {
+		    $search_array[$col_sort[$i]] = $words;
+	       }
+	  }
+	  $where = '';
+
+	  $where .= "";
+	  $join = array(
+	      array('table' => 'user',
+		  'on' => 'user.user_id=amc_service_history.user_id'),
+	      array('table' => 'user as u',
+		  'on' => 'u.user_id=amc_service_history.reference_by'),
+	      array('table' => 'amc',
+		  'on' => 'amc.id=amc_service_history.amc_id')
+	  );
+	  if (isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1') {
+	       $str_point = intval($_GET['iDisplayStart']);
+	       $lenght = intval($_GET['iDisplayLength']);
+	  }
+
+	  if (isset($_GET['sSearch_2']) && $_GET['sSearch_2'] != "") {
+
+	       if($where!=""){
+		    $where .= ' and ';
+	       }
+	       $words = $_GET['sSearch_2'];
+	       $where .="( amc.id REGEXP '$words'
+                         ) ";
+	  }
+	  if (isset($_GET['sSearch_3']) && $_GET['sSearch_3'] != "") {
+	       if($where!=""){
+		    $where .= ' and ';
+	       }
+	       $words = $_GET['sSearch_3'];
+	       $where .="( user.user_id REGEXP '$words'
+                         ) ";
+	  }
+	  if (isset($_GET['sSearch_6']) && $_GET['sSearch_6'] != "") {
+	       if($where!=""){
+		    $where .= ' and ';
+	       }
+	       $words = $_GET['sSearch_6'];
+	       $where .="( user.user_id REGEXP '$words'
+                         ) ";
+	  }
+	  if (isset($_GET['sSearch_7']) && $_GET['sSearch_7'] != "") {
+	       if($where!=""){
+		    $where .= ' and ';
+	       }
+	       $words = $_GET['sSearch_7'];
+	       $where .="( amc_service_history.due_date REGEXP '$words'
+                         ) ";
+	  }
+	  if (isset($_GET['sSearch_8']) && $_GET['sSearch_8'] != "") {
+	       if($where!=""){
+		    $where .= ' and ';
+	       }
+	       
+	       $words = $_GET['sSearch_8'];
+	       $where .="( user.user_type REGEXP '$words'
+                         ) ";
+	  }
+	  $group_by = 'amc_service_history.id';
+	  $data = $this->crm->getData('amc_service_history', $select, $where, $join, $order_by, $order, 5, $str_point, $search_array);
+//	  echo $this->db->last_query();
+	  $rowCount = $this->crm->getRowCount('amc_service_history', $select, $where, $join, $order_by, $order);
+
+
+	  $output = array(
+	      "sEcho" => intval($_GET['sEcho']),
+	      "iTotalRecords" => 5,
+	      "iTotalDisplayRecords" => 5,
+	      "aaData" => []
+	  );
+
+	  $edit_acccess = access_check("service", "edit");
+	  $delete_acccess = access_check("service", "delete");
+
+	  foreach ($data as $val) {
+	       $link = "";
+	       $due = '';
+	      
+	       if ($edit_acccess) {
+
+		    $link .= '<a data-toggle="modal" data-target="#viewModel" id="viewCheck" class="btn btn-success btn-xs viewCheck ' . $due . '"  title="View" data_id="' . $val['user_id'] . '" data_name="' . $val['amc_name'] . '" data_due="' . dateFormateOnly($val['due_date']) . '"  referenceby= "' . $val['reference_by'] . '"  userid="' . $val['user_id'] . '" amc_id="' . $val['amc_id'] . '" start_date="' . $val['start_date'] . '" notes="' . $val['notes'] . '" amc_sevice_id="' . $val['service_id'] . '" complete_note="' . $val['complete_notes'] . '"><i class="fa fa-list-alt"></i>View</a>&nbsp;&nbsp;';
+	       }
+
+	     
+	       $output['aaData'][] = array(
+		   "DT_RowId" => $val['service_id'],
+		   $val['amc_name'],
+		   $val['user_name'],
+		   $val['user_mobile'],
+		   dateFormateOnly($val['due_date']),
+		   $link
+	       );
+	  }
+
+
+	  echo json_encode($output);
+	  die;
+	  
+     }
 }
 
 ?>

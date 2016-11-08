@@ -35,7 +35,7 @@ class archiveController extends BaseController {
 	  $this->load->template('/archive/index', $pagedata);
      }
 
-     function getArchiveamc() {
+     function getArchiveamc() {       
 
 	  $col_sort = array("amc`.`id", "amc`.`amc_name", "amc`.`amc_type");
 	  $select = array("*");

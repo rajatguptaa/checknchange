@@ -10,97 +10,111 @@ $access_level = $user['user_access_level'];
                     Dashboard
                 </h3>
             </div>
+            </div>
 
 
-                    <div class="page-content">
-                        <center>
-                            <h1>Coming Soon...</h1>
-                        </center>
-                    </div>
+                    <div class="row">
+		    <?php if ($this->session->flashdata('dashboard_danger')) : ?>
+     		    <div class="alert alert-danger">
+     			 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			      <?php echo $this->session->flashdata('dashboard_danger'); ?>
+     		    </div>
+		    <?php endif; ?>
+		    <?php if ($this->session->flashdata('dashboard_success')) : ?>
+     		    <div class="alert alert-success">
+     			 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			      <?php echo $this->session->flashdata('dashboard_success'); ?>
+     		    </div>
+		    <?php endif; ?>
+	       </div>
+	       <div class="row">
+		    <div class="col-md-6">
+			 <div class="x_panel">
+			      <div class="x_content">
+				   <div class="row">
+					<div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
+					     <div class="title_right">
+						  <label>Archive Employee</label>
+					     </div>
+					</div>
+				   </div>
+                                   <div class="row">
+					<div class="clearfix"></div>
+					<div id="amc_ser">
+					     <div class="x_content">
+						  <table id="amc_service" class="table table-striped responsive-utilities jambo_table pull-left">
+						       <thead>
+							    <tr class="headings">
+								 <th>#
+								 </th>
+								 <th>Name</th>
+								 <th>Contact No.</th>                                        
+								 <th>Contact No.</th>                                        
+								 <th class=" no-link last"><span class="nobr">Action</span>
+								 </th>
+							    </tr>
+						       </thead>
+						       <tbody>
+						       </tbody>
+						  </table>
+					     </div>
+					</div>
+					<input type='hidden' name='search_val' id='search_val'>
+					<input type='hidden' name='base_url' id='base_url' value="<?php echo base_url();?>">
+				   </div>
 
-<!--            <div class="title_right">
-                <div class="col-md-4 col-sm-4 col-xs-12 form-group pull-right top_search">
+			      </div>
+			      <div class="row">&nbsp;</div>
+			      <div class="row">&nbsp;</div>
+			      <div class="col-md-12 col-sm-12 col-xs-12 pagination_div pagination pagination-split center text-center">
 
-                    <?php if (access_check("organisation", "view")) : ?>
-                        <select name="orginasation_search" id="orginasation_search" tabindex="-1" class="select_organisation form-control">    
-                            <?php foreach ($organisation as $org) { ?>
-                                <option value=<?php echo $org['organisation_id']; ?>><?= $org['organisation_name'] ?></option>
-                            <?php } ?>
-                        </select>   
-                    <?php else :
-                        ?>
-                        <input type="hidden" name="orginasation_search" class="select_organisation" id="orginasation_search_hidden" value="<?php
-                        $org = getUserOrginasationDetails($user['user_id']);
-                        echo $org['organisation_id'];
-                        ?>">
-                           <?php endif; ?>
+			      </div>
+			 </div>
+		    </div>
+		    <div class="col-md-6">
+			 <div class="x_panel">
+			      <div class="x_content">
+				   <div class="row">
+					<div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
+					     <div class="title_right">
+						  <label>Archive Customer </label>
+					     </div>
+					</div>
+				   </div>
+                                   <div class="row">
+					<div class="clearfix"></div>
+					<div id="amc_archive">
+					     <div class="x_content">
+						  <table id="amc_service_history" class="table table-striped responsive-utilities jambo_table pull-left">
+						       <thead>
+							    <tr class="headings">
+								 <th>#
+								 </th>
+								 <th>Name</th>
+								 <th>Contact No.</th>                                        
+								 <th class=" no-link last"><span class="nobr">Action</span>
+								 </th>
+							    </tr>
+						       </thead>
+						       <tbody>
+						       </tbody>
+						  </table>
+					     </div>
+					</div>
+					<input type='hidden' name='search_val' id='search_val'>
+				   </div>
 
-                </div>
-            </div>-->
-        </div>
-        
-        <!--<div class="dashboard_div"></div>-->    
+			      </div>
+			      <div class="row">&nbsp;</div>
+			      <div class="row">&nbsp;</div>
+			      <div class="col-md-12 col-sm-12 col-xs-12 pagination_div pagination pagination-split center text-center">
 
-    </div><!---wrapper end-->
-</div>
-<div align='center' class="wait">
-        <div class="loader-center"><img height='50' width='50' src='<?php echo base_url(); ?>assets/images/ajax-loader_1.gif'></div>
-    </div>
-<!--<script>
-    $(document).ready(function () {
-        var base_url = $("#base_url").val();
-        $(document).on('click', '.notes', function () {
+			      </div>
+			 </div>
+		    </div>
+		    </div>
+		    
 
-            if ($('body').find('.view_data').hasClass('text_content')) {
-                $('body').find('.view_data').removeClass('text_content');
-                $('body').find('.edit_data').addClass('text_content');
-            } else {
-                $('body').find('.view_data').addClass('text_content');
-                $('body').find('#organisation_title').val($('.lead_div').text());
-                $('body').find('#organisation_text').val($('.text_div').text());
-                $('body').find('.edit_data').removeClass('text_content');
-                $('#organisation_error').empty();
-            }
-        });
-
-
-        $(document).on('click', '.cancle', function () {
-            $('body').find('.view_data').removeClass('text_content');
-            $('body').find('.edit_data').addClass('text_content');
-
-        });
-
-
-        $(document).on('click', '#add_button', function () {
-
-            var organisation_title = $('#organisation_title').val();
-            var organisation_text = $('#organisation_text').val();
-            var organisation_id = $(this).attr('data_id');
-
-            $.ajax({
-                type: 'POST',
-                url: base_url + 'dashboardController/updateOrgansationTitle',
-                data: {organisation_title: organisation_title, organisation_id: organisation_id, organisation_text: organisation_text},
-                success: function (data) {
-                    var res = $.parseJSON(data);
-                    if (res.result == 'False') {
-                        $('#organisation_error').empty();
-                        $('#organisation_error').text(res.msg);
-                    } else {
-                        $('body').find('.lead_div').empty();
-                        $('body').find('.text_div').empty();
-                        $('body').find('.lead_div').text(res.msg.organisation_title);
-                        $('body').find('.text_div').text(res.msg.organisation_text);
-                        $('body').find('.view_data').removeClass('text_content');
-                        $('body').find('.edit_data').addClass('text_content');
-
-                    }
-                }
-            });
-        });
-    });
-
-</script>-->
 
 
 <style>
@@ -190,5 +204,56 @@ $access_level = $user['user_access_level'];
     }
 
 </style>
+<script>
+$(document).ready(function(){
+   var base_url = $("#base_url").val();
+    var cat = $("#amc_service").dataTable({
+            "oLanguage": {
+                "sProcessing": "<div class='loader-center'><img height='50' width='50' src='" + base_url + "assets/images/ajax-loader_1.gif'></div>"
+            },
+            "ordering": false,
+            "sAjaxSource": "<?= base_url(); ?>dashboardController/getAmcService",
+            "bProcessing": true,
+            "bServerSide": true,
+            "aLengthMenu": [[10, 20, -1], [10, 20, "All"]],
+            "iDisplayLength": 10,
+            "responsive": true,
+	    "searching": false,
+	     "paging": false,
+            "bSortCellsTop": true,
+            "bDestroy": true, //!!!--- for remove data table warning.
+            "aoColumnDefs": [
+                {"sClass": "eamil_conform aligncenter", "aTargets": [0],orderable: false},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [1], orderable: false},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [2],orderable: false},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [3], orderable: false},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [4], orderable: false},
+            ]}
+        );
 
+	var cat = $("#amc_service_history").dataTable({
+            "oLanguage": {
+                "sProcessing": "<div class='loader-center'><img height='50' width='50' src='" + base_url + "assets/images/ajax-loader_1.gif'></div>"
+            },
+            "ordering": false,
+            "sAjaxSource": "<?= base_url(); ?>dashboardController/history_amc",
+            "bProcessing": true,
+            "bServerSide": true,
+	    "searching": false,
+	     "paging": false,
+            "aLengthMenu": [[10, 20, -1], [10, 20, "All"]],
+            "iDisplayLength": 10,
+            "responsive": true,
+            "bSortCellsTop": true,
+            "bDestroy": true, //!!!--- for remove data table warning.
+            "aoColumnDefs": [
+                {"sClass": "eamil_conform aligncenter", "aTargets": [0],orderable: false},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [1], orderable: false},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [2],orderable: false},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [3], orderable: false},
+                
+            ]}
+        );
+});
+</script>
 <!-- footer content -->

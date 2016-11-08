@@ -8,88 +8,30 @@
 $(document).ready(function () {
 
     var base_url = $("#base_url").val();
-    $("#orginasation_search").chosen({width: "85%"});
-
-    var organisation_id = $('.select_organisation').val();
-    var url = base_url + "dashboard/supportForum/";
-    var method = "POST";
-    var data = {organisation_id: organisation_id};
-    ajaxRequest(url, method, data, function (data) {
-        $('.dashboard_div').html(data);
-    });
-
-    $(document).on('change', '#orginasation_search', function () {
-        var organisation_id = $('.select_organisation').val();
-        var url = base_url + "dashboard/supportForum/";
-        var method = "POST";
-        var data = {organisation_id: organisation_id};
-        ajaxRequest(url, method, data, function (data) {
-            $('.dashboard_div').html(data);
-        });
-
-    });
-
-    $(document).on('click', '.unpinpost', function () {
-        var postid = this.id;
-        var obj = $(this);
-        console.log(postid);
-        var url = base_url + "dashboard/unpinforumpost/";
-        var method = "POST";
-        var data = {postid: postid};
-        ajaxRequest(url, method, data, function (data) {
-            if (data) {
-
-                $(obj).closest('.article_pin').fadeOut("normal", function () {
-                    $(obj).remove();
-                });
-            } else {
-                //nothing
-            }
-        });
-    });
-
     
-   
-
-         $('body').on('click', '.recentchange', function () {
-             var organisation_id = $('.select_organisation').val();
-            var recentid = this.id;
-            if (recentid == 'overview') {
-                categoryorg(organisation_id);
-                $('.recentchange').removeClass('active');
-                $(this).addClass('active');
-            } else {
-                $('.recentchange').removeClass('active');
-                $(this).addClass('active');
-                recentview(organisation_id);
-            }
-
-
-
-
-        });
-});
-
-    function categoryorg(organisation_id) {
-        var base_url = $("#base_url").val();
-        var url = base_url + "support/categoryForum/";
-        var method = "POST";
-        var data = {organisation_id: organisation_id,pagetype:'dashboard'};
-        ajaxRequest(url, method, data, function (data) {
-
-            $('.recentsection').html(data);
-        });
-    }
     
-    function recentview(organisation_id){
-        
-        var base_url = $("#base_url").val();
-        var url = base_url + "support/recentpost";
-        var method = "POST";
-        var data = {organisation_id: organisation_id};
-        ajaxRequest(url, method, data, function (data) {
-
-            $('.recentsection').html(data);
-        });
-        
-    }
+      var cat = $("#amc_service").dataTable({
+            "oLanguage": {
+                "sProcessing": "<div class='loader-center'><img height='50' width='50' src='" + base_url + "assets/images/ajax-loader_1.gif'></div>"
+            },
+            "ordering": true,
+            "sAjaxSource": "<?= base_url(); ?>archiveController/getArchiveEmp",
+            "bProcessing": true,
+            "bServerSide": true,
+            "aLengthMenu": [[10, 20, -1], [10, 20, "All"]],
+            "iDisplayLength": 10,
+            "responsive": true,
+            "bSortCellsTop": true,
+            "bDestroy": true, //!!!--- for remove data table warning.
+            "aoColumnDefs": [
+                {"sClass": "eamil_conform aligncenter", "aTargets": [0]},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [1], orderable: false},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [2]},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [3], orderable: false},
+                {"sClass": "eamil_conform aligncenter", "aTargets": [4], orderable: false},
+            ]}
+        );
+    
+    
+    
+    });
