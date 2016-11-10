@@ -10,12 +10,12 @@ function amc_date_create($str_date, $amc_id) {
      $end_date = '';
      switch ($amc_id) {
 	  case '1':
-	       $end_date = date('Y-m-d H:i:s', strtotime("+1 years", strtotime($str_date)));
+	       $end_date = date('d-m-Y H:i:s', strtotime("+1 years", strtotime($str_date)));
 	       return $end_date;
 	       break;
 
 	  default:
-	       $end_date = date('Y-m-d H:i:s', strtotime("+1 years", strtotime($str_date)));
+	       $end_date = date('d-m-Y H:i:s', strtotime("+1 years", strtotime($str_date)));
 	       return $end_date;
 	       break;
      }
@@ -37,11 +37,16 @@ function amc_service_create($start_date, $amc_id, $user_id) {
      }
 }
 
+
+
+
+
+
 function first_time() {
 
 
       $start_date = date('Y-m-d H:i:s');
-     $end_date = date('Y-m-d H:i:s', strtotime("+3 day", strtotime($start_date)));
+     $end_date = $start_date;
      return array('start_date' => $start_date, 'end_date' => $end_date);
 }
 

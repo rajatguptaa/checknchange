@@ -723,7 +723,21 @@ class CustomerController extends BaseController {
 		      echo $message;
 	  
      }
+     public function getAmc() {
+	$table = '';
+	  $amc_id =   $this->input->post('amc_id');
+	foreach ($amc_id as $amc_ids) {
+	     
+	  $amc =   $this->crm->getData('amc','amc_name',array('id'=>$amc_ids));
+$date = 	amc_date_create(date('Y-m-d H:i:s'),$amc_ids);
+	  $table .= "<tr><td>".$amc[0]['amc_name']."</td>";
+	  $table .="<td>".date('d-m-Y H:i:s')."</td>";
+	  $table .="<td>".$date."</td></tr>";
+	  
+	}
      
+     echo json_encode($table);die;
+     }
 }
 
 ?>

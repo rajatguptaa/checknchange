@@ -221,9 +221,17 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employee_notes">
                                     </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-					 <table class="table">
-					      <tr><td>Amc Name</td><td>Start Date</td><td>End Date</td></tr>
+				     <div class="col-md-6 col-sm-6 col-xs-12 amc_table" style="display: none">
+					 <table class="amc_table table table-bordered">
+					      <thead><tr>
+							<td>Amc Name</td>
+							<td>Start Date</td>
+							<td>End Date</td>
+						   </tr>
+					      </thead>
+					      <tbody>
+						   
+					      </tbody>
 					 </table>
                                     </div>
                                 </div>
@@ -313,9 +321,21 @@
                  });   
 
 	$('body').on('change','#user_amc',function(){
-	    var value =  $(this).val();
-	
-	    
+	     var amc_id = [];
+	     amc_id =  $(this).val();
+
+	    $('.amc_table').show();
+	    console.log(amc_id);
+	    $.ajax({
+		    url: base_url + 'customerController/getAmc',
+		    type: 'POST',
+		    data: {amc_id:amc_id},
+		    success: function (data) {
+			var data =  $.parseJSON(data);
+			 console.log(data);
+			      $(".amc_table tbody").html(data);
+	  }
+	       });
      
      });	    
 
