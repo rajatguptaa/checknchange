@@ -74,6 +74,8 @@ class AmcController extends BaseController {
 		     $insertdata['amc_duration'] = 0;
 		     $insertdata['amc_visit'] = 0;
 		}
+		     $insertdata['amc_status'] = 1;
+		
                 $filename = image_upload('image', 'package');
                 if (is_array($filename)) {
                     $insertdata['package_logo'] = 'assets/img/package/' . $filename['file_name'];

@@ -227,6 +227,7 @@
 							<td>Amc Name</td>
 							<td>Start Date</td>
 							<td>End Date</td>
+							<td>Amc Price</td>
 						   </tr>
 					      </thead>
 					      <tbody>

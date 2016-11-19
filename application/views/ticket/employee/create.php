@@ -53,11 +53,17 @@ $access_level = $user['user_access_level'];
 					   ?>
 				   <option value="primary" <?= ($detail['amc_type']=='primary')?'selected':'';?>>Primary</option>
 				   <option value="secondary" <?= ($detail['amc_type']=='secondary')?'selected':'';?>>Secondary</option>
+				   <option value="primary" <?= ($detail['amc_type']=='primary')?'selected':'';?>>PRIMARY SERVICE</option>
+				   <option value="secondary" <?= ($detail['amc_type']=='secondary')?'selected':'';?>>SECONDARY SERVICE</option>
+				   <option value="home_appliance" <?= ($detail['amc_type']=='home_appliance')?'selected':'';?>>HOME APPLIANCE</option>
+				   <option value="on_call" <?= ($detail['amc_type']=='on_call')?'selected':'';?>>ON CALL AMC</option>
 				   <?php
 					  }else{
 					       ?>
-				   <option value="primary">Primary</option>
-				   <option value="secondary">Secondary</option>
+				   <option value="primary">PRIMARY SERVICE</option>
+				   <option value="secondary">SECONDARY SERVICE</option>
+				   <option value="home_appliance">HOME APPLIANCE</option>
+				   <option value="on_call">ON CALL AMC</option>
 				   <?php
 					  }
 				   ?>
@@ -626,6 +632,6 @@ $access_level = $user['user_access_level'];
 		}
 	     });
      });
-
+    
 
 </script>

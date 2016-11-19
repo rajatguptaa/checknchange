@@ -50,7 +50,7 @@ class EmployeeController extends BaseController {
             $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required');
             $this->form_validation->set_message('matches', 'password does not match');
             $this->form_validation->set_rules('image', 'Image', 'callback_image_validate');
-            $this->form_validation->set_rules('document', 'Document', 'callback_document_validate');
+//            $this->form_validation->set_rules('document', 'Document', 'callback_document_validate');
             $this->form_validation->set_message('regex_match', 'Phone number only cantain 10 digits');
             if ($this->form_validation->run() == FALSE) {
                 $this->load->template('/employee/create', $pagedata);

@@ -1,5 +1,4 @@
 <?php
-
 ini_set('post_max_size', '64M');
 ini_set('upload_max_filesize', '64M');
 /*
@@ -2761,7 +2760,7 @@ class TicketController extends BaseController {
      $type = $this->input->post('type');
      if($type!=''){
 	  
-     $amc = $this->crm->getData('amc','amc.*',array('amc_type'=>$type));
+     $amc = $this->crm->getData('amc','amc.*',array('amc_type'=>$type,'amc_status'=>1));
      }else{
      $amc = $this->crm->getData('amc','amc.*');
 	  

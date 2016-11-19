@@ -76,7 +76,14 @@
 						  <?php echo form_error('amc_duration'); ?>
 					     </div>
 					</div>
-
+					<div class="item form-group">
+					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address">AMC Price
+					     </label>
+					     <div class="col-md-6 col-sm-6 col-xs-12 ">
+						  <input  id="amc_price" class="form-control col-md-7 col-xs-12" value="<?php echo set_value('amc_price'); ?>" name="amc_price" placeholder="AMC Price" value="0"  type="text">
+						  <?php echo form_error('amc_price'); ?>
+					     </div>
+					</div>
 					<div class="item form-group on-call">
 					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address2">AMC Visits 
 					     </label>
