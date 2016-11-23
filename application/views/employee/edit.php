@@ -223,6 +223,7 @@
 	  old_image = "assets/images/default_avatar_male.jpg"
      }
      var old_document = $("#old_document").val();
+     console.log(old_document);
      if (old_document == "") {
 	  old_document = "assets/images/people-300x300.png"
      }
@@ -241,7 +242,8 @@
 	  msgErrorClass: 'alert alert-block alert-danger',
 	  defaultPreviewContent: '<img src="<?php echo base_url(getUsersImage($form_data['user_id'],'small')); ?>" alt="Your Amc Logo" style="width:190px">',
 	  layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
-	  allowedFileExtensions: ["jpg", "png", "gif", "docx", "doc", "pdf"]
+//	  allowedFileExtensions: ["jpg", "png", "gif", "docx", "doc", "pdf"]
+	  allowedFileExtensions: ["jpg", "png", "gif"]
      });
 
      $("#image1").fileinput({
@@ -255,7 +257,7 @@
 	  removeTitle: 'Cancel or reset changes',
 	  elErrorContainer: '#kv-avatar-errors',
 	  msgErrorClass: 'alert alert-block alert-danger',
-	  defaultPreviewContent: '<input type="text" value="' + old_document + '" disabled="disabled">',
+	  defaultPreviewContent: '<img src="' +base_url+'/'+ old_document+'" alt="Your Organisation Logo" style="width:190px">',
 	  layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
      });
 </script>

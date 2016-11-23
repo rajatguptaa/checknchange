@@ -733,7 +733,7 @@ $date = 	amc_date_create(date('Y-m-d H:i:s'),$amc_ids);
 	     $total += $amc[0]['amc_price'];
 	  $table .= "<tr><td>".$amc[0]['amc_name']."</td>";
 	  $table .="<td>".date('d-m-Y H:i:s')."</td>";
-	  $table .="<td>".$date."</td><td>".$amc[0]['amc_price']."</td><tr>";
+	  $table .="<td>".$date."</td><td width='15px'><input type='number' class='form-controlz amc_price' value='".$amc[0]['amc_price']."'/></td><tr>";
 		 
 	  
 	}

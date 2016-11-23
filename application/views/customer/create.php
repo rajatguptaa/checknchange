@@ -295,7 +295,8 @@
             msgErrorClass: 'alert alert-block alert-danger',
             defaultPreviewContent: '<img src="' + base_url + 'assets/img/default_avatar_male.jpg" alt="Your Organisation Logo" style="width:190px">',
             layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
-            allowedFileExtensions: ["jpg", "png", "gif","docx","doc","pdf"]
+//            allowedFileExtensions: ["jpg", "png", "gif","docx","doc","pdf"]
+            allowedFileExtensions: ["jpg", "png", "gif"]
         });
          $("#image1").fileinput({
             overwriteInitial: true,
@@ -334,12 +335,21 @@
 		    success: function (data) {
 			var data =  $.parseJSON(data);
 			 console.log(data);
-			      $(".amc_table tbody").html(data);
+			      $(".amc_table tbody").append(data);
 	  }
 	       });
      
      });	    
-
+     //price change
+     
+     $('body').on('keyup','.amc_price',function(){
+	  var count = 0;
+	$('.amc_price').each(function(key,value){
+	    count = count + parseInt($(this).val());
+	});  
+	console.log(count);
+	$('.amc_total').text(count);
+     });
 
 //                        });
     });

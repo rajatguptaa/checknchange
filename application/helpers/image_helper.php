@@ -163,7 +163,7 @@ function getAmcImage($amc_id = NULL, $small = FALSE) {
 
             return $orgDetails['package_logo'];
         } else {
-            return 'assets/images/user.png';
+            return 'assets/img/amc.png';
         }
     } else
         return "";

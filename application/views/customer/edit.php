@@ -322,7 +322,7 @@
 	       removeTitle: 'Cancel or reset changes',
 	       elErrorContainer: '#kv-avatar-errors',
 	       msgErrorClass: 'alert alert-block alert-danger',
-	       defaultPreviewContent: '<input class="form-control" disabled="" type="text" value="'+document+'" />',
+	       defaultPreviewContent: '<img src="' + document+'" alt="Your Organisation Logo" style="width:190px">',
 	       layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
 	  });
 

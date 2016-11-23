@@ -80,7 +80,7 @@
 					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address">AMC Price
 					     </label>
 					     <div class="col-md-6 col-sm-6 col-xs-12 ">
-						  <input  id="amc_price" class="form-control col-md-7 col-xs-12" value="<?php echo set_value('amc_price'); ?>" name="amc_price" placeholder="AMC Price" value="0"  type="text">
+						  <input  id="amc_price" class="form-control col-md-7 col-xs-12" value="<?php echo set_value('amc_price'); ?>" name="amc_price" placeholder="AMC Price" value="0"  type="number">
 						  <?php echo form_error('amc_price'); ?>
 					     </div>
 					</div>
@@ -159,7 +159,7 @@
 	       removeTitle: 'Cancel or reset changes',
 	       elErrorContainer: '#kv-avatar-errors',
 	       msgErrorClass: 'alert alert-block alert-danger',
-	       defaultPreviewContent: '<img src="' + base_url + 'assets/img/default_avatar_male.jpg" alt="Your Organisation Logo" style="width:190px">',
+	       defaultPreviewContent: '<img src="' + base_url + 'assets/img/amc.png" alt="Your Organisation Logo" style="width:190px">',
 	       layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
 	       allowedFileExtensions: ["jpg", "png", "gif"]
 	  });

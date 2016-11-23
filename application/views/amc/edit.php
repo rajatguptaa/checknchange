@@ -80,10 +80,16 @@
 						  <?php echo form_error('amc_duration'); ?>
 					     </div>
 					</div>
-					<div class="col-md-6 col-sm-6 col-xs-12 ">
-						  <input  id="amc_price" class="form-control col-md-7 col-xs-12" value="<?php echo set_value('amc_price'); ?>" name="amc_price" placeholder="AMC Price" value="<?php echo $form_data['amc_price']?>"  type="text">
-						  <?php echo form_error('amc_price'); ?>
+					<div class="item form-group">
+					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_name">Amc Price <span class="required">*</span>
+					     </label>
+					     <div class="col-md-6 col-sm-6 col-xs-12 ">
+						  <input  id="organisation_name" class="form-control col-md-7 col-xs-12" value="<?= ( $method == "post") ? set_value('amc_price') : $form_data['amc_price']; ?>" name="amc_price" placeholder="Amc Price" required="required" type="number">
+						  <?php echo form_error('amc_name'); ?>
+
 					     </div>
+					</div>
+					
 					<div class="item form-group on-call">
 					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_address2">AMC Visits 
 					     </label>

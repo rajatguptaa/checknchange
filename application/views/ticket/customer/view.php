@@ -10,12 +10,17 @@ $access_level = $user['user_access_level'];
                     <?= $mainHeading ?>
                 </h3>
             </div>
+            <div class=" pull-right">
+                <h3>
+		     <a href="javascript:void(0)" onclick="print()" class="print_ticket">Print</a>
+                </h3>
+            </div>
         </div>
         <div class="clearfix"></div>
 
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
+                <div class="x_panel ticket_div">
 
                     <div class="x_content">
                         <div class="">
@@ -1140,7 +1145,27 @@ if ($attachment_info != '') {
         });
 
     }
+    function print(){
+	 
+        Popup($('.ticket_div').html());
+	 
+    }
+    
 
+    function Popup(data)
+    {
+        var mywindow = window.open('', 'new div', 'height=400,width=600');
+        mywindow.document.write('<html><head><title>my div</title>');
+        /*optional stylesheet*/mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
 </script>
 
 <style>
