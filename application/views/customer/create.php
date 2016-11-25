@@ -50,7 +50,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="employee_name">Last Name <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12 ">
-                                        <input data-parsley-error-message="The Last Name field is required." id="employee_name" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('last_name')) > 0) ? "parsley-error" : "" ?>" value="<?php echo set_value('last_name'); ?>" name="last_name" placeholder="Customer name" required="required" type="text">
+                                        <input data-parsley-error-message="The Last Name field is required." id="employee_lname" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('last_name')) > 0) ? "parsley-error" : "" ?>" value="<?php echo set_value('last_name'); ?>" name="last_name" placeholder="Customer name" required="required" type="text">
                                         <?php echo form_error('last_name'); ?>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                     <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Password <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="password" data-parsley-error-message="The Password field is required." placeholder="Password" class="form-control col-md-7 col-xs-12" name="user_password" id="user_password" required="required" data-parsley-id="8">
+					 <input type="password" data-parsley-error-message="The Password field is required." placeholder="Password" class="form-control col-md-7 col-xs-12" name="user_password" id="user_password" required="required" value="12345" data-parsley-id="8">
                                     </div>
 
                                 </div>
@@ -75,7 +75,7 @@
                                     <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Confirm Password <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="password" placeholder="Confirm Password" class="form-control col-md-7 col-xs-12 " data-parsley-equalto="#user_password" name="passconf" id="passwordl2" data-parsley-id="10">
+                                        <input type="password" placeholder="Confirm Password" value="12345" class="form-control col-md-7 col-xs-12 " data-parsley-equalto="#user_password" name="passconf" id="passwordl2" data-parsley-id="10">
 
                                     </div>
 
@@ -347,12 +347,37 @@
 	$('.amc_price').each(function(key,value){
 	    count = count + parseInt($(this).val());
 	});  
-	console.log(count);
+	
 	$('.amc_total').text(count);
+     });
+     
+     //customer 
+	var emp_code = $("#employee_code").val();
+     $('body').on('keyup','#employee_name',function(){
+	code(this,emp_code);
+     });
+     $('body').on('keyup','#employee_lname',function(){
+	  
+	code(this,emp_code);
      });
 
 //                        });
     });
+    
+    function code(obj,emp_code){
+	 var code1 = '';
+	var code2 = '';
+	var code3 = '';
+	var final = '';
+	  var fname = $(obj).val();
+	var lname = $('#employee_lname').val();
+	code1 = fname.substr(0,1);
+	
+	code2 = lname.substr(0,1);
+	code3 = emp_code.substr(3,8);
+
+	  $("#employee_code").val(code1.toUpperCase()+code2.toUpperCase()+code3);
+    }
 </script>
 
 <!-- footer content -->
