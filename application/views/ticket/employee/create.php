@@ -46,8 +46,9 @@ $access_level = $user['user_access_level'];
 
 			      <?php // if (access_check("organisation", "view")) : ?>
                               <label for="orginasation_search">Amc Type </label>
-			      <select name="amc_type" id="amc_type" tabindex="-1" class=" chossen form-control" required="" data-parsley-error-message="Amc type field is required.">				       <?php   
-					  if(!empty($this->uri->segment('4'))){
+			      <select name="amc_type" id="amc_type" tabindex="-1" class=" chossen form-control" required="" data-parsley-error-message="Amc type field is required.">				       <?php
+			      $url = $this->uri->segment('4');
+					  if(!empty($url)){
 					 $amc_id = $this->uri->segment('4');
 					  $detail =   getAmcDetail($amc_id);
 					   ?>
@@ -239,10 +240,10 @@ $access_level = $user['user_access_level'];
 			 </div>
 			 <div class="form-group col-md-12">
 			      <div class="col-md-2 col-md-offset-1">
-				   <label for="message-text" class="control-label">Email *</label>
+				   <label for="message-text" class="control-label">Email </label>
 			      </div>
 			      <div class="col-md-8 col-md-offset-1">
-				   <input required="required" type="email" class="form-control" id="user_email" name="user_email"  placeholder="Enter Email" data-parsley-error-message="The Email field is required.">
+				   <input  type="email" class="form-control" id="user_email" name="user_email"  placeholder="Enter Email" >
 				   <ul class="parsley-errors-list filled user_email"><li class="parsley-custom-error-message "></li></ul>
 			      </div>
 			 </div>

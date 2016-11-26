@@ -2,8 +2,8 @@
   $edit = access_check("employee","edit");
   $delete = access_check("employee","delete");
   $view = access_check("employee","view");
- 
- foreach ($user_detail as $user_val) { ?>
+ $i=1;
+ foreach ($user_detail as $key=>$user_val) { ?>
                                     <div class="col-md-4 col-sm-4 col-xs-12 animated fadeInDown">
                                         <div class="well profile_view">
                                             <div class="col-sm-12">
@@ -43,7 +43,15 @@
                                             </div>
                                         </div>
                                     </div>
- <?php }  ?>
+				    
+ <?php 
+ if($i%3==0){
+      ?>
+<div class="clearfix"></div>
+	   <?php
+ }
+ $i++;
+ }  ?>
 <input type='hidden' id='count' value='<?php  echo $count;?>'> 
 <script>
 $(function () {

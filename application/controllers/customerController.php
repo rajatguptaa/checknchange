@@ -144,7 +144,7 @@ class CustomerController extends BaseController {
 	       $this->form_validation->set_rules('user_country', 'Country', 'required');
 	       $this->form_validation->set_rules('user_postcode', 'Post Code', 'required');
 	       $this->form_validation->set_rules('user_mobile', 'Mobile Number ', 'numeric|regex_match[/^[0-9]{10}$/]');
-	       $this->form_validation->set_rules('user_email', 'Email', 'required|email|is_unique[user.user_email]');
+//	       $this->form_validation->set_rules('user_email', 'Email', 'required|email|is_unique[user.user_email]');
 	       $this->form_validation->set_rules('user_password', 'Password', 'trim|required|matches[passconf]');
 	       $this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required');
 	       $this->form_validation->set_message('matches', 'password does not match');
@@ -613,7 +613,7 @@ class CustomerController extends BaseController {
 	  $this->form_validation->set_error_delimiters('<ul class="parsley-errors-list filled server_message" data-parsley-id="6"><li class="parsley-required">', '</li></ul>');
 
 	  $this->form_validation->set_rules('user_name', 'Name', 'required');
-	  $this->form_validation->set_rules('user_email', 'Email', 'required|email|is_unique[user.user_email]');
+//	  $this->form_validation->set_rules('user_email', 'Email', 'required|email|is_unique[user.user_email]');
 
 	  if ($this->form_validation->run() == FALSE) {
 	       $this->form_validation->set_error_delimiters('', '');

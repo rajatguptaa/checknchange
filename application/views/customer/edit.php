@@ -111,10 +111,10 @@
 					     </div>
 					</div>
 					<div class="item form-group">
-					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="country">Country <span class="required">*</span>
+					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="country">State <span class="required">*</span>
 					     </label>
 					     <div class="col-md-6 col-sm-6 col-xs-12 ">
-						  <input type="text" value="<?= ( $method == "post") ? set_value('user_country') : $user_detail['user_country']; ?>" data-parsley-error-message="Country"  id="country" required="required" placeholder="The country you live in" name="user_country" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('user_country')) > 0) ? "parsley-error" : "" ?>">
+						  <input type="text" value="<?= ( $method == "post") ? set_value('user_country') : $user_detail['user_country']; ?>" data-parsley-error-message="State is required"  id="country" required="required" placeholder="The State you live in" name="user_country" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('user_country')) > 0) ? "parsley-error" : "" ?>">
 						  <?php echo form_error('user_country'); ?>
 					     </div>
 					</div>
@@ -146,7 +146,7 @@
 					     <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Email <span class="required">*</span>
 					     </label>
 					     <div class="col-md-6 col-sm-6 col-xs-12">
-						  <input type="email" data-parsley-error-message="The Email field is required." value="<?= ( $method == "post") ? set_value('user_email') : $user_detail['user_email']; ?>" required="required" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('user_email')) > 0) ? "parsley-error" : "" ?>" placeholder="Email" class="form-control col-md-7 col-xs-12" name="user_email" id="email" required="required" data-parsley-id="6">
+						  <input type="email"  value="<?= ( $method == "post") ? set_value('user_email') : $user_detail['user_email']; ?>"  class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('user_email')) > 0) ? "" : "" ?>" placeholder="Email" class="form-control col-md-7 col-xs-12" name="user_email" id="email" required="required" data-parsley-id="6">
 						  <?php echo form_error('user_email'); ?>                                            
 					     </div>
 

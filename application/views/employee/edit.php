@@ -100,10 +100,10 @@
 					     </div>
 					</div>
 					<div class="item form-group">
-					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="country">Country <span class="required">*</span>
+					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="country">State <span class="required">*</span>
 					     </label>
 					     <div class="col-md-6 col-sm-6 col-xs-12 ">
-						  <input type="text" value="<?= ( $method == "post") ? set_value('user_country') : $form_data['user_country']; ?>" data-parsley-error-message="Country"  id="country" required="required" placeholder="The country you live in" name="user_country" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('user_country')) > 0) ? "parsley-error" : "" ?>">
+						  <input type="text" value="<?= ( $method == "post") ? set_value('user_country') : $form_data['user_country']; ?>" data-parsley-error-message="State is required"  id="country" required="required" placeholder="The State you live in" name="user_country" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('user_country')) > 0) ? "parsley-error" : "" ?>">
 						  <?php echo form_error('user_country'); ?>
 					     </div>
 					</div>
