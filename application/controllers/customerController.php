@@ -39,7 +39,7 @@ class CustomerController extends BaseController {
      public function getTableData() {
 
 	  $col_sort = array("user`.`user_code", "user`.`user_profile", "user`.`first_name", "user`.`user_mobile", 'user`.`dob', 'u`.`first_name', 'user`.`user_type');
-	  $select = array("user.user_id", "user.user_code", "user.user_name", "u.first_name as reffirst_name", "u.last_name as reflast_name", "user.first_name", "user.last_name", 'user.user_mobile', 'user.dob', 'user.user_type');
+	  $select = array("user.user_id", "user.user_code", "user.user_name","u.user_name as refusername" ,"u.first_name as reffirst_name", "u.last_name as reflast_name", "user.first_name", "user.last_name", 'user.user_mobile', 'user.dob', 'user.user_type');
 	  $order_by = "user_id";
 	  $order = 'DESC';
 
@@ -110,7 +110,7 @@ class CustomerController extends BaseController {
 		   $val['first_name'] . ' ' . $val['last_name'],
 		   $val['user_mobile'],
 		   $dob,
-		   $val['reffirst_name'] . ' ' . $val['reflast_name'],
+		   $val['refusername'],
 		   $user_type,
 		   $link
 	       );

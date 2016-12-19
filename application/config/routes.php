@@ -181,5 +181,9 @@ $route['history'] = 'historyController/index';
 // archive 
 $route['archive'] = 'archiveController/index';
 
+//followup
+$route['followup'] = 'followupController/index';
+
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
