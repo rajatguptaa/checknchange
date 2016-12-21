@@ -91,7 +91,7 @@
   </div>
 </div>
 <div class="modal modal-md" id="import" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-     <form data-parsley-validate action="<?php echo base_url('followupController/import'); ?>" method="post" id="create_followup_form">
+     <form data-parsley-validate action="<?php echo base_url('followupController/import'); ?>" enctype="multipart/form-data" method="post" id="create_followup_form">
 	  <div class="modal-dialog" role="document">
 
 	       <div class="modal-content">

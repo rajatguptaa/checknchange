@@ -38,9 +38,53 @@ class FollowupController extends BaseController {
 
      function import(){
 	  
-	  
-	  
-     }
+	 ini_set('auto_detect_line_endings', TRUE);
+	       $f = fopen($_FILES['import_file']['tmp_name'], "r");
+            $count = 0;
+            $full_data = array();
+
+            while (($line = fgetcsv($f)) !== false) {
+                $full_data[] = $line;
+            }
+	    $key = array();
+            foreach ($full_data as $data) {
+                if ($count == 0) {
+
+                    $key = $data;
+                }
+                $count++;
+            }
+	    unset($full_data[0]);
+
+            foreach ($full_data as $val) {
+		 
+                $main_array[] = array_combine($key, $val);
+            }
+	    
+	    $db_array = array();
+	    
+	    foreach ($main_array as $key => $value) {
+		
+		 $bool =  $this->crm->getRowCount('followup','*',array('name'=>$value['NAME']));
+		if($bool==0){ 
+		
+		$db_array[$key]['name'] = $value['NAME'];
+		$db_array[$key]['address'] = $value['ADDRESS'];
+		$db_array[$key]['status'] = $value['FOLLOW'];
+		 }else{
+		     echo 'test<br>';
+		}
+		
+		
+	    }
+	    
+	    if(!empty($db_array)){
+		 
+	    $this->db->insert_batch('followup',$db_array);
+	    }
+	    redirect('followup');
+	    }
+     
      
      public function getTableData() {
 
@@ -93,21 +137,22 @@ class FollowupController extends BaseController {
 //	     var_dump($val);
 	       $link = "";
 
-	       if ($edit_acccess) {
-		    $link .= '<a id="editOrganisation" class="btn btn-success btn-xs" href="' . base_url('customer/edit/' . $val['user_id']) . '" title="Edit" data_id="' . $val['user_id'] . '" ><i class="fa fa-edit"></i> Edit</a>'
+	       if ($change_acccess) {
+		    $link .= '<a id="editOrganisation" class="btn btn-success btn-xs" href="' . base_url('customer/edit/') . '" title="Edit" data_id="" ><i class="fa fa-edit"></i> Edit</a>'
 			    . '&nbsp;&nbsp;';
 	       }
 
 	       if ($delete_acccess) {
-		    $link .= '<a class="btn btn-danger btn-xs delete" title="Delete" data-id="' . $val['user_id'] . '"><i class="fa fa-trash-o"></i> Delete</a>';
+		    $link .= '<a class="btn btn-danger btn-xs delete" title="Delete" data-id=""><i class="fa fa-trash-o"></i> Delete</a>';
 	       }
 	       $dob = 'N/A';
-	       if($val['dob']!=NULL && $val['dob']!='0000-00-00'){
-		$dob =     dateFormateOnly($val['dob']);
-	       }
-	       $user_type = "<span class='label label-info'>" . strtoupper($val['user_type']) . "</span>";
+//	       if($val['dob']!=NULL && $val['dob']!='0000-00-00'){
+//		$dob =     dateFormateOnly($val['dob']);
+//	       }
+//	       $user_type = "<span class='label label-info'>" . strtoupper($val['user_type']) . "</span>";
 	       $output['aaData'][] = array(
 		   "DT_RowId" => $val['id'],
+		   $val['id'],
 		   $val['name'],
 		   $val['address'],
 		   $val['status'],
