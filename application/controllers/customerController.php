@@ -225,7 +225,7 @@ class CustomerController extends BaseController {
 			 }
                       $message ='';
 		      $maildata['email_heading'] = sprintf(EMAILHEADING,'ChecknChange');
-		      $maildata['content'] = '<table><tr><td>Customer Name</td><td>'.$data['user_name'].'</td><td>Customer Type</td><td>Reguler</td><tr>'
+		      $maildata['content'] = ''
 			      .$amc_mail
 			      . '</table>';
                       $message .= $this->load->view('/email_template/email_header',FALSE,TRUE);
@@ -235,8 +235,9 @@ class CustomerController extends BaseController {
 		      
 	
 		      
+                    mymail('rajatgupta.gupta1@gmail.com',sprintf(WELCOME_SUB,$data['user_name']),$message);
+		    
 		      
-                    mymail($data['user_email'],sprintf(WELCOME_SUB,$data['user_name']),$message);
 			 $this->session->set_flashdata('customer_success', 'Customer Added Successfully');
 			 redirect('customer', 'refresh');
 //                    }
@@ -740,8 +741,14 @@ $date = 	amc_date_create(date('Y-m-d H:i:s'),$amc_ids);
 	$table .=   "<td colspan='3' align='center'>Total</td><td class='amc_total'>".$total."</td>
 						   </tr>";
      
-     echo json_encode($table);die;
+     echo json_encode($table);die;  
      }
-}
+	 
+	 function myemail(){
+		 
+		     var_dump(mymail('rajatgupta.gupta1@gmail.com','test','test'));
+		 
+	 }
+} 
 
 ?>

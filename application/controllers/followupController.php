@@ -137,14 +137,25 @@ class FollowupController extends BaseController {
 //	     var_dump($val);
 	       $link = "";
 
-	       if ($change_acccess) {
-		    $link .= '<a id="editOrganisation" class="btn btn-success btn-xs" href="' . base_url('customer/edit/') . '" title="Edit" data_id="" ><i class="fa fa-edit"></i> Edit</a>'
+//	       if ($change_acccess) {
+		    $color = '';
+		    if($val['status']=='Primary'){
+			 $color='red';
+		    }elseif($val['status']=='Secondary'){
+			 $color='green';
+			 
+		    }elseif($val['status']=='Final'){
+			 $color='yellow';
+			 
+		    }
+		    
+		    $link .= '<button type="button" data_id="'.$val['id'].'" class="'.$color.' btn btn-success btn-xs change-status"  data-toggle="modal" data-target="#followstatus"><i class="fa fa-edit"></i> change</button>'
 			    . '&nbsp;&nbsp;';
-	       }
+//	       }
 
-	       if ($delete_acccess) {
-		    $link .= '<a class="btn btn-danger btn-xs delete" title="Delete" data-id=""><i class="fa fa-trash-o"></i> Delete</a>';
-	       }
+//	       if ($delete_acccess) {
+//		    $link .= '<a class="btn btn-danger btn-xs delete" title="Delete" data-id=""><i class="fa fa-trash-o"></i> Delete</a>';
+//	       }
 	       $dob = 'N/A';
 //	       if($val['dob']!=NULL && $val['dob']!='0000-00-00'){
 //		$dob =     dateFormateOnly($val['dob']);
@@ -165,6 +176,34 @@ class FollowupController extends BaseController {
 	  echo json_encode($output);
 	  die;
      }
+     
+     public function change(){
+	  
+	$status =   $this->input->post('status');
+	$id =   $this->input->post('id');
+     
+	$this->crm->rowUpdate('followup',array('status'=>$status),array('id'=>$id));
+     
+	$data['result'] = TRUE;
+     
+	echo json_encode($data);die;
+     }
+     
+     public function getCsv() {
+
+        $data = array('NAME', 'ADDRESS', 'FOLLOW');
+
+        header('Content-Type: application/csv');
+        header('Content-Disposition: attachement; filename="followup-import.csv"');
+
+        $file = fopen("php://output", 'w');
+
+
+        fputcsv($file, $data);
+        fclose($file);
+
+//            force_download($filename, $data)
+    }
      
      
 }

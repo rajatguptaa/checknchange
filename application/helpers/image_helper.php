@@ -17,14 +17,35 @@ function document_upload($field_name, $upload_directory) {
     $CI->load->library('upload', $config);
     $CI->upload->initialize($config);
 
-
+    
+   
+    
     if (!$CI->upload->do_upload($field_name)) {
         return $CI->upload->display_errors();
     } else {
         $CI->upload_data['file'] = $CI->upload->data();
         $source_path = $upload_dir . '/' . $CI->upload_data['file']['file_name'];
         $target_path = $upload_dir . '/';
+	
+//	 $CI->image_lib->clear();
+	 $config1['source_image'] = $source_path;
+        //The image path,which you would like to watermarking
+        $config1['wm_text'] = 'Checknchange';
+        $config1['wm_type'] = 'text';
+//        $config['wm_font_path'] = './fonts/atlassol.ttf';
+        $config1['wm_font_size'] = 16;
+        $config1['wm_font_color'] = 'ffffff';
+        $config1['wm_vrt_alignment'] = 'middle';
+//        $config1['wm_hor_alignment'] = 'right';
+        $config1['wm_padding'] = '20';
+	$CI->load->library('image_lib');
+	$CI->load->library('upload', $config1);
+        $CI->image_lib->initialize($config1);
+	$CI->image_lib->watermark();
        
+    
+	
+	
         // clear //
 //        $CI->image_lib->clear();
         return $CI->upload_data['file'];
@@ -55,7 +76,23 @@ function image_upload($field_name, $upload_directory) {
         $CI->upload_data['file'] = $CI->upload->data();
         $source_path = $upload_dir . '/' . $CI->upload_data['file']['file_name'];
         $target_path = $upload_dir . '/';
-        $config_manip = array(
+
+
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = $source_path;
+        $config['wm_type'] = 'overlay';
+        $config['wm_overlay_path'] = './assets/images/checknchange.png';
+        //the overlay image
+//        $config['wm_opacity'] = 50;
+        $config['wm_vrt_alignment'] = 'middle';
+        $config['wm_hor_alignment'] = 'right';
+        $CI->image_lib->initialize($config);
+        if (!$CI->image_lib->watermark()) {
+            echo $CI->image_lib->display_errors();
+        } else {
+            
+            //image resize
+            $config = array(
             'image_library' => 'gd2',
             'source_image' => $source_path,
             'new_image' => $target_path,
@@ -65,12 +102,12 @@ function image_upload($field_name, $upload_directory) {
             'width' => 150,
             'height' => 150
         );
-        $CI->load->library('image_lib', $config_manip);
-        if (!$CI->image_lib->resize()) {
-            echo $CI->image_lib->display_errors();
+        $CI->load->library('image_lib');
+        $CI->image_lib->initialize($config);
+             if (!$CI->image_lib->resize()) {
+                 
         }
-        // clear //
-        $CI->image_lib->clear();
+	}
         return $CI->upload_data['file'];
     }
 }

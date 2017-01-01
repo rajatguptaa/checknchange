@@ -1445,12 +1445,15 @@ class TicketController extends BaseController {
                 'on' => 'uasb.user_id=ticket_assign.assigned_by'),
             array(
                 'table' => 'working_hour',
-                'on' => 'working_hour.user_id=ticket_assign.user_id AND working_hour.ticket_id = ticket_assign.ticket_id')
+                'on' => 'working_hour.user_id=ticket_assign.user_id AND working_hour.ticket_id = ticket_assign.ticket_id'),
+            array(
+                'table' => 'user as emp',
+                'on' => 'ticket_assign.user_id=emp.user_id')
         );
 
         $where1 = array('ticket_assign.ticket_id' => $ticket_id);
         $ticketAssignData = array();
-        $ticketAssignData = $this->crm->getData('ticket_assign', 'ticket_assign.ticket_assign_id,ticket_assign.assigned_by,ticket_assign.assigned_by,ticket_assign.ticket_assign_at,user.user_name as assignee,uasb.user_name as assigned_by_user,working_hour.minutes,ticket_assign.user_id as assigni_id', $where1, $join1, 'ticket_assign_at', 'DESC', '', '', '');
+        $ticketAssignData = $this->crm->getData('ticket_assign','ticket_assign.ticket_assign_id,ticket_assign.assigned_by,ticket_assign.assigned_by,ticket_assign.ticket_assign_at,user.user_name as assignee,uasb.user_name as assigned_by_user,working_hour.minutes,ticket_assign.user_id as assigni_id', $where1, $join1, 'ticket_assign_at', 'DESC', '', '', '');
         $time_total = 0;
 
         $emplyeeTime = array();

@@ -43,13 +43,13 @@ define('GET_YEAR_CONSTANT','Y');
 define('GET_TIME_CONSTANT','h:i A');
 
 
-define('SMTP_HOST', "checknchange.com");
-define('IMAP_HOST', "{checknchange.com:993/imap/ssl}INBOX");
+define('SMTP_HOST', "smtp.gmail.com");
+define('IMAP_HOST', "imap.gmail.com");
 define("SMTP_PORT", "465");
 define("IMAP_USERNAME", "checknchange.hspl@gmail.com");
 define("SMTP_USERNAME", "checknchange.hspl@gmail.com");
 define("SMTP_PASSWORD", "9630036131");
-define("FROM_EMAIL", "support@checknchange.com");
+define("FROM_EMAIL", "checknchange.hspl@gmail.com");
 require_once 'email_constants.php';
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

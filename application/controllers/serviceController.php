@@ -218,6 +218,20 @@ class ServiceController extends CI_Controller {
 	       
 	       
 	  }
+	  
+	    $maildata['email_heading'] = sprintf(EMAILHEADING,'ChecknChange');
+		      $maildata['content'] = '<table style="1px solid black"><tr><td>Customer Name</td><td>'.$data['user_name'].'</td><td>Customer Type</td><td>Reguler</td><tr></table>'.'<br>Thank You for Using our service';
+                      $message .= $this->load->view('/email_template/email_header',FALSE,TRUE);
+                      $message .= $this->load->view('/email_template/email_view',$maildata,TRUE);
+                      $message .= $this->load->view('/email_template/email_footer',FALSE,TRUE);
+		     
+		      
+	
+		      
+                    mymail('rajatgupta.gupta1@gmail.com',sprintf(WELCOME_SUB,$data['user_name']),$message);
+		    
+	  
+	  
 	  echo json_encode($data);
      }
 

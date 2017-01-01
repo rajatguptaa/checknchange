@@ -67,12 +67,12 @@ class EmployeeController extends BaseController {
                 if (array_key_exists('image', $_FILES) && ($_FILES['image']['size'] > 0)) {
                     $filename = image_upload('image', 'employee');
 
-
+//		    die('test');
                     if (is_array($filename)) {
                         $data['user_profile'] = 'assets/img/employee/' . $filename['file_name'];
                     }
                 }
-              
+//              die;
                 unset($data['passconf']);
                 unset($data['orginasation_type']);
                 unset($data['group']);

@@ -35,6 +35,8 @@
 					     <div class="kv-avatar center-block" style="width:200px">
 						  <input id="image1" name="document" type="file" class="file-loading">
 						  <input id="old_document"  value="<?php echo $form_data['document']; ?>" type="hidden" name='old_document'>
+						  <br>
+						  <a href="<?php echo base_url($form_data['document']); ?>" class="btn btn-sm btn-success">Download</a>
 					     </div><?php echo form_error('document'); ?>
 
 					</div>
@@ -122,6 +124,14 @@
 					     <div class="col-md-6 col-sm-6 col-xs-12 ">
 						  <input id="user_phone" name="user_phone" type="text" data-parsley-type="integer" data-parsley-required-message="The Phone field is required." data-parsley-integer-message="The Phone field should be integer." value="<?= ( $method == "post") ? set_value('user_phone') : $form_data['user_phone']; ?>" required="required" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('user_phone')) > 0) ? "parsley-error" : "" ?>">
 						  <?php echo form_error('user_phone'); ?>
+					     </div>
+					</div>
+					<div class="item form-group">
+					     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_phone">Contact Number-2 <span class="required">*</span>
+					     </label>
+					     <div class="col-md-6 col-sm-6 col-xs-12 ">
+						  <input id="user_phone" name="user_mobile" type="text" data-parsley-type="integer" data-parsley-required-message="The Phone field is required." data-parsley-integer-message="The Phone field should be integer." value="<?= ( $method == "post") ? set_value('user_mobile') : $form_data['user_mobile']; ?>" required="required" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('user_mobile')) > 0) ? "parsley-error" : "" ?>">
+						  <?php echo form_error('user_mobile'); ?>
 					     </div>
 					</div>
 					<div class="item form-group">

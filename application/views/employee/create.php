@@ -123,6 +123,15 @@
                                     </div>
                                 </div>
                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organisation_phone">Contact Number-2 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 ">
+                                        <input id="user_phone" name="user_mobile" type="text" data-parsley-type="integer" data-parsley-required-message="The Phone-2 field is required." data-parsley-integer-message="The Phone-2 field should be integer." value="<?php echo set_value('user_phone'); ?>" required="required" class="form-control col-md-7 col-xs-12 <?= (strlen(form_error('user_mobile')) > 0) ? "parsley-error" : "" ?>">
+                                        <?php echo form_error('user_mobile'); ?>
+                                    </div>
+                                </div>
+				 
+                                <div class="item form-group">
                                     <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Email <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">

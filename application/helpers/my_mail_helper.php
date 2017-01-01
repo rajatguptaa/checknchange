@@ -1,20 +1,21 @@
 <?php
 
 function mymail($email, $subject = FALSE, $message = FALSE, $headers = FALSE, $from = FROM_EMAIL,$attach = FALSE,$cc =FALSE) {
-
+	echo '<pre>';
+	
     $mail = new PHPMailer();
-
-    $mail->IsSMTP(); // we are going to use SMTP
-    $mail->SMTPAuth = true; // enabled SMTP authentication
-    $mail->SMTPSecure = "ssl";  // prefix for secure protocol to connect to the server
-    $mail->Host = SMTP_HOST;      // setting GMail as our SMTP server
-    $mail->Port = SMTP_PORT;                   // SMTP port to connect to GMail
-    $mail->Username = SMTP_USERNAME;  // user email address
-    $mail->Password = SMTP_PASSWORD;            // password in GMail
+//	$mail->SMTPDebug = 2; 
+   $mail->isSMTP();                                      // Set mailer to use SMTP
+$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+$mail->SMTPAuth = true;                               // Enable SMTP authentication
+$mail->Username = 'deoradharmendra2016@gmail.com';                 // SMTP username
+$mail->Password = 'Sonu123!@#';                           // SMTP password
+$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+$mail->Port = 587;                                    // TCP port to connect to
     if ($from != FALSE)
-        $mail->SetFrom($from, FROM_EMAIL);  //Who is sending the email
-        
-// $mail->AddReplyTo("ign@ignisitsolutions.com","Firstname Lastname");  //email address that receives the response
+//        $mail->SetFrom($from, FROM_EMAIL);  //Who is sending the email        $mail->SetFrom($from, 'rajatgupta.gupta1@gmail.com');  //Who is sending the email
+     
+$mail->AddReplyTo("rajatgupta.gupta1@gmail.com","Firstname Lastname");  //email address that receives the response
   
     if ($subject != FALSE) {
          $mail->Subject = $subject;

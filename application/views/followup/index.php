@@ -29,7 +29,7 @@
                             ?>
                             <div class="x_title">
                              <!--data-toggle="tooltip" data-placement="right"-->
-				 <button type="button" class="btn btn-success btn-xs"  data-toggle="modal" data-target="#import"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Import follow up</button>
+			     <button type="button" class="btn btn-success btn-xs"  data-toggle="modal" data-target="#import"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Import follow up</button><a  class="btn btn-info pull-right btn-xs"  href="<?php echo base_url('followup/getCsv');?>">Dowload Demo CSV</a>
                                 <div class="clearfix"></div>
                             </div>
                         <?php endif; ?>
@@ -126,6 +126,47 @@
 </div>
 
 
+<div class="modal modal-md" id="followstatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+     
+	  <div class="modal-dialog" role="document">
+
+	       <div class="modal-content">
+		    <div class="modal-header">
+			 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			 <h4 class="modal-title" id="exampleModalLabel">Statas Change</h4>
+		    </div>
+		    <div class="modal-body clearfix">
+
+			 <div class="form-group col-md-12">
+			      <div class="col-md-2 col-md-offset-1">
+				   <label for="recipient-name" class="control-label">Status *</label>
+			      </div>
+			      <div class="col-md-8 col-md-offset-1">
+				   <select id="status" class="form-control">
+					<option value="Primary">Primary</option>
+					<option value="Secondary">Secondary</option>
+					<option value="Final">Final</option>
+				   </select>
+			      </div>
+			      <input type="hidden" id="status_id" value=""/>
+			 </div>
+			
+			 
+			 
+
+			 
+		    </div>
+		    <div class="modal-footer">
+			 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+			 <button type="button" class="btn btn-success btn-sm status_model">Submit</button>
+		    </div>
+	       </div>
+	  </div>
+
+</div>
+
+
+
 <script>
 
 
@@ -155,24 +196,42 @@
                         return data;
                     }
                 },
-            ]}
+            ],  "fnDrawCallback": function () {
+		    $('body').find('.red').closest('tr').css('background-color', 'red');
+		    $('body').find('.green').closest('tr').css('background-color', 'green');
+		    $('body').find('.yellow').closest('tr').css('background-color', 'yellow');
+	       }}
         );
+	
+	$('body').on('click','.change-status',function(){
+	  var id =  $(this).attr('data_id');  
+	$('#status_id').val(id);
+     });
 
-
-        $("body").on("click", ".delete", function() {
-            var id = $(this).attr("data-id");
-            bootbox.confirm({
-                size: 'small',
-                message: "Are you sure?",
-                callback: function(result) {
-                    if (result) {
-			 console.log('test');
-                        var url = "<?= base_url('customerController/deleteCustomer') ?>/";
-                        window.location.href = url + "/" + id;
-                    }
-                }
-            });
-        });
+      $('body').on('click','.status_model',function(){
+	var id = $('#status_id').val();   
+	var status = $('#status').val();
+	
+	
+		  $.ajax({
+	    type: "POST",
+	    url: base_url+'followupController/change',
+	    data: {id:id,status:status},
+	    cache: false,
+	    success: function(data){
+		 var data = $.parseJSON(data);
+	       if(data.result){
+		     $('#followstatus').modal('hide');
+		    cat.fnDraw();
+	       }else{
+		     $('#followstatus').modal('hide');
+		    cat.fnDraw();
+		    
+	       }
+	    }
+	  });
+	
+     });
         
     });
 

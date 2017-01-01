@@ -90,6 +90,7 @@ $route['customer/approve/(:num)'] = 'customerController/approveCustomer/$1';
 $route['customer/approve/all'] = 'customerController/approveAll';
 $route['customer/approve/selected'] = 'customerController/approveSelected';
 $route['customer/empTicket/(:num)/(:num)'] = 'customerController/getEmployeeTicket/$1/$2';
+$route['customer/email'] = 'customerController/myemail';
 // Organisation Controller Action
 $route['organisation'] = 'organisationController/index';
 $route['organisation/add'] = 'organisationController/createOrganisation';
@@ -183,6 +184,7 @@ $route['archive'] = 'archiveController/index';
 
 //followup
 $route['followup'] = 'followupController/index';
+$route['followup/getCsv'] = 'followupController/getCsv';
 
 
 /* End of file routes.php */
