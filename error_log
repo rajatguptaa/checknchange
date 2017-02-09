@@ -1,0 +1,81 @@
+[16-Sep-2016 18:43:20 Europe/London] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in /home/checknchange/public_html/checknchange/application/views/organisation/search_view.php on line 33
+[16-Sep-2016 18:43:54 Europe/London] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in /home/checknchange/public_html/checknchange/application/views/organisation/search_view.php on line 33
+[16-Sep-2016 18:44:55 Europe/London] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in /home/checknchange/public_html/checknchange/application/views/organisation/search_view.php on line 33
+[16-Sep-2016 18:46:09 Europe/London] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in /home/checknchange/public_html/checknchange/application/views/organisation/search_view.php on line 33
+[16-Sep-2016 18:46:12 Europe/London] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in /home/checknchange/public_html/checknchange/application/views/organisation/search_view.php on line 33
+[16-Sep-2016 18:46:41 Europe/London] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in /home/checknchange/public_html/checknchange/application/views/organisation/search_view.php on line 33
+[16-Sep-2016 18:47:56 Europe/London] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in /home/checknchange/public_html/checknchange/application/views/organisation/search_view.php on line 33
+[16-Sep-2016 18:59:04 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:16:27 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:17:58 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:17:59 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:18:07 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:18:44 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:19:47 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:20:13 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:22:57 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:23:02 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:30:34 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:30:39 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:30:40 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:30:45 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:31:13 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:31:15 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[16-Sep-2016 19:31:17 Europe/London] PHP Parse error:  syntax error, unexpected '?>' in /home/checknchange/public_html/checknchange/application/views/organisation/create.php on line 16
+[19-Sep-2016 19:57:57 Europe/London] PHP Fatal error:  Call to undefined function document_upload() in /home/checknchange/public_html/checknchange/application/controllers/employeeController.php on line 165
+[24-Oct-2016 18:36:03 Europe/London] PHP Fatal error:  Call to a member function AddReplyTo() on a non-object in /home/checknchange/public_html/checknchange/application/helpers/my_mail_helper.php on line 17
+[04-Nov-2016 03:50:32 Europe/London] PHP Fatal error:  Can't use method return value in write context in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 50
+[12-Nov-2016 14:20:32 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:21:25 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:22:14 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:23:07 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:23:20 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:23:35 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:23:50 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:24:07 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:24:22 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:24:37 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:25:02 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:25:39 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:25:55 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:25:56 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:26:33 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:27:07 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:27:27 Europe/London] PHP Fatal error:  Call to undefined function phpini_set() in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:28:53 Europe/London] PHP Fatal error:  Call to undefined function phpini_set() in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:29:36 Europe/London] PHP Fatal error:  Call to undefined function phpini_set() in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:29:54 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:30:40 Europe/London] PHP Fatal error:  Call to undefined function phpini_set() in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:31:43 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:33:46 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:34:27 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:34:30 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:35:17 Europe/London] PHP Parse error:  syntax error, unexpected '?>', expecting function (T_FUNCTION) in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:35:45 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:35:48 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:35:50 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 14:35:55 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 15:08:31 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 15:11:20 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 15:15:29 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 15:15:34 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 15:15:39 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 15:15:44 Europe/London] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/ticketController.php on line 1
+[12-Nov-2016 16:07:11 Europe/London] PHP Fatal error:  Call to undefined function phpdie() in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 1
+[12-Nov-2016 16:07:23 Europe/London] PHP Fatal error:  Call to undefined function phpdie() in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 1
+[12-Nov-2016 16:07:46 Europe/London] PHP Parse error:  syntax error, unexpected ''dsdsd'' (T_CONSTANT_ENCAPSED_STRING) in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 1
+[26-Nov-2016 11:31:01 Europe/London] PHP Fatal error:  Can't use method return value in write context in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 50
+[26-Nov-2016 11:31:40 Europe/London] PHP Fatal error:  Can't use method return value in write context in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 50
+[26-Nov-2016 11:49:13 Europe/London] PHP Fatal error:  Can't use method return value in write context in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 50
+[26-Nov-2016 11:49:16 Europe/London] PHP Fatal error:  Can't use method return value in write context in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 50
+[26-Nov-2016 11:49:22 Europe/London] PHP Fatal error:  Can't use method return value in write context in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 50
+[26-Nov-2016 11:50:03 Europe/London] PHP Fatal error:  Can't use method return value in write context in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 50
+[26-Nov-2016 11:50:06 Europe/London] PHP Fatal error:  Can't use method return value in write context in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 50
+[26-Nov-2016 11:50:08 Europe/London] PHP Fatal error:  Can't use method return value in write context in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 50
+[26-Nov-2016 11:50:49 Europe/London] PHP Fatal error:  Can't use method return value in write context in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 50
+[26-Nov-2016 11:50:51 Europe/London] PHP Fatal error:  Can't use method return value in write context in /home/checknchange/public_html/checknchange/application/views/ticket/employee/create.php on line 50
+[26-Dec-2016 23:40:15 Asia/Kolkata] PHP Fatal error:  Cannot redeclare CustomerController::email() in /home/checknchange/public_html/checknchange/application/controllers/customerController.php on line 748
+[27-Dec-2016 00:01:36 Asia/Kolkata] PHP Parse error:  syntax error, unexpected end of file in /home/checknchange/public_html/checknchange/application/controllers/customerController.php on line 362
+[27-Dec-2016 22:42:36 Asia/Kolkata] PHP Fatal error:  Call to undefined function mymail() in /home/checknchange/public_html/checknchange/application/controllers/customerController.php on line 748
+[27-Dec-2016 23:51:39 Asia/Kolkata] PHP Fatal error:  require(): Failed opening required 'PHPMailerAutoload.php' (include_path='.:/opt/php54/lib/php') in /home/checknchange/public_html/checknchange/application/helpers/my_mail_helper.php on line 5
+[27-Dec-2016 23:53:21 Asia/Kolkata] PHP Fatal error:  Call to a member function isSMTP() on a non-object in /home/checknchange/public_html/checknchange/application/helpers/my_mail_helper.php on line 6

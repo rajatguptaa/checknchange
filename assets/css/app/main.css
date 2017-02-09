@@ -1,0 +1,155 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Rajdhani:400,600,700');
+.nopadding {
+	padding-left: 0;
+	padding-right: 0;
+}
+.nopadding_l {
+	padding-left: 0;
+}
+.nopadding_r {
+	padding-right: 0;
+}
+.nopadding_t {
+	padding-top: 0;
+}
+.nopadding_b {
+	padding-bottom: 0;
+}
+.Appointment { 
+	background-color: #d65050; 
+	margin-top: 30px;
+	font-family: 'Rajdhani', sans-serif; 
+	padding: 10px 0;
+	border-radius: 10px 10px 0px 0px;
+	-moz-border-radius: 10px 10px 0px 0px;
+	-webkit-border-radius: 10px 10px 0px 0px;
+}
+.Appointment h2 {
+	font-size: 28px;
+	font-family: 'Rajdhani', sans-serif;
+	color: #fff;
+	line-height: 1.2;
+	padding-left: 10px;
+	font-weight: 600;
+	margin: 10px 0;
+}
+.Appointment p {
+	font-size: 18px;
+	font-family: 'Rajdhani', sans-serif;
+	color: rgb(66, 65, 65);
+	line-height: 22px;
+	padding-left: 0;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+.Appointment_form_section {  
+	background-color: #f5f5f5;
+	padding-top: 40px;
+	padding-bottom:30px;
+	border: 1px solid #e1e1e1;
+}
+.Appointment_form_section .form-group .checkbox {
+	width: 100% !important;
+	float: left !important;	
+}
+.Appointment_form_section .form-group .checkbox label {
+	width: 50% !important;
+	float: left !important;	
+}
+.Appointment_form_section label{
+	color: #666665;
+	font-family: 'Rajdhani', sans-serif;
+	font-size: 15px;
+	font-weight: 600;
+}
+.Appointment_form_section label span{
+	color: #ff0000;
+}
+.Appointment_form_section .form-control {
+	width: 100% !important;
+	min-height: 40px !important;
+}
+.Appointment_form_section .btn-default {
+	height: 40px !important;
+	background: #d65050 !important;
+	color: #fff;
+	width: 120px;
+	border-radius: 50px;
+	margin-bottom: 20px;
+}
+.Appointment_form_section .form-group {
+	float:left;
+	margin-bottom: 10px;
+	width: 100% !important;
+}
+.LoginMainForm  {
+	width: 100%;
+	margin: 0 auto;
+	max-width: 500px !important;
+}
+.Appointment, .LoginForm {
+	width: 100%;
+}
+.LoginForm .form-group .control-label {
+	text-align: left;
+	padding-left: 0;
+}
+.LoginForm .form-group .checkbox,
+.LoginForm .form-group .ForgotText {
+	width: 50%;
+	padding-top: 5px;
+}
+.LoginForm .form-group .checkbox label:last-child {
+	text-align: right;
+}
+.LoginForm .form-group.RegisterText {
+    border-top: 1px solid #ddd;
+    float: left;
+    margin: 0 0 0;
+    padding: 10px 0 0;
+    text-align: center;
+    width: 100%;
+}
+
+.LoginForm .form-group.RegisterText span,
+.LoginForm .form-group.RegisterText span a {
+	color: #666665;
+	font-size: 14px;
+	text-decoration: none;
+	text-align: center;
+}
+.LoginForm .form-group.RegisterText span a {
+	font-weight: 700;
+	color: #DA251C;
+}
+
+.LoginForm .form-group .ForgotText a {
+	color: #666665;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.LoginForm .LoginLogo img {
+	margin: 0 auto;
+	max-width: 150px;	
+}
+.RegisterAccount .form-group label {
+	text-align: left !important;
+	padding-top: 0px;
+	padding-left: 0px;
+}
+@media (max-width: 767px) {
+	.Appointment h2 {
+		font-size: 22px;
+	}
+	.form-horizontal .control-label {
+		padding-top: 7px;
+		margin-bottom: 0;
+		text-align: left;
+		padding-left: 0px;
+	}
+}
+.form-horizontal .control-label {
+	padding-top: 12px;
+}
